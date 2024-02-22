@@ -41,7 +41,7 @@
   "packFolders": [],
   "socket": false,
   "manifest": "https://github.com/rafael-g-depaulo/r20-foundry/blob/main/system.json",
-  "download": "This must link to a .zip file of the current version",
+  "download": "https://github.com/rafael-g-depaulo/r20-foundry/archive/refs/tags/v0.0.0.zip",
   "background": "systems/boilerplate/assets/anvil-impact.png",
   "gridDistance": 1,
   "gridUnits": "sqr",
