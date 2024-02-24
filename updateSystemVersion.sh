@@ -22,6 +22,8 @@ cat ./package.json |
 	tee ./package.json &>/dev/null
 
 # add git tag
+git add -A
+git commit -m "Release v$NEW_VERSION"
 git tag v$NEW_VERSION &>/dev/null
 
 echo "changed package semver: $OLD_VERSION -> $NEW_VERSION"
