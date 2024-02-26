@@ -1,0 +1,50 @@
+{
+  "id": "r20",
+  "title": "R20",
+  "description": "R20, a Tormenta 20-like system inspired by D&D",
+  "authors": [
+    {
+      "name": "Ragan",
+      "discord": ".ragan"
+    }
+  ],
+  "url": "https://github.com/rafael-g-depaulo/r20-foundry",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "bugs": "https://github.com/rafael-g-depaulo/r20-foundry/issues",
+  "changelog": "CHANGELOG.md",
+  "media": [],
+  "version": "0.0.2",
+  "compatibility": {
+    "minimum": 11,
+    "verified": "11.315"
+  },
+  "esmodules": [
+    "module/boilerplate.mjs"
+  ],
+  "styles": [
+    "css/boilerplate.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "pt-br",
+      "name": "Português",
+      "path": "lang/pt-br.json"
+    }
+  ],
+  "packs": [],
+  "packFolders": [],
+  "socket": false,
+  "manifest": "https://github.com/rafael-g-depaulo/r20-foundry/blob/main/system.json",
+  "download": "https://github.com/rafael-g-depaulo/r20-foundry/archive/refs/tags/v0.0.2.zip",
+  "background": "systems/boilerplate/assets/anvil-impact.png",
+  "gridDistance": 1,
+  "gridUnits": "sqr",
+  "primaryTokenAttribute": "HP",
+  "secondaryTokenAttribute": "MP"
+}

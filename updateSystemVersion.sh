@@ -2,7 +2,7 @@
 
 # IMPORTANT: this needs the semver utility from https://github.com/fsaintjacques/semver-tool
 
-OLD_VERSION=$(cat ./package.json | jq --raw-output '.version')
+OLD_VERSION=$(cat package.json | jq --raw-output '.version')
 CHANGE_TYPE=$(
 	echo "major minor patch" |
 		tr ' ' '\n' |
@@ -12,14 +12,14 @@ CHANGE_TYPE=$(
 NEW_VERSION=$(semver bump $CHANGE_TYPE $OLD_VERSION)
 
 # update system.json
-cat ./system.json |
+cat system.json |
 	jq ". + { version: \"$NEW_VERSION\", download: \"https://github.com/rafael-g-depaulo/r20-foundry/archive/refs/tags/v$NEW_VERSION.zip\"}" |
-	tee ./system.json &>/dev/null
+	tee system.json &>/dev/null
 
 # update package.json
-cat ./package.json |
+cat package.json |
 	jq ". + {version: \"$NEW_VERSION\"}" |
-	tee ./package.json &>/dev/null
+	tee package.json &>/dev/null
 
 # add git tag
 git add -A
