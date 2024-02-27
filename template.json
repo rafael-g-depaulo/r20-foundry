@@ -1,6 +1,9 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
+    "types": [
+      "character",
+      "npc"
+    ],
     "templates": {
       "base": {
         "health": {
@@ -17,7 +20,9 @@
       }
     },
     "character": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "attributes": {
         "level": {
           "value": 1
@@ -45,29 +50,44 @@
       }
     },
     "npc": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "cr": 0
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell"],
+    "types": [
+      "weapon",
+      "armor"
+    ],
     "templates": {
       "base": {
         "description": ""
+      },
+      "item": {
+        "weight": 0
       }
     },
-    "item": {
-      "templates": ["base"],
-      "quantity": 1,
-      "weight": 0,
-      "formula": "d20 + @str.mod + ceil(@lvl / 2)"
+    "weapon": {
+      "templates": [
+        "base",
+        "item"
+      ],
+      "tags": [],
+      "two-handed": false,
+      "damage": "1d6",
+      "critMargin": 1,
+      "critMult": 2
     },
-    "feature": {
-      "templates": ["base"]
-    },
-    "spell": {
-      "templates": ["base"],
-      "spellLevel": 1
+    "armor": {
+      "templates": [
+        "base",
+        "item"
+      ],
+      "guard": 0,
+      "dodge": 0,
+      "movPenalty": 0
     }
   }
 }

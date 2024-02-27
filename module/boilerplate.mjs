@@ -3,6 +3,7 @@ import { BoilerplateActor } from './documents/actor.mjs';
 import { BoilerplateItem } from './documents/item.mjs';
 // Import sheet classes.
 import { BoilerplateActorSheet } from './sheets/actor-sheet.mjs';
+import { R20ItemSheet } from './sheets/r20ItemSheet';
 import { BoilerplateItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
@@ -12,7 +13,18 @@ import { BOILERPLATE } from './helpers/config.mjs';
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
-Hooks.once('init', function () {
+console.log("SADFSDFGSDEGSDFDGFDHGFDG")
+console.log("SADFSDFGSDEGSDFDGFDHGFDG")
+console.log("SADFSDFGSDEGSDFDGFDHGFDG")
+console.log("SADFSDFGSDEGSDFDGFDHGFDG")
+console.log("SADFSDFGSDEGSDFDGFDHGFDG")
+console.log("SADFSDFGSDEGSDFDGFDHGFDG")
+console.log("SADFSDFGSDEGSDFDGFDHGFDG")
+console.log("SADFSDFGSDEGSDFDGFDHGFDG")
+console.log("SADFSDFGSDEGSDFDGFDHGFDG")
+
+Hooks.once('init', function() {
+  console.log("we on mfffffffffffff")
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.boilerplate = {
@@ -49,7 +61,7 @@ Hooks.once('init', function () {
     label: 'BOILERPLATE.SheetLabels.Actor',
   });
   Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('boilerplate', BoilerplateItemSheet, {
+  Items.registerSheet('r20', R20ItemSheet, {
     makeDefault: true,
     label: 'BOILERPLATE.SheetLabels.Item',
   });
@@ -63,7 +75,7 @@ Hooks.once('init', function () {
 /* -------------------------------------------- */
 
 // If you need to add Handlebars helpers, here is a useful example:
-Handlebars.registerHelper('toLowerCase', function (str) {
+Handlebars.registerHelper('toLowerCase', function(str) {
   return str.toLowerCase();
 });
 
@@ -71,7 +83,7 @@ Handlebars.registerHelper('toLowerCase', function (str) {
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
-Hooks.once('ready', function () {
+Hooks.once('ready', function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
 });
