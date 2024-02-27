@@ -1,23 +1,23 @@
-export const BOILERPLATE = {};
+export const R20 = {};
 
 /**
  * The set of Ability Scores used within the system.
  * @type {Object}
  */
-BOILERPLATE.abilities = {
-  str: 'BOILERPLATE.Ability.Str.long',
-  dex: 'BOILERPLATE.Ability.Dex.long',
-  con: 'BOILERPLATE.Ability.Con.long',
-  int: 'BOILERPLATE.Ability.Int.long',
-  wis: 'BOILERPLATE.Ability.Wis.long',
-  cha: 'BOILERPLATE.Ability.Cha.long',
+R20.abilities = {
+  str: 'R20.Ability.Str.long',
+  dex: 'R20.Ability.Dex.long',
+  con: 'R20.Ability.Con.long',
+  int: 'R20.Ability.Int.long',
+  wis: 'R20.Ability.Wis.long',
+  cha: 'R20.Ability.Cha.long',
 };
 
-BOILERPLATE.abilityAbbreviations = {
-  str: 'BOILERPLATE.Ability.Str.abbr',
-  dex: 'BOILERPLATE.Ability.Dex.abbr',
-  con: 'BOILERPLATE.Ability.Con.abbr',
-  int: 'BOILERPLATE.Ability.Int.abbr',
-  wis: 'BOILERPLATE.Ability.Wis.abbr',
-  cha: 'BOILERPLATE.Ability.Cha.abbr',
+R20.abilityAbbreviations = {
+  str: 'R20.Ability.Str.abbr',
+  dex: 'R20.Ability.Dex.abbr',
+  con: 'R20.Ability.Con.abbr',
+  int: 'R20.Ability.Int.abbr',
+  wis: 'R20.Ability.Wis.abbr',
+  cha: 'R20.Ability.Cha.abbr',
 };
