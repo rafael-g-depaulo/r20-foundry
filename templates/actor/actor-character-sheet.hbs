@@ -14,20 +14,30 @@
         and it will add a small amount of padding, a border, and will
         center all of its child elements content and text. --}}
         <div class="resource flex-group-center">
-          <label for="system.health.value" class="resource-label">Health</label>
+          <label for="system.health.value" class="resource-label">HP</label>
           <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
+          <input type="text" name="system.resources.hp.value" value="{{system.resources.hp.value}}" data-dtype="Number"/>
           <span> / </span>
-          <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+          <input type="text" name="system.resources.hp.max" value="{{system.resources.hp.max}}" data-dtype="Number"/>
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="system.power.value" class="resource-label">Power</label>
+          <label for="system.health.value" class="resource-label">MP</label>
           <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.power.value" value="{{system.power.value}}" data-dtype="Number"/>
+          <input type="text" name="system.resources.mp.value" value="{{system.resources.mp.value}}" data-dtype="Number"/>
           <span> / </span>
-          <input type="text" name="system.power.max" value="{{system.power.max}}" data-dtype="Number"/>
+          <input type="text" name="system.resources.mp.max" value="{{system.resources.mp.max}}" data-dtype="Number"/>
+          </div>
+        </div>
+
+
+        <div class="resource flex-group-center">
+          <label for="system.health.value" class="resource-label">FP</label>
+          <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.resources.fp.value" value="{{system.resources.fp.value}}" data-dtype="Number"/>
+          <span> / </span>
+          <input type="text" name="system.resources.fp.max" value="{{system.resources.fp.max}}" data-dtype="Number"/>
           </div>
         </div>
 

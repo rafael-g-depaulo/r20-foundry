@@ -38,6 +38,7 @@ export class R20ActorSheet extends ActorSheet {
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
     const context = super.getData();
+    console.log("getData with context", context)
 
     // Use a safe clone of the actor data for further operations.
     const actorData = context.data;
@@ -46,26 +47,26 @@ export class R20ActorSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
 
-    // Prepare character data and items.
-    if (actorData.type == 'character') {
-      this._prepareItems(context);
-      this._prepareCharacterData(context);
-    }
-
-    // Prepare NPC data and items.
-    if (actorData.type == 'npc') {
-      this._prepareItems(context);
-    }
-
-    // Add roll data for TinyMCE editors.
-    context.rollData = context.actor.getRollData();
-
-    // Prepare active effects
-    context.effects = prepareActiveEffectCategories(
-      // A generator that returns all effects stored on the actor
-      // as well as any items
-      this.actor.allApplicableEffects()
-    );
+    // // Prepare character data and items.
+    // if (actorData.type == 'character') {
+    //   this._prepareItems(context);
+    //   this._prepareCharacterData(context);
+    // }
+    //
+    // // Prepare NPC data and items.
+    // if (actorData.type == 'npc') {
+    //   this._prepareItems(context);
+    // }
+    //
+    // // Add roll data for TinyMCE editors.
+    // context.rollData = context.actor.getRollData();
+    //
+    // // Prepare active effects
+    // context.effects = prepareActiveEffectCategories(
+    //   // A generator that returns all effects stored on the actor
+    //   // as well as any items
+    //   this.actor.allApplicableEffects()
+    // );
 
     return context;
   }
@@ -79,9 +80,11 @@ export class R20ActorSheet extends ActorSheet {
    */
   _prepareCharacterData(context) {
     // Handle ability scores.
-    for (let [k, v] of Object.entries(context.system.abilities)) {
-      v.label = game.i18n.localize(CONFIG.R20.abilities[k]) ?? k;
-    }
+    console.log(context.system)
+    console.log(context)
+    // for (let [k, v] of Object.entries(context.system.abilities ?? {})) {
+    //   v.label = game.i18n.localize(CONFIG.R20.abilities[k]) ?? k;
+    // }
   }
 
   /**
@@ -92,45 +95,45 @@ export class R20ActorSheet extends ActorSheet {
    * @return {undefined}
    */
   _prepareItems(context) {
-    // Initialize containers.
-    const gear = [];
-    const features = [];
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: [],
-    };
-
-    // Iterate through items, allocating to containers
-    for (let i of context.items) {
-      i.img = i.img || Item.DEFAULT_ICON;
-      // Append to gear.
-      if (i.type === 'item') {
-        gear.push(i);
-      }
-      // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
-      }
-      // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.system.spellLevel != undefined) {
-          spells[i.system.spellLevel].push(i);
-        }
-      }
-    }
-
-    // Assign and return
-    context.gear = gear;
-    context.features = features;
-    context.spells = spells;
+    // // Initialize containers.
+    // const gear = [];
+    // const features = [];
+    // const spells = {
+    //   0: [],
+    //   1: [],
+    //   2: [],
+    //   3: [],
+    //   4: [],
+    //   5: [],
+    //   6: [],
+    //   7: [],
+    //   8: [],
+    //   9: [],
+    // };
+    //
+    // // Iterate through items, allocating to containers
+    // for (let i of context.items) {
+    //   i.img = i.img || Item.DEFAULT_ICON;
+    //   // Append to gear.
+    //   if (i.type === 'item') {
+    //     gear.push(i);
+    //   }
+    //   // Append to features.
+    //   else if (i.type === 'feature') {
+    //     features.push(i);
+    //   }
+    //   // Append to spells.
+    //   else if (i.type === 'spell') {
+    //     if (i.system.spellLevel != undefined) {
+    //       spells[i.system.spellLevel].push(i);
+    //     }
+    //   }
+    // }
+    //
+    // // Assign and return
+    // context.gear = gear;
+    // context.features = features;
+    // context.spells = spells;
   }
 
   /* -------------------------------------------- */
