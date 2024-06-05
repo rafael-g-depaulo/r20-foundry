@@ -18,7 +18,7 @@ export class R20ActorSheet extends ActorSheet {
         {
           navSelector: '.sheet-tabs',
           contentSelector: '.sheet-body',
-          initial: 'features',
+          initial: 'config',
         },
       ],
     });

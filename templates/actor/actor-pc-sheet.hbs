@@ -18,7 +18,10 @@
           <div class="resource-content flexrow flex-center flex-between">
           <input type="text" name="system.resources.hp.value" value="{{system.resources.hp.value}}" data-dtype="Number"/>
           <span> / </span>
-          <input type="text" name="system.resources.hp.max" value="{{system.resources.hp.max}}" data-dtype="Number"/>
+          <input type="text" name="system.resources.hp.max" value="{{system.resources.hp.max}}" data-dtype="Number" disabled/>
+          <span> ( </span>
+          <input type="text" name="system.resources.hp.bonus" value="{{system.resources.hp.bonus}}" data-dtype="Number"/>
+          <span> ) </span>
           </div>
         </div>
 
@@ -27,24 +30,32 @@
           <div class="resource-content flexrow flex-center flex-between">
           <input type="text" name="system.resources.mp.value" value="{{system.resources.mp.value}}" data-dtype="Number"/>
           <span> / </span>
-          <input type="text" name="system.resources.mp.max" value="{{system.resources.mp.max}}" data-dtype="Number"/>
+          <input type="text" name="system.resources.mp.max" value="{{system.resources.mp.max}}" data-dtype="Number" disabled/>
+          <span> ( </span>
+          <input type="text" name="system.resources.mp.bonus" value="{{system.resources.mp.bonus}}" data-dtype="Number"/>
+          <span> ) </span>
           </div>
         </div>
 
 
+        {{#if system.config.isPaladin}}
         <div class="resource flex-group-center">
           <label for="system.health.value" class="resource-label">FP</label>
           <div class="resource-content flexrow flex-center flex-between">
           <input type="text" name="system.resources.fp.value" value="{{system.resources.fp.value}}" data-dtype="Number"/>
           <span> / </span>
-          <input type="text" name="system.resources.fp.max" value="{{system.resources.fp.max}}" data-dtype="Number"/>
+          <input type="text" name="system.resources.fp.max" value="{{system.resources.fp.max}}" data-dtype="Number" disabled/>
+          <span> ( </span>
+          <input type="text" name="system.resources.fp.bonus" value="{{system.resources.fp.bonus}}" data-dtype="Number"/>
+          <span> ) </span>
           </div>
         </div>
+        {{/if}}
 
         <div class="resource flex-group-center">
-          <label for="system.attributes.level.value" class="resource-label">Level</label>
+          <label for="system.level" class="resource-label">Level</label>
           <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.attributes.level.value" value="{{system.attributes.level.value}}" data-dtype="Number"/>
+          <input type="text" name="system.level" value="{{system.level}}" data-dtype="Number"/>
           </div>
         </div>
 
@@ -55,11 +66,12 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="features">Features</a>
-    <a class="item" data-tab="description">Description</a>
-    <a class="item" data-tab="items">Items</a>
-    <a class="item" data-tab="spells">Spells</a>
-    <a class="item" data-tab="effects">Effects</a>
+    {{!-- <a class="item" data-tab="features">Features</a> --}}
+    {{!-- <a class="item" data-tab="description">Description</a> --}}
+    {{!-- <a class="item" data-tab="items">Items</a> --}}
+    {{!-- <a class="item" data-tab="spells">Spells</a> --}}
+    {{!-- <a class="item" data-tab="effects">Effects</a> --}}
+    <a class="item" data-tab="config">Config</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -97,6 +109,47 @@
     <div class="tab biography" data-group="primary" data-tab="description">
       {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}}
       {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+    </div>
+
+
+    {{!-- Char Config Tab --}}
+    <div class="tab config" data-group="primary" data-tab="config">
+      <form>
+        <div>
+          <input type="checkbox" id="system.config.isPaladin" name="system.config.isPaladin" value="{{system.config.isPaladin}}" data-dtype="Boolean" {{checked system.config.isPaladin}} />
+          <label for="system.config.isPaladin">é paladino</label>
+        </div>
+
+        <div>
+          <label for="system.config.lv1MaxHp">starting max Hp</label>
+          <input type="text" name="system.config.lv1MaxHp" value="{{system.config.lv1MaxHp}}" data-dtype="Number" >
+        </div> 
+
+        <div>
+          <label for="system.config.hpPerLevel">HP per level</label>
+          <input type="text" name="system.config.hpPerLevel" value="{{system.config.hpPerLevel}}" data-dtype="Number" >
+        </div>
+
+        <div>
+          <label for="system.config.mpPerLevel">MP per level</label>
+          <input type="text" name="system.config.mpPerLevel" value="{{system.config.mpPerLevel}}" data-dtype="Number" >
+        </div>
+
+        <div>
+          <label for="system.config.bonusMaxHp">bonus max HP</label>
+          <input type="text" name="system.config.bonusMaxHP" value="{{system.config.bonusMaxHP}}" data-dtype="Number" >
+        </div> 
+
+        <div>
+          <label for="system.config.bonusMaxMp">bonus max MP</label>
+          <input type="text" name="system.config.bonusMaxMP" value="{{system.config.bonusMaxMP}}" data-dtype="Number" >
+        </div> 
+
+        <div>
+          <label for="system.config.bonusMaxFp">bonus max FP</label>
+          <input type="text" name="system.config.bonusMaxFP" value="{{system.config.bonusMaxFP}}" data-dtype="Number" >
+        </div> 
+      </form>
     </div>
 
     {{!-- Owned Items Tab --}}

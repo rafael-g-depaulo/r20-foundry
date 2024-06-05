@@ -1,6 +1,11 @@
 /**
+ * @typedef {import('../typedefs/PcTypedef.mjs').R20Pc} R20Pc
+ */
+
+/**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
+ * @extends {R20Pc}
  */
 export class R20Actor extends Actor {
   /** @override */
@@ -9,6 +14,10 @@ export class R20Actor extends Actor {
     // the following, in order: data reset (to clear active effects),
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
+
+    // prepare derived data once first because it's used in prepareBaseData
+    this.prepareDerivedData();
+
     super.prepareData();
   }
 
@@ -16,6 +25,22 @@ export class R20Actor extends Actor {
   prepareBaseData() {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
+
+    const actorData = this;
+    /** @type {R20Pc} */
+    const systemData = actorData.system;
+
+    // Resources
+    systemData.resources.hp.max =
+      systemData.config.lv1MaxHp +
+      systemData.config.hpPerLevel * (systemData.level - 1) +
+      systemData.level * systemData.CON +
+      systemData.config.bonusMaxHP;
+    systemData.resources.mp.max =
+      systemData.config.mpPerLevel * systemData.level +
+      systemData.config.bonusMaxMP;
+    systemData.resources.fp.max =
+      5 * systemData.level + systemData.config.bonusMaxFP;
   }
 
   /**
@@ -28,43 +53,23 @@ export class R20Actor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   prepareDerivedData() {
-    console.log("SDFSDFSDF")
-    console.log(this)
+    console.log("getting derived data", this);
     const actorData = this;
+    /** @type {R20Character} */
     const systemData = actorData.system;
-    const flags = actorData.flags.r20 || {};
+    // const flags = actorData.flags.r20 || {};
 
-    // Make separate methods for each Actor type (character, npc, etc.) to keep
-    // things organized.
-    this._prepareCharacterData(actorData);
-    this._prepareNpcData(actorData);
-  }
+    // Ability Modifiers
+    const getAbilityModifier = (abilityName) =>
+      Math.floor((systemData.attributes[abilityName].value - 10) / 2);
+    systemData.STR = getAbilityModifier("str");
+    systemData.DEX = getAbilityModifier("dex");
+    systemData.CON = getAbilityModifier("con");
+    systemData.INT = getAbilityModifier("int");
+    systemData.SEN = getAbilityModifier("sen");
+    systemData.PRE = getAbilityModifier("pre");
 
-  /**
-   * Prepare Character type specific data
-   */
-  _prepareCharacterData(actorData) {
-    if (actorData.type !== 'character') return;
-
-    // Make modifications to data here. For example:
-    const systemData = actorData.system;
-
-    // // Loop through ability scores, and add their modifiers to our sheet output.
-    // for (let [key, ability] of Object.entries(systemData.abilities)) {
-    //   // Calculate the modifier using d20 rules.
-    //   ability.mod = Math.floor((ability.value - 10) / 2);
-    // }
-  }
-
-  /**
-   * Prepare NPC type specific data.
-   */
-  _prepareNpcData(actorData) {
-    if (actorData.type !== 'npc') return;
-
-    // Make modifications to data here. For example:
-    const systemData = actorData.system;
-    systemData.xp = systemData.cr * systemData.cr * 100;
+    console.log("CON:", systemData);
   }
 
   /**
@@ -85,7 +90,7 @@ export class R20Actor extends Actor {
    * Prepare character roll data.
    */
   _getCharacterRollData(data) {
-    if (this.type !== 'character') return;
+    if (this.type !== "pc") return;
 
     // Copy the ability scores to the top level, so that rolls can use
     // formulas like `@str.mod + 4`.
@@ -105,7 +110,7 @@ export class R20Actor extends Actor {
    * Prepare NPC roll data.
    */
   _getNpcRollData(data) {
-    if (this.type !== 'npc') return;
+    if (this.type !== "npc") return;
 
     // Process additional NPC data here.
   }

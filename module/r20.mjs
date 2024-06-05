@@ -12,7 +12,7 @@ import { R20 } from './helpers/config.mjs';
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
-Hooks.once('init', function() {
+Hooks.once('init', function () {
   console.log("bitchin")
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
@@ -64,15 +64,19 @@ Hooks.once('init', function() {
 /* -------------------------------------------- */
 
 // If you need to add Handlebars helpers, here is a useful example:
-Handlebars.registerHelper('toLowerCase', function(str) {
+Handlebars.registerHelper('toLowerCase', function (str) {
   return str.toLowerCase();
 });
 
+// Used for checkboxes linked to a bool variable
+Handlebars.registerHelper('checked', function (currentValue) {
+  return currentValue == '1' ? ' checked' : '';
+});
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
-Hooks.once('ready', function() {
+Hooks.once('ready', function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
 });
