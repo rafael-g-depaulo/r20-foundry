@@ -46,8 +46,8 @@
           use both the "grid" and "grid-Ncol" class where "N" can be any number
           from 1 to 12 and will create that number of columns.  --}}
           <div class="abilities flexcol">
-            {{#each system.attributes as |ability key|}}
-              {{>"systems/r20/templates/actor/parts/pc-attribute.hbs" attribute=ability attributeName=key}}
+            {{#each system.attributes as |attribute key|}}
+              {{>"systems/r20/templates/actor/parts/pc-attribute.hbs" attribute=attribute attributeName=key}}
             <!-- <div class="ability flexrow flex-group-center"> -->
             <!--   <p>this is attribute {{key}}</p> -->
             <!-- </div> -->
@@ -55,11 +55,18 @@
           </div>
         </aside>
 
-        {{!-- For the main features list, span the right two columns --}}
         <section class="main grid-span-2">
-          {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
-          {{> "systems/r20/templates/actor/parts/actor-features.hbs"}}
+          {{#each system.skills as |skill skillName|}}
+          {{log skill skillName ../system.attributes}}
+          {{>"systems/r20/templates/actor/parts/pc-skill.hbs" skill=skill skillName=skillName attributes=../system.attributes}}
+          {{/each}}
         </section>
+
+        <!-- {{!-- For the main features list, span the right two columns --}} -->
+        <!-- <section class="main grid-span-2"> -->
+        <!--   {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}} -->
+        {{!-- {{> "systems/r20/templates/actor/parts/actor-features.hbs"}} --}}
+        <!-- </section> -->
 
       </section>
     </div>

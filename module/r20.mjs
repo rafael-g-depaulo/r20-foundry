@@ -8,6 +8,7 @@ import { R20ItemSheet } from './sheets/item-sheet.mjs';
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { R20 } from './helpers/config.mjs';
 import { getAttributeModifierStr } from './businessLogic/attributeModifier.mjs';
+import { look } from './helpers/effects.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -74,9 +75,19 @@ Handlebars.registerHelper('checked', function (currentValue) {
   return currentValue == '1' ? ' checked' : '';
 });
 
+Handlebars.registerHelper('selectedIfEquals', function (a, b) {
+  return a == b ? ' selected' : '';
+})
+
+Handlebars.registerHelper('log', (...args) => console.log(...args.slice(0, -1)))
+
+Handlebars.registerHelper('look', look)
+
+
 /// Business Rules related helpers //////////////////////////
 /// Business Rules related helpers //////////////////////////
 Handlebars.registerHelper('attbMod', getAttributeModifierStr)
+Handlebars.registerHelper('attbModLookup', function (attributes, attributeName) { return getAttributeModifierStr(attributes[attributeName]) })
 /// Business Rules related helpers //////////////////////////
 /// Business Rules related helpers //////////////////////////
 

@@ -31,7 +31,48 @@
  */
 
 /**
+ * @typedef {Object} Skill
+ *
+ * @property {number} proficiency
+ * @property {"str" | "dex" | "con" | "int" | "sen" | "pre" } attribute
+ * @property {number} bonus
+ */
+
+/**
+ * @typedef {Object} Skills
+ *
+ * @property {Skill} athletics
+ *
+ * @property {Skill} acrobatics
+ * @property {Skill} initiative
+ * @property {Skill} stealth
+ * @property {Skill} sleightOfHand
+ *
+ * @property {Skill} survival
+ *
+ * @property {Skill} investigation
+ * @property {Skill} logic
+ * @property {Skill} history
+ * @property {Skill} medicine
+ * @property {Skill} religion
+ *
+ * @property {Skill} perception
+ * @property {Skill} empathy
+ * @property {Skill} insight
+ * @property {Skill} arcana
+ * @property {Skill} nature
+ *
+ * @property {Skill} handling
+ * @property {Skill} cooking
+ * @property {Skill} deception
+ * @property {Skill} intimidation
+ * @property {Skill} persuasion
+ * @property {Skill} performance
+ */
+
+/**
  * @typedef {Object} R20Character
  * @property {Attributes} attributes
  * @property {Resources} resources
+ * @property {Skills} skills
  */

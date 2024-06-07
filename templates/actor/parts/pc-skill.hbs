@@ -1,0 +1,56 @@
+<div class="skill-display">
+  <span class="rollable">{{skillName}}</span>
+  <div class="buttons">
+    <button
+      class="sheet-action plus"
+      data-action="increase-skill-prof"
+      data-skill="{{skillName}}"
+      >+</button>
+    <button
+      class="sheet-action minus"
+      data-action="decrease-skill-prof"
+      data-skill="{{skillName}}"
+      >-</button>
+  </div>
+  <input
+    class="prof"
+    type="text"
+    name="system.skills.{{toLowerCase skillName}}.proficiency"
+    value="{{look skill '.proficiency'}}"
+    data-dtype="Number"
+    disabled
+  />
+  <!-- value="{{skill.proficiency}}" -->
+  <select
+    name="system.skills.{{skillName}}.attribute"
+    value="{{skill.attribute}}"
+  >
+    <option value="str" {{selectedIfEquals "str" skill.attribute}}>str</option>
+    <option value="dex" {{selectedIfEquals "dex" skill.attribute}}>dex</option>
+    <option value="con" {{selectedIfEquals "con" skill.attribute}}>con</option>
+    <option value="int" {{selectedIfEquals "int" skill.attribute}}>int</option>
+    <option value="sen" {{selectedIfEquals "sen" skill.attribute}}>sen</option>
+    <option value="pre" {{selectedIfEquals "pre" skill.attribute}}>pre</option>
+  </select>
+  <input
+    type="text"
+    name="system.skills.{{toLowerCase skillName}}.attribute.bonus"
+    value="{{attbModLookup attributes skill.attribute}}"
+    data-dtype="Number"
+    disabled
+  />
+<input
+    type="text"
+    name="system.skills.{{skillName}}.bonus"
+    value="{{skill.bonus}}"
+    data-dtype="Number"
+  />
+  <label for="system.skills.{{skillName}}.total">Total:</label>
+<input
+    type="text"
+    name="system.skills.{{skillName}}.total"
+    value="{{skill.total}}"
+    data-dtype="Number"
+    disabled
+  />
+</div>

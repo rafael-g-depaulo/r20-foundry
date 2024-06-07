@@ -69,6 +69,15 @@ export class R20Actor extends Actor {
     systemData.INT = getAttributeModifier(systemData.attributes.int);
     systemData.SEN = getAttributeModifier(systemData.attributes.sen);
     systemData.PRE = getAttributeModifier(systemData.attributes.pre);
+
+    // Skill totals
+    const skillsList = Object.keys(systemData.skills)
+    skillsList.forEach(skillName => {
+      /** @type import("../typedefs/CharacterTypedef.mjs").Skill */
+      const skill = systemData.skills[skillName]
+      skill.total =
+        getAttributeModifier(systemData.attributes[skill.attribute]) + skill.proficiency + skill.bonus
+    })
   }
 
   /**

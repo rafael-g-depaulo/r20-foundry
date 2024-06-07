@@ -364,3 +364,24 @@
 .r20 .effects .item .effect-controls {
   border: none;
 }
+.r20 .skill-display {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 3em;
+}
+.r20 .skill-display .buttons {
+  display: flex;
+  flex-direction: column;
+}
+.r20 .skill-display .buttons button {
+  height: 1.5em;
+  padding: 0em 0.2em;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=r20.css.map */

@@ -66,3 +66,9 @@ export function prepareActiveEffectCategories(effects) {
   }
   return categories;
 }
+
+export const look = (obj, path) => {
+  const asdasd = path.split(".").filter(a => a !== "").reduce((acc, cur) => acc[cur], obj)
+  console.log("!!!!!!!!!!1", asdasd)
+  return asdasd
+}

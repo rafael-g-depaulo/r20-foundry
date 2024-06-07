@@ -4,6 +4,7 @@ import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
 } from "../helpers/effects.mjs";
+import { decreaseSkillProf, increaseSkillProf } from "./pc-sheet-actions.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -179,6 +180,9 @@ export class R20ActorSheet extends ActorSheet {
     // Rollable abilities.
     html.on("click", ".rollable", this._onRoll.bind(this));
 
+    // Sheet action
+    html.on("click", ".sheet-action", this._onSheetAction.bind(this));
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
@@ -188,6 +192,29 @@ export class R20ActorSheet extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
+  }
+
+  /**
+   * @param {Event} event
+   */
+  async _onSheetAction(event) {
+    event.preventDefault();
+
+    const actor = this.actor;
+    const { dataset } = event.currentTarget;
+    const { action } = dataset;
+
+    const actionHandlers = [
+      increaseSkillProf,
+      decreaseSkillProf,
+    ]
+    const actionHandlerMapper = Object.fromEntries(actionHandlers)
+
+    if (!actionHandlerMapper[action]) {
+      return console.error(`Invalid sheet action. Got ${action}. Valid actions are:`, Object.keys(actionHandlerMapper))
+    }
+
+    actionHandlerMapper[action]({ actor, dataset })
   }
 
   /**
