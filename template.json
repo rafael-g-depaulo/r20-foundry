@@ -25,22 +25,28 @@
         },
         "attributes": {
           "str": {
-            "value": 10
+            "value": 10,
+            "bonus": 0
           },
           "dex": {
-            "value": 10
+            "value": 10,
+            "bonus": 0
           },
           "con": {
-            "value": 10
+            "value": 10,
+            "bonus": 0
           },
           "int": {
-            "value": 10
+            "value": 10,
+            "bonus": 0
           },
           "sen": {
-            "value": 10
+            "value": 10,
+            "bonus": 0
           },
           "pre": {
-            "value": 10
+            "value": 10,
+            "bonus": 0
           }
         },
         "skills": {

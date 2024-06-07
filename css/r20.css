@@ -364,18 +364,20 @@
 .r20 .effects .item .effect-controls {
   border: none;
 }
-.r20 .skill-display {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  min-height: 3em;
+.r20 section.skills {
+  display: grid;
+  grid-template-columns: 1fr repeat(6, min-content);
+  grid-template-rows: auto;
+  gap: 0.125rem 0.25rem;
 }
-.r20 .skill-display .buttons {
+.r20 section.skills .skill-header {
+  align-self: center;
+}
+.r20 section.skills .buttons {
   display: flex;
   flex-direction: column;
 }
-.r20 .skill-display .buttons button {
+.r20 section.skills .buttons button {
   height: 1.5em;
   padding: 0em 0.2em;
   font-size: 1em;

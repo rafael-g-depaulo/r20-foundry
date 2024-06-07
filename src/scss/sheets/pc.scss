@@ -1,28 +1,39 @@
-.skill-display {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
+section.skills {
+  display: grid;
+  grid-template-columns: 1fr repeat(6, min-content);
+  grid-template-rows: auto;
+    gap: 0.125rem 0.25rem;
 
-  min-height: 3em;
-
-  .buttons {
-    display: flex;
-    flex-direction: column;
-
-    button {
-      height: 1.5em;
-      padding: 0em 0.2em;
-      font-size: 1em;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .plus {
-    }
-    .minus {
-    }
+  .skill-header {
+    align-self: center;
   }
+
+  // .skill-display {
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    // justify-content: space-around;
+    //
+    // min-height: 3em;
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+
+      button {
+        height: 1.5em;
+        padding: 0em 0.2em;
+        font-size: 1em;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .plus {
+      }
+      .minus {
+      }
+    }
+  // }
 }

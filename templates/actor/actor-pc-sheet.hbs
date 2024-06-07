@@ -55,7 +55,12 @@
           </div>
         </aside>
 
-        <section class="main grid-span-2">
+        <section class="main grid-span-2 skills">
+          <span class="skill-header">skill name</span>
+          <span class="skill-header grid-span-2">proficiencia</span>
+          <span class="skill-header grid-span-2">attb</span>
+          <span class="skill-header">bonus</span>
+          <span class="skill-header">total</span>
           {{#each system.skills as |skill skillName|}}
           {{log skill skillName ../system.attributes}}
           {{>"systems/r20/templates/actor/parts/pc-skill.hbs" skill=skill skillName=skillName attributes=../system.attributes}}
