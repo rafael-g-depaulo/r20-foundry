@@ -1,7 +1,9 @@
+import { getAttributeModifier } from "../businessLogic/attributeModifier.mjs";
+import { getProficiencyBonus } from "../businessLogic/proficiency.mjs";
 import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
-} from '../helpers/effects.mjs';
+} from "../helpers/effects.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -11,14 +13,14 @@ export class R20ActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['r20', 'sheet', 'actor'],
+      classes: ["r20", "sheet", "actor"],
       width: 600,
       height: 600,
       tabs: [
         {
-          navSelector: '.sheet-tabs',
-          contentSelector: '.sheet-body',
-          initial: 'config',
+          navSelector: ".sheet-tabs",
+          contentSelector: ".sheet-body",
+          initial: "skills",
         },
       ],
     });
@@ -38,7 +40,7 @@ export class R20ActorSheet extends ActorSheet {
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
     const context = super.getData();
-    console.log("getData with context", context)
+    console.log("getData with context", context);
 
     // Use a safe clone of the actor data for further operations.
     const actorData = context.data;
@@ -49,24 +51,24 @@ export class R20ActorSheet extends ActorSheet {
 
     // // Prepare character data and items.
     // if (actorData.type == 'character') {
-    //   this._prepareItems(context);
-    //   this._prepareCharacterData(context);
+    //   this._prepareItems(context)
+    //   this._prepareCharacterData(context)
     // }
     //
     // // Prepare NPC data and items.
     // if (actorData.type == 'npc') {
-    //   this._prepareItems(context);
+    //   this._prepareItems(context)
     // }
     //
     // // Add roll data for TinyMCE editors.
-    // context.rollData = context.actor.getRollData();
+    // context.rollData = context.actor.getRollData()
     //
     // // Prepare active effects
     // context.effects = prepareActiveEffectCategories(
     //   // A generator that returns all effects stored on the actor
     //   // as well as any items
     //   this.actor.allApplicableEffects()
-    // );
+    // )
 
     return context;
   }
@@ -80,10 +82,10 @@ export class R20ActorSheet extends ActorSheet {
    */
   _prepareCharacterData(context) {
     // Handle ability scores.
-    console.log(context.system)
-    console.log(context)
+    console.log(context.system);
+    console.log(context);
     // for (let [k, v] of Object.entries(context.system.abilities ?? {})) {
-    //   v.label = game.i18n.localize(CONFIG.R20.abilities[k]) ?? k;
+    //   v.label = game.i18n.localize(CONFIG.R20.abilities[k]) ?? k
     // }
   }
 
@@ -96,8 +98,8 @@ export class R20ActorSheet extends ActorSheet {
    */
   _prepareItems(context) {
     // // Initialize containers.
-    // const gear = [];
-    // const features = [];
+    // const gear = []
+    // const features = []
     // const spells = {
     //   0: [],
     //   1: [],
@@ -109,31 +111,31 @@ export class R20ActorSheet extends ActorSheet {
     //   7: [],
     //   8: [],
     //   9: [],
-    // };
+    // }
     //
     // // Iterate through items, allocating to containers
     // for (let i of context.items) {
-    //   i.img = i.img || Item.DEFAULT_ICON;
+    //   i.img = i.img || Item.DEFAULT_ICON
     //   // Append to gear.
     //   if (i.type === 'item') {
-    //     gear.push(i);
+    //     gear.push(i)
     //   }
     //   // Append to features.
     //   else if (i.type === 'feature') {
-    //     features.push(i);
+    //     features.push(i)
     //   }
     //   // Append to spells.
     //   else if (i.type === 'spell') {
     //     if (i.system.spellLevel != undefined) {
-    //       spells[i.system.spellLevel].push(i);
+    //       spells[i.system.spellLevel].push(i)
     //     }
     //   }
     // }
     //
     // // Assign and return
-    // context.gear = gear;
-    // context.features = features;
-    // context.spells = spells;
+    // context.gear = gear
+    // context.features = features
+    // context.spells = spells
   }
 
   /* -------------------------------------------- */
@@ -143,9 +145,9 @@ export class R20ActorSheet extends ActorSheet {
     super.activateListeners(html);
 
     // Render the item sheet for viewing/editing prior to the editable check.
-    html.on('click', '.item-edit', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
+    html.on("click", ".item-edit", (ev) => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
 
@@ -154,19 +156,19 @@ export class R20ActorSheet extends ActorSheet {
     if (!this.isEditable) return;
 
     // Add Inventory Item
-    html.on('click', '.item-create', this._onItemCreate.bind(this));
+    html.on("click", ".item-create", this._onItemCreate.bind(this));
 
     // Delete Inventory Item
-    html.on('click', '.item-delete', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
+    html.on("click", ".item-delete", (ev) => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.items.get(li.data("itemId"));
       item.delete();
       li.slideUp(200, () => this.render(false));
     });
 
     // Active Effect management
-    html.on('click', '.effect-control', (ev) => {
-      const row = ev.currentTarget.closest('li');
+    html.on("click", ".effect-control", (ev) => {
+      const row = ev.currentTarget.closest("li");
       const document =
         row.dataset.parentId === this.actor.id
           ? this.actor
@@ -175,15 +177,15 @@ export class R20ActorSheet extends ActorSheet {
     });
 
     // Rollable abilities.
-    html.on('click', '.rollable', this._onRoll.bind(this));
+    html.on("click", ".rollable", this._onRoll.bind(this));
 
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
-      html.find('li.item').each((i, li) => {
-        if (li.classList.contains('inventory-header')) return;
-        li.setAttribute('draggable', true);
-        li.addEventListener('dragstart', handler, false);
+      html.find("li.item").each((i, li) => {
+        if (li.classList.contains("inventory-header")) return;
+        li.setAttribute("draggable", true);
+        li.addEventListener("dragstart", handler, false);
       });
     }
   }
@@ -209,7 +211,7 @@ export class R20ActorSheet extends ActorSheet {
       system: data,
     };
     // Remove the type from the dataset since it's in the itemData.type prop.
-    delete itemData.system['type'];
+    delete itemData.system["type"];
 
     // Finally, create the item!
     return await Item.create(itemData, { parent: this.actor });
@@ -225,23 +227,50 @@ export class R20ActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
-    // Handle item rolls.
-    if (dataset.rollType) {
-      if (dataset.rollType == 'item') {
-        const itemId = element.closest('.item').dataset.itemId;
-        const item = this.actor.items.get(itemId);
-        if (item) return item.roll();
-      }
+    /** @type import("../typedefs/PcTypedef.mjs").R20Pc */
+    const pc = this.actor.system;
+
+    // handle typed rolls
+    switch (dataset.rollType) {
+      case "attribute":
+        const { attributeName } = dataset;
+        const attribute = pc.attributes[attributeName];
+
+        const roll = new Roll(`1d20 + @prof + @attb`, {
+          prof: getProficiencyBonus(pc, attributeName),
+          attb: getAttributeModifier(attribute),
+        });
+
+        roll.evaluate().then(() => {
+          const message = roll.toMessage({
+            // content: `test message!!!!!! rolling ${attributeName} for ${this.actor.name}`,
+            flavor: `${this.actor.name}: Rolando resistência (${attributeName})`,
+            speaker: ChatMessage.getSpeaker(),
+            user: this.actor._id,
+          });
+          return message;
+        });
+
+        break;
     }
+
+    // // Handle item rolls.
+    // if (dataset.rollType) {
+    //   if (dataset.rollType == 'item') {
+    //     const itemId = element.closest('.item').dataset.itemId
+    //     const item = this.actor.items.get(itemId)
+    //     if (item) return item.roll()
+    //   }
+    // }
 
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
+      let label = dataset.label ? `[ability] ${dataset.label}` : "";
       let roll = new Roll(dataset.roll, this.actor.getRollData());
       roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
-        rollMode: game.settings.get('core', 'rollMode'),
+        rollMode: game.settings.get("core", "rollMode"),
       });
       return roll;
     }

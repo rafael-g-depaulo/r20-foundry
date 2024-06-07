@@ -5,6 +5,9 @@
  */
 export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
+    // PC partials
+    'systems/r20/templates/actor/parts/pc-resource.hbs',
+    'systems/r20/templates/actor/parts/pc-attribute.hbs',
     // Actor partials.
     'systems/r20/templates/actor/parts/actor-features.hbs',
     'systems/r20/templates/actor/parts/actor-items.hbs',

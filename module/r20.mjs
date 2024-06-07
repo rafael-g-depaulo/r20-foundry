@@ -7,6 +7,7 @@ import { R20ItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { R20 } from './helpers/config.mjs';
+import { getAttributeModifierStr } from './businessLogic/attributeModifier.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -72,6 +73,13 @@ Handlebars.registerHelper('toLowerCase', function (str) {
 Handlebars.registerHelper('checked', function (currentValue) {
   return currentValue == '1' ? ' checked' : '';
 });
+
+/// Business Rules related helpers //////////////////////////
+/// Business Rules related helpers //////////////////////////
+Handlebars.registerHelper('attbMod', getAttributeModifierStr)
+/// Business Rules related helpers //////////////////////////
+/// Business Rules related helpers //////////////////////////
+
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */

@@ -1,3 +1,5 @@
+import { getAttributeModifier } from "../businessLogic/attributeModifier.mjs"
+
 /**
  * @typedef {import('../typedefs/PcTypedef.mjs').R20Pc} R20Pc
  */
@@ -31,6 +33,7 @@ export class R20Actor extends Actor {
     const systemData = actorData.system;
 
     // Resources
+    console.log("AAAAAAAA", systemData)
     systemData.resources.hp.max =
       systemData.config.lv1MaxHp +
       systemData.config.hpPerLevel * (systemData.level - 1) +
@@ -60,16 +63,12 @@ export class R20Actor extends Actor {
     // const flags = actorData.flags.r20 || {};
 
     // Ability Modifiers
-    const getAbilityModifier = (abilityName) =>
-      Math.floor((systemData.attributes[abilityName].value - 10) / 2);
-    systemData.STR = getAbilityModifier("str");
-    systemData.DEX = getAbilityModifier("dex");
-    systemData.CON = getAbilityModifier("con");
-    systemData.INT = getAbilityModifier("int");
-    systemData.SEN = getAbilityModifier("sen");
-    systemData.PRE = getAbilityModifier("pre");
-
-    console.log("CON:", systemData);
+    systemData.STR = getAttributeModifier(systemData.attributes.str)
+    systemData.DEX = getAttributeModifier(systemData.attributes.dex);
+    systemData.CON = getAttributeModifier(systemData.attributes.con);
+    systemData.INT = getAttributeModifier(systemData.attributes.int);
+    systemData.SEN = getAttributeModifier(systemData.attributes.sen);
+    systemData.PRE = getAttributeModifier(systemData.attributes.pre);
   }
 
   /**

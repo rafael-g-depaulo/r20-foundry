@@ -1,0 +1,11 @@
+<div class="resource flex-group-center">
+  <label for="system.health.value" class="resource-label">{{resourceName}}</label>
+  <div class="resource-content flexrow flex-center flex-between">
+    <input type="text" name="system.resources.{{toLowerCase resourceName}}.value" value="{{resource.value}}" data-dtype="Number"/>
+    <span> / </span>
+    <input type="text" name="system.resources.{{toLowerCase resourceName}}.max" value="{{resource.max}}" data-dtype="Number" disabled/>
+    <span> ( </span>
+    <input type="text" name="system.resources.{{toLowerCase resourceName}}.bonus" value="{{resource.bonus}}" data-dtype="Number"/>
+    <span> ) </span>
+  </div>
+</div>

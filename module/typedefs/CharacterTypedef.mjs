@@ -17,6 +17,7 @@
  * @typedef {Object} Attribute
  * @property {number} value
  * @property {number} bonus
+ * @property {boolean} isProficient
  */
 
 /**

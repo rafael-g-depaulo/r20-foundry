@@ -1,0 +1,9 @@
+<div class="attribute-diplay">
+  {{#if attribute.isProficient}}
+    <span>*</span>
+  {{/if}}
+
+  <span class="rollable" data-roll-type="attribute" data-attribute-name="{{attributeName}}">{{attributeName}} ({{attbMod attribute}})</span>
+  <input type="text" name="system.attributes.{{toLowerCase attributeName}}.value" value="{{attribute.value}}" data-dtype="Number"/>
+  <input type="text" name="system.attributes.{{toLowerCase attributeName}}.bonus" value="{{attribute.bonus}}" data-dtype="Number"/>
+</div>

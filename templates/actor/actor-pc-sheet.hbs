@@ -10,46 +10,10 @@
       from 1 to 12 and will create that number of columns.  --}}
       <div class="resources grid grid-3col">
 
-        {{!-- "flex-group-center" is also defined in the _grid.scss file
-        and it will add a small amount of padding, a border, and will
-        center all of its child elements content and text. --}}
-        <div class="resource flex-group-center">
-          <label for="system.health.value" class="resource-label">HP</label>
-          <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.resources.hp.value" value="{{system.resources.hp.value}}" data-dtype="Number"/>
-          <span> / </span>
-          <input type="text" name="system.resources.hp.max" value="{{system.resources.hp.max}}" data-dtype="Number" disabled/>
-          <span> ( </span>
-          <input type="text" name="system.resources.hp.bonus" value="{{system.resources.hp.bonus}}" data-dtype="Number"/>
-          <span> ) </span>
-          </div>
-        </div>
-
-        <div class="resource flex-group-center">
-          <label for="system.health.value" class="resource-label">MP</label>
-          <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.resources.mp.value" value="{{system.resources.mp.value}}" data-dtype="Number"/>
-          <span> / </span>
-          <input type="text" name="system.resources.mp.max" value="{{system.resources.mp.max}}" data-dtype="Number" disabled/>
-          <span> ( </span>
-          <input type="text" name="system.resources.mp.bonus" value="{{system.resources.mp.bonus}}" data-dtype="Number"/>
-          <span> ) </span>
-          </div>
-        </div>
-
-
+        {{>"systems/r20/templates/actor/parts/pc-resource.hbs" resource=system.resources.hp resourceName="HP" }}
+        {{>"systems/r20/templates/actor/parts/pc-resource.hbs" resource=system.resources.mp resourceName="MP"}}
         {{#if system.config.isPaladin}}
-        <div class="resource flex-group-center">
-          <label for="system.health.value" class="resource-label">FP</label>
-          <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.resources.fp.value" value="{{system.resources.fp.value}}" data-dtype="Number"/>
-          <span> / </span>
-          <input type="text" name="system.resources.fp.max" value="{{system.resources.fp.max}}" data-dtype="Number" disabled/>
-          <span> ( </span>
-          <input type="text" name="system.resources.fp.bonus" value="{{system.resources.fp.bonus}}" data-dtype="Number"/>
-          <span> ) </span>
-          </div>
-        </div>
+        {{>"systems/r20/templates/actor/parts/pc-resource.hbs" resource=system.resources.fp resourceName="FP"}}
         {{/if}}
 
         <div class="resource flex-group-center">
@@ -66,11 +30,7 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    {{!-- <a class="item" data-tab="features">Features</a> --}}
-    {{!-- <a class="item" data-tab="description">Description</a> --}}
-    {{!-- <a class="item" data-tab="items">Items</a> --}}
-    {{!-- <a class="item" data-tab="spells">Spells</a> --}}
-    {{!-- <a class="item" data-tab="effects">Effects</a> --}}
+    <a class="item" data-tab="skills">Skills</a>
     <a class="item" data-tab="config">Config</a>
   </nav>
 
@@ -78,7 +38,7 @@
   <section class="sheet-body">
 
     {{!-- Owned Features Tab --}}
-    <div class="tab features" data-group="primary" data-tab="features">
+    <div class="tab skills" data-group="primary" data-tab="skills">
       <section class="grid grid-3col">
         <aside class="sidebar">
 
@@ -86,12 +46,11 @@
           use both the "grid" and "grid-Ncol" class where "N" can be any number
           from 1 to 12 and will create that number of columns.  --}}
           <div class="abilities flexcol">
-            {{#each system.abilities as |ability key|}}
-            <div class="ability flexrow flex-group-center">
-              <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{ability.label}}</label>
-              <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
-              <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
-            </div>
+            {{#each system.attributes as |ability key|}}
+              {{>"systems/r20/templates/actor/parts/pc-attribute.hbs" attribute=ability attributeName=key}}
+            <!-- <div class="ability flexrow flex-group-center"> -->
+            <!--   <p>this is attribute {{key}}</p> -->
+            <!-- </div> -->
             {{/each}}
           </div>
         </aside>
@@ -119,6 +78,14 @@
           <input type="checkbox" id="system.config.isPaladin" name="system.config.isPaladin" value="{{system.config.isPaladin}}" data-dtype="Boolean" {{checked system.config.isPaladin}} />
           <label for="system.config.isPaladin">é paladino</label>
         </div>
+
+        <span>Proficiências</span>
+        {{#each system.attributes as |attribute key|}}
+          <div>
+            <input type="checkbox" id="system.attributes.{{key}}.isProficient" name="system.attributes.{{key}}.isProficient" value="{{attribute.isProficient}}" data-dtype="Boolean" {{checked attribute.isProficient}} />
+            <label for="system.attributes.{{key}}.isProficient">{{key}}</label>
+          </div>
+        {{/each}}
 
         <div>
           <label for="system.config.lv1MaxHp">starting max Hp</label>
