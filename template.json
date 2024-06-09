@@ -190,7 +190,9 @@
   "Item": {
     "types": [
       "weapon",
-      "armor"
+      "armor",
+      "item",
+      "equipment"
     ],
     "templates": {
       "base": {
@@ -198,12 +200,17 @@
       },
       "item": {
         "weight": 0
+      },
+      "equipment": {
+        "effects": [],
+        "equiped": false
       }
     },
     "weapon": {
       "templates": [
         "base",
-        "item"
+        "item",
+        "equipment"
       ],
       "tags": [],
       "two-handed": false,
