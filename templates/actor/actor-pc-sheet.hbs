@@ -55,6 +55,8 @@
           </div>
         </aside>
 
+        <div class="grid-span-2">
+          <span>available skill points: {{system.openSkillPoints}}</span>
         <section class="main grid-span-2 skills">
           <span class="skill-header">skill name</span>
           <span class="skill-header grid-span-2">proficiencia</span>
@@ -62,10 +64,10 @@
           <span class="skill-header">bonus</span>
           <span class="skill-header">total</span>
           {{#each system.skills as |skill skillName|}}
-          {{log skill skillName ../system.attributes}}
-          {{>"systems/r20/templates/actor/parts/pc-skill.hbs" skill=skill skillName=skillName attributes=../system.attributes}}
+          {{>"systems/r20/templates/actor/parts/pc-skill.hbs" skill=skill skillName=skillName attributes=../system.attributes openSkillPoints=../system.openSkillPoints maxSkillProficiency=../system.maxSkillProficiency}}
           {{/each}}
         </section>
+        </div>
 
         <!-- {{!-- For the main features list, span the right two columns --}} -->
         <!-- <section class="main grid-span-2"> -->
@@ -127,6 +129,11 @@
         <div>
           <label for="system.config.bonusMaxFp">bonus max FP</label>
           <input type="text" name="system.config.bonusMaxFP" value="{{system.config.bonusMaxFP}}" data-dtype="Number" >
+        </div> 
+
+        <div>
+          <label for="system.config.bonusSkillPoints">bonus skill points</label>
+          <input type="text" name="system.config.bonusSkillPoints" value="{{system.config.bonusSkillPoints}}" data-dtype="Number" >
         </div> 
       </form>
     </div>

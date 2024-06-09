@@ -249,6 +249,11 @@
 .r20 .tox .tox-edit-area {
   padding: 0 8px;
 }
+.r20 button:disabled {
+  color: #616161;
+  background: #9f9e93;
+  cursor: not-allowed;
+}
 .r20 .resource-label {
   font-weight: bold;
 }
@@ -366,9 +371,12 @@
 }
 .r20 section.skills {
   display: grid;
-  grid-template-columns: 1fr repeat(6, min-content);
+  grid-template-columns: 1fr min-content min-content min-content minmax(min-content, 1.8rem) min-content min-content;
   grid-template-rows: auto;
   gap: 0.125rem 0.25rem;
+}
+.r20 section.skills > :first-child {
+  margin-bottom: 0.4rem;
 }
 .r20 section.skills .skill-header {
   align-self: center;

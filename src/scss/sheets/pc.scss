@@ -1,39 +1,46 @@
 section.skills {
   display: grid;
-  grid-template-columns: 1fr repeat(6, min-content);
+  grid-template-columns: 1fr min-content min-content min-content minmax(
+      min-content,
+      1.8rem
+    ) min-content min-content;
   grid-template-rows: auto;
-    gap: 0.125rem 0.25rem;
+  gap: 0.125rem 0.25rem;
+
+  > :first-child {
+    margin-bottom: 0.4rem;
+  }
 
   .skill-header {
     align-self: center;
   }
 
   // .skill-display {
-    // display: flex;
-    // flex-direction: row;
-    // align-items: center;
-    // justify-content: space-around;
-    //
-    // min-height: 3em;
+  // display: flex;
+  // flex-direction: row;
+  // align-items: center;
+  // justify-content: space-around;
+  //
+  // min-height: 3em;
 
-    .buttons {
+  .buttons {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      height: 1.5em;
+      padding: 0em 0.2em;
+      font-size: 1em;
+
       display: flex;
-      flex-direction: column;
-
-      button {
-        height: 1.5em;
-        padding: 0em 0.2em;
-        font-size: 1em;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .plus {
-      }
-      .minus {
-      }
+      align-items: center;
+      justify-content: center;
     }
+
+    .plus {
+    }
+    .minus {
+    }
+  }
   // }
 }

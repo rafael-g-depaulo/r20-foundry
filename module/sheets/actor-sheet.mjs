@@ -1,5 +1,7 @@
 import { getAttributeModifier } from "../businessLogic/attributeModifier.mjs";
 import { getProficiencyBonus } from "../businessLogic/proficiency.mjs";
+import { rollAttributeResistance } from "../businessLogic/rollResistance.mjs";
+import { rollSkill } from "../businessLogic/rollSkill.mjs";
 import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
@@ -253,33 +255,46 @@ export class R20ActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
+    const actor = this.actor
+    const { rollType } = dataset
 
-    /** @type import("../typedefs/PcTypedef.mjs").R20Pc */
-    const pc = this.actor.system;
+    const rollHandlers = [
+      rollAttributeResistance,
+      rollSkill,
+    ]
+    const rollHandlerMapper = Object.fromEntries(rollHandlers)
+
+    if (!rollHandlerMapper[rollType]) {
+      return console.error(`Invalid roll type. Got ${rollType}. Valid actions are:`, Object.keys(rollHandlerMapper))
+    }
+
+    rollHandlerMapper[rollType]({ actor, dataset })
 
     // handle typed rolls
-    switch (dataset.rollType) {
-      case "attribute":
-        const { attributeName } = dataset;
-        const attribute = pc.attributes[attributeName];
+    // switch (dataset.rollType) {
+    //   case "attribute":
+    //     rollAttributeResistance(this.actor, dataset)
 
-        const roll = new Roll(`1d20 + @prof + @attb`, {
-          prof: getProficiencyBonus(pc, attributeName),
-          attb: getAttributeModifier(attribute),
-        });
+    //     // const { attributeName } = dataset;
+    //     // const attribute = pc.attributes[attributeName];
 
-        roll.evaluate().then(() => {
-          const message = roll.toMessage({
-            // content: `test message!!!!!! rolling ${attributeName} for ${this.actor.name}`,
-            flavor: `${this.actor.name}: Rolando resistência (${attributeName})`,
-            speaker: ChatMessage.getSpeaker(),
-            user: this.actor._id,
-          });
-          return message;
-        });
+    //     // const roll = new Roll(`1d20 + @prof + @attb`, {
+    //     //   prof: getProficiencyBonus(pc, attributeName),
+    //     //   attb: getAttributeModifier(attribute),
+    //     // });
 
-        break;
-    }
+    //     // roll.evaluate().then(() => {
+    //     //   const message = roll.toMessage({
+    //     //     // content: `test message!!!!!! rolling ${attributeName} for ${this.actor.name}`,
+    //     //     flavor: `${this.actor.name}: Rolando resistência (${attributeName})`,
+    //     //     speaker: ChatMessage.getSpeaker(),
+    //     //     user: this.actor._id,
+    //     //   });
+    //     //   return message;
+    //     // });
+
+    //     break;
+    // }
 
     // // Handle item rolls.
     // if (dataset.rollType) {
@@ -291,15 +306,15 @@ export class R20ActorSheet extends ActorSheet {
     // }
 
     // Handle rolls that supply the formula directly.
-    if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : "";
-      let roll = new Roll(dataset.roll, this.actor.getRollData());
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label,
-        rollMode: game.settings.get("core", "rollMode"),
-      });
-      return roll;
-    }
+    // if (dataset.roll) {
+    //   let label = dataset.label ? `[ability] ${dataset.label}` : "";
+    //   let roll = new Roll(dataset.roll, this.actor.getRollData());
+    //   roll.toMessage({
+    //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    //     flavor: label,
+    //     rollMode: game.settings.get("core", "rollMode"),
+    //   });
+    //   return roll;
+    // }
   }
 }

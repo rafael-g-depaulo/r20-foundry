@@ -1,6 +1,28 @@
+import { R20ActorSheet } from "../sheets/actor-sheet.mjs";
+import { getAttributeModifier } from "./attributeModifier.mjs";
+import { getProficiencyBonus } from "./proficiency.mjs";
 
-/**
- * @param {import('../typedefs/CharacterTypedef.mjs').Attribute} attb
- * @returns {number}
- */
-export const rollResistance = (attb) => 
+export const rollAttributeResistance = [
+  "attribute",
+  async ({ actor, dataset }) => {
+    /** @type import("../typedefs/PcTypedef.mjs").R20Pc */
+    const pc = actor.system;
+    const { attributeName } = dataset;
+
+    const roll = new Roll(`1d20 + @prof + @attb`, {
+      prof: getProficiencyBonus(pc, attributeName),
+      attb: getAttributeModifier(pc.attributes[attributeName]),
+    });
+
+    await roll.evaluate();
+
+    const message = roll.toMessage({
+      // content: `test message!!!!!! rolling ${attributeName} for ${this.actor.name}`,
+      flavor: `${actor.name}: Rolando resistência (${attributeName})`,
+      speaker: ChatMessage.getSpeaker(),
+      user: actor._id,
+    });
+
+    return message;
+  },
+];

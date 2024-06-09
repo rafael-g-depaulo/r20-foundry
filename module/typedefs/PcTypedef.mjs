@@ -30,6 +30,8 @@
  * @property {number} bonusMaxFP
  *
  * @property {boolean} isPaladin
+ *
+ * @property {number} bonusSkillPoints
  */
 
 /**

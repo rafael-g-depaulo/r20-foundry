@@ -1,15 +1,17 @@
 <!-- <div class="skill-display"> -->
-  <span class="rollable">{{skillName}}</span>
+<span class="rollable" data-roll-type="skill" data-skill-name="{{skillName}}">{{skillName}}</span>
   <div class="buttons">
     <button
       class="sheet-action plus"
       data-action="increase-skill-prof"
       data-skill="{{skillName}}"
+      {{canIncreaseSkill (look skill '.proficiency') maxSkillProficiency openSkillPoints}}
       >+</button>
     <button
       class="sheet-action minus"
       data-action="decrease-skill-prof"
       data-skill="{{skillName}}"
+      {{canDecreaseSkill (look skill '.proficiency')}}
       >-</button>
   </div>
   <input

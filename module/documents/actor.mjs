@@ -1,4 +1,7 @@
 import { getAttributeModifier } from "../businessLogic/attributeModifier.mjs"
+import { leftOverSkillPoints, maxSkillProficiency, totalSkillPoints } from "../businessLogic/skills.mjs";
+
+// TODO: make this generic and extract R20Pc stuff into separate class
 
 /**
  * @typedef {import('../typedefs/PcTypedef.mjs').R20Pc} R20Pc
@@ -78,6 +81,12 @@ export class R20Actor extends Actor {
       skill.total =
         getAttributeModifier(systemData.attributes[skill.attribute]) + skill.proficiency + skill.bonus
     })
+
+    systemData.totalSkillPoints = totalSkillPoints(systemData)
+    systemData.openSkillPoints = leftOverSkillPoints(systemData)
+    systemData.maxSkillProficiency = maxSkillProficiency(systemData.level)
+
+    console.log("derived", systemData)
   }
 
   /**

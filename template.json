@@ -176,7 +176,8 @@
         "bonusMaxHp": 0,
         "bonusMaxMp": 0,
         "bonusMaxFp": 0,
-        "isPaladin": false
+        "isPaladin": false,
+        "bonusSkillPoints": 0
       }
     },
     "npc": {
