@@ -1,3 +1,5 @@
+import { getActorCombatant, getOrCreateActorCombatant } from "../helpers/combatant.mjs";
+import { getOrCreateCombat } from "../helpers/createCombat.mjs";
 import { getAttributeModifier } from "./attributeModifier.mjs";
 
 export const rollSkill = [
@@ -8,11 +10,9 @@ export const rollSkill = [
     const { skillName } = dataset;
 
     /** @type import("../typedefs/CharacterTypedef.mjs").Skill */
-    const skill = pc.skills[skillName]
+    const skill = pc.skills[skillName];
     /** @type import("../typedefs/CharacterTypedef.mjs").Attribute */
-    const skillAttribute = pc.attributes[skill.attribute]
-    console.log({ dataset }, "hiiiii", skill)
-    console.log(actor)
+    const skillAttribute = pc.attributes[skill.attribute];
 
     const roll = new Roll(`1d20 + @prof + @attb + @bonus`, {
       prof: skill.proficiency,
@@ -28,18 +28,11 @@ export const rollSkill = [
       user: actor._id,
     });
 
-    if (skillName === 'initiative') {
-
-      console.log(actor, "INIT!!!")
-      const combatTracker = new CombatTracker()
-      const activeCombat = combatTracker.combats[0] // Deal with no active combat case
-      const combatant = activeCombat.combatants.find(({ actorId }) => actorId === actor.id)
-
-      // TODO: find how to add a new combatant to a combat. with this the edge case of rolling initiative to add a new combatant to combat is done. probably should throw most of this logic into R20CombatTracker and/or R20Combat and/or R20Combatant
-
-      combatant.update({ initiative: 999 })
+    if (skillName === "initiative") {
+      const combatant = await getOrCreateActorCombatant(actor)
+      combatant.update({ initiative: roll.total });
     }
 
     return message;
-  }
-]
+  },
+];

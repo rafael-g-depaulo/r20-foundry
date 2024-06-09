@@ -6,6 +6,7 @@ section.skills {
     ) min-content min-content;
   grid-template-rows: auto;
   gap: 0.125rem 0.25rem;
+  align-items: center;
 
   > :first-child {
     margin-bottom: 0.4rem;
@@ -26,6 +27,7 @@ section.skills {
   .buttons {
     display: flex;
     flex-direction: column;
+    justify-self: end;
 
     button {
       height: 1.5em;
@@ -42,5 +44,4 @@ section.skills {
     .minus {
     }
   }
-  // }
 }

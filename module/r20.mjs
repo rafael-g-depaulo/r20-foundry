@@ -24,15 +24,9 @@ Hooks.once("init", function () {
     R20Actor,
     R20Item,
     R20Combat,
+    R20CombatTracker,
     rollItemMacro,
   };
-
-  // Add custom constants for configuration.
-  CONFIG.R20 = R20;
-
-  CONFIG.Actor.documentClass = R20Actor;
-  CONFIG.Combat.documentClass = R20Combat;
-  CONFIG.ui.combat = R20CombatTracker;
 
   /**
    * Set an initiative formula for the system
@@ -44,6 +38,9 @@ Hooks.once("init", function () {
   };
 
   // Define custom Document classes
+  CONFIG.R20 = R20;
+  CONFIG.ui.combat = R20CombatTracker;
+  CONFIG.Combat.documentClass = R20Combat;
   CONFIG.Actor.documentClass = R20Actor;
   CONFIG.Item.documentClass = R20Item;
   CONFIG.Combatant.documentClass = R20Combatant;
