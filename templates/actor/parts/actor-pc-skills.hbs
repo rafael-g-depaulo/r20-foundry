@@ -1,0 +1,37 @@
+<section class="grid grid-3col">
+  <aside class="sidebar">
+
+    {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
+    use both the "grid" and "grid-Ncol" class where "N" can be any number
+    from 1 to 12 and will create that number of columns.  --}}
+    <div class="abilities flexcol">
+      {{#each attributes as |attribute key|}}
+      {{>"systems/r20/templates/actor/parts/pc-attribute.hbs" attribute=attribute attributeName=key}}
+      <!-- <div class="ability flexrow flex-group-center"> -->
+      <!--   <p>this is attribute {{key}}</p> -->
+      <!-- </div> -->
+      {{/each}}
+    </div>
+  </aside>
+
+  <div class="grid-span-2">
+    <span>available skill points: {{system.openSkillPoints}}</span>
+    <section class="main grid-span-2 skills">
+      <span class="skill-header">skill name</span>
+      <span class="skill-header grid-span-2">proficiencia</span>
+      <span class="skill-header grid-span-2">attb</span>
+      <span class="skill-header">bonus</span>
+      <span class="skill-header">total</span>
+      {{#each system.skills as |skill skillName|}}
+      {{>"systems/r20/templates/actor/parts/pc-skill.hbs" skill=skill skillName=skillName attributes=../attributes openSkillPoints=../openSkillPoints maxSkillProficiency=../maxSkillProficiency}}
+      {{/each}}
+    </section>
+  </div>
+
+  <!-- {{!-- For the main features list, span the right two columns --}} -->
+  <!-- <section class="main grid-span-2"> -->
+  <!--   {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}} -->
+  {{!-- {{> "systems/r20/templates/actor/parts/actor-features.hbs"}} --}}
+  <!-- </section> -->
+
+</section>

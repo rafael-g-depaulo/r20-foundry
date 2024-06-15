@@ -1,0 +1,45 @@
+
+<div class="attack">
+
+{{#unless (equals flags.r20.state "editing")}}
+  <span class="rollable" data-roll-type="attack" data-attack-id="{{attack._id}}">{{attack.name}}</span>
+{{/unless}}
+
+<span>TODO: attribute</span>
+
+{{#if (equals flags.r20.state "editing")}}
+  <input type="text" class="item-input" name="items.{{attack._id}}.name" value="{{attack.name}}">
+{{/if}}
+  
+<select name="items.{{attack._id}}.system.weaponId" class="item-input" value={{attack.weaponId}}>
+  {{#each weapons as |weapon|}}  
+    <option value="{{weapon._id}}" {{selectedIfEquals ../attack.system.weaponId weapon._id }}>{{ weapon.name }}</option>
+  {{/each}}
+</select>
+
+<div class="rollable" data-type-roll="attack-damage">
+  <div>
+    crit: {{weaponCrit attack.system.weapon}}
+  </div>
+  <div>
+    dmg: {{attack.system.weapon.system.damage}}
+  </div>
+</div>
+
+{{#unless (equals flags.r20.state "editing")}}
+<button class="sheet-action" data-action="edit-attack" data-attack-id="{{attack._id}}">edit attack</button>
+{{/unless}}
+{{#if (equals flags.r20.state "editing")}}
+<button class="sheet-action" data-action="view-attack" data-attack-id="{{attack._id}}">stop editing</button>
+{{/if}}
+
+{{#unless (equals flags.r20.state "deleting")}}
+<button class="sheet-action" data-action="remove-attack" data-attack-id="{{{attack._id}}}" >delete attack</button>
+{{/unless}}
+
+{{#if (equals flags.r20.state "deleting")}}
+<button class="sheet-action" data-action="remove-attack-confirm" data-attack-id="{{attack._id}}">really delete!</button>
+{{/if}}
+
+
+</div>
