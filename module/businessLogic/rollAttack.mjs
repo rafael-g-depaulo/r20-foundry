@@ -7,16 +7,18 @@ export const rollAttack = [
     const pc = actor.system;
     const { attackId } = dataset;
     const attack = pc.attacks.find(attack => attack.id === attackId)
-
+    
+    console.log("!!!!!!!!!!!!", pc, attack)
     // const attribute = pc.attributes[attack.system.attributeName]
+    const prof = attack.isProficient ? getProficiency(pc.level) : 0
+    const attb = pc[(attack.system.attribute ?? "").toUpperCase()] ?? 0
+    const bonus = attack.system.attackBonus !== "" ?attack.system.attackBonus : 0
+
+    console.log(prof, attb, bonus)
 
     const roll = new Roll(`1d20 + @prof + @attb + @bonus`, {
-      prof: attack.isProficient ? getProficiency(pc.level) : 0,
-      attb: getProficiency(pc, attack.attributeName),
-      bonus: attack.system.attackBonus
+      prof, attb, bonus
     });
-
-    console.log("SDFSDFSDFFFFFFFFFFFF", attack)
 
     await roll.evaluate();
 

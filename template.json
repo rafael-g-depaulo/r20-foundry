@@ -233,6 +233,7 @@
       "templates": [
         "base"
       ],
+      "attribute": "str",
       "attackBonus": "",
       "damageBonus": "",
       "weaponId": null

@@ -8,6 +8,9 @@ export const getAttributeProficiency = (pc, attbName) =>
     ? 0
     : !pc.attributes[attbName].isProficient
       ? 0
-      : getProficiency(pc.level);
+      : getProficiency(pc.system.level);
 
-export const getProficiency = (level) => level + 4;
+export const getProficiency = (level) => {
+  console.log("---------------", level)
+  return level + 4;
+}
