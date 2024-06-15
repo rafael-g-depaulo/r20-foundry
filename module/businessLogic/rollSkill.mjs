@@ -1,5 +1,4 @@
-import { getActorCombatant, getOrCreateActorCombatant } from "../helpers/combatant.mjs";
-import { getOrCreateCombat } from "../helpers/createCombat.mjs";
+import { getOrCreateActorCombatant } from "../helpers/combatant.mjs";
 import { getAttributeModifier } from "./attributeModifier.mjs";
 
 export const rollSkill = [

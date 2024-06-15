@@ -12,12 +12,16 @@ import { look } from "./helpers/effects.mjs";
 import { R20Combat } from "./combat/combat.mjs";
 import { R20CombatTracker } from "./combat/combatTracker.mjs";
 import { R20Combatant } from "./combat/combatant.mjs";
+import { getWeaponCritStr } from "./businessLogic/weaponCrit.mjs";
+import { getWeapon } from "./businessLogic/weapon.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
+console.log("init?")
 Hooks.once("init", function () {
+  console.log("INIT!!!!!")
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.r20 = {
@@ -89,6 +93,8 @@ Handlebars.registerHelper("log", (...args) =>
 );
 
 Handlebars.registerHelper("look", look);
+Handlebars.registerHelper("at", (arr, i) => arr.at(i))
+Handlebars.registerHelper("equals", (a, b) => a == b)
 
 /// Business Rules related helpers //////////////////////////
 /// Business Rules related helpers //////////////////////////
@@ -107,6 +113,8 @@ Handlebars.registerHelper(
 Handlebars.registerHelper("canDecreaseSkill", (skillValue) =>
   skillValue > 0 ? "" : " disabled"
 );
+Handlebars.registerHelper("weaponCrit", getWeaponCritStr)
+Handlebars.registerHelper("getWeapon", getWeapon)
 /// Business Rules related helpers //////////////////////////
 /// Business Rules related helpers //////////////////////////
 

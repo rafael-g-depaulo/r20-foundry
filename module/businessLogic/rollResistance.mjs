@@ -1,6 +1,5 @@
-import { R20ActorSheet } from "../sheets/actor-sheet.mjs";
 import { getAttributeModifier } from "./attributeModifier.mjs";
-import { getProficiencyBonus } from "./proficiency.mjs";
+import { getProficiency } from "./proficiency.mjs";
 
 export const rollAttributeResistance = [
   "attribute",
@@ -10,7 +9,7 @@ export const rollAttributeResistance = [
     const { attributeName } = dataset;
 
     const roll = new Roll(`1d20 + @prof + @attb`, {
-      prof: getProficiencyBonus(pc, attributeName),
+      prof: getProficiency(pc, attributeName),
       attb: getAttributeModifier(pc.attributes[attributeName]),
     });
 

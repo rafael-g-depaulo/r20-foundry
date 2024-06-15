@@ -1,4 +1,4 @@
-import { getAttributeProficiency, getProficiency } from "./proficiency.mjs";
+import { getProficiency } from "./proficiency.mjs";
 
 export const rollAttack = [
   "attack",
