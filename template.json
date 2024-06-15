@@ -192,7 +192,8 @@
       "weapon",
       "armor",
       "item",
-      "equipment"
+      "equipment",
+      "attack"
     ],
     "templates": {
       "base": {
@@ -203,7 +204,7 @@
       },
       "equipment": {
         "effects": [],
-        "equiped": false
+        "isEquiped": false
       }
     },
     "weapon": {
@@ -213,19 +214,28 @@
         "equipment"
       ],
       "tags": [],
-      "two-handed": false,
+      "twoHanded": false,
       "damage": "1d6",
-      "critMargin": 1,
+      "critMargin": 0,
       "critMult": 2
     },
     "armor": {
       "templates": [
         "base",
-        "item"
+        "item",
+        "equipment"
       ],
       "guard": 0,
       "dodge": 0,
       "movPenalty": 0
+    },
+    "attack": {
+      "templates": [
+        "base"
+      ],
+      "attackBonus": "",
+      "damageBonus": "",
+      "weaponId": null
     }
   }
 }

@@ -374,6 +374,7 @@
   grid-template-columns: 1fr min-content min-content min-content minmax(min-content, 1.8rem) min-content min-content;
   grid-template-rows: auto;
   gap: 0.125rem 0.25rem;
+  align-items: center;
 }
 .r20 section.skills > :first-child {
   margin-bottom: 0.4rem;
@@ -384,6 +385,7 @@
 .r20 section.skills .buttons {
   display: flex;
   flex-direction: column;
+  justify-self: end;
 }
 .r20 section.skills .buttons button {
   height: 1.5em;
@@ -392,6 +394,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.r20 .attack {
+  margin: 2rem 0;
+  border: 1px solid black;
 }
 
 /*# sourceMappingURL=r20.css.map */
