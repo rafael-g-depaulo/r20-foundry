@@ -1,9 +1,21 @@
 import { rollAttributeResistance } from "../businessLogic/rollResistance.mjs";
 import { rollSkill } from "../businessLogic/rollSkill.mjs";
+import { R20Item } from "../documents/item.mjs";
+import { groupBy } from "../helpers/array.mjs";
 import {
   onManageActiveEffect,
 } from "../helpers/effects.mjs";
-import { decreaseSkillProf, increaseSkillProf } from "./pc-sheet-actions.mjs";
+import { deepJoin, getPath, makeEntry } from "../helpers/object.mjs";
+import {
+  addNewAttack,
+  decreaseSkillProf,
+  editAttack,
+  increaseSkillProf,
+  removeAttack,
+  removeAttackConfim,
+  setViewAttack,
+  toggleItemEquip,
+} from "./pc-sheet-actions.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -49,11 +61,12 @@ export class R20ActorSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
 
-    // // Prepare character data and items.
-    // if (actorData.type == 'character') {
-    //   this._prepareItems(context)
-    //   this._prepareCharacterData(context)
-    // }
+    // Prepare character data and items.
+    if (actorData.type === "pc") {
+      this._prepareItems(context);
+      this._prepareCharacterData(context);
+    }
+
     //
     // // Prepare NPC data and items.
     // if (actorData.type == 'npc') {
@@ -82,8 +95,7 @@ export class R20ActorSheet extends ActorSheet {
    */
   _prepareCharacterData(context) {
     // Handle ability scores.
-    console.log(context.system);
-    console.log(context);
+    // console.clear()
     // for (let [k, v] of Object.entries(context.system.abilities ?? {})) {
     //   v.label = game.i18n.localize(CONFIG.R20.abilities[k]) ?? k
     // }
@@ -136,6 +148,11 @@ export class R20ActorSheet extends ActorSheet {
     // context.gear = gear
     // context.features = features
     // context.spells = spells
+
+    // context.gear = [...(context.weapons ?? []), ...(context.armor ?? [])]
+    // console.clear();
+    console.log(context);
+    // this.attacksState = context.attacksState = context.system.attacks.map(() => "view");
   }
 
   /* -------------------------------------------- */
@@ -182,6 +199,9 @@ export class R20ActorSheet extends ActorSheet {
     // Sheet action
     html.on("click", ".sheet-action", this._onSheetAction.bind(this));
 
+    // input that changes item
+    html.on("change", ".item-input", this._onItemInput.bind(this));
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
@@ -193,27 +213,79 @@ export class R20ActorSheet extends ActorSheet {
     }
   }
 
+  async _onItemInput(event) {
+    event.preventDefault();
+    const actor = this.actor;
+    const { dataset } = event.currentTarget;
+    const inputData = await event.result;
+
+    const itemChangesList = Object.entries(inputData)
+      .filter(([key]) => key.startsWith("items."))
+      .map(([key, value]) => {
+        const extractItemIdAndPath = /items\.([^\.]+)(\..+)/;
+        const [, id, path] = extractItemIdAndPath.exec(key) ?? [];
+        const item = actor.items.get(id);
+        if (!item) {
+          console.error(`Tried to update ${key} in actor but errored`, actor);
+          return;
+        }
+        // const item = actor?.getEmbeddedDocuments("Item", [id])
+        // console.log("editing item", item)
+
+        return [id, getPath(path), value];
+      })
+      .filter((a) => !!a);
+
+    const itemChangeListsByItem = groupBy((a) => a[0], itemChangesList);
+
+    const itemChanges = Object.entries(itemChangeListsByItem)
+      .map(([id, changeList]) => [
+        id,
+        changeList
+          // remove unecessary id marker
+          .map((change) => change.slice(1))
+          .map(([path, value]) => makeEntry(path, value)),
+      ])
+      .map(([id, changelist]) => [id, deepJoin(...changelist)])
+      .map(([_id, changeObj]) => ({ _id, ...changeObj }));
+    // .forEach(([id, changeObj]) => [actor]);
+    //.reduce((acc, cur) => ({... acc, }), {});
+
+    await actor.updateEmbeddedDocuments("Item", itemChanges)
+
+    console.log("SOOOOOOO", itemChanges);
+  }
+
   /**
    * @param {Event} event
    */
   async _onSheetAction(event) {
     event.preventDefault();
 
-    const actor = this.actor;
     const { dataset } = event.currentTarget;
     const { action } = dataset;
+    const actor = this.actor;
 
     const actionHandlers = [
       increaseSkillProf,
       decreaseSkillProf,
-    ]
-    const actionHandlerMapper = Object.fromEntries(actionHandlers)
+      toggleItemEquip,
+      addNewAttack,
+      editAttack,
+      removeAttack,
+      removeAttackConfim,
+      setViewAttack,
+    ];
+    const actionHandlerMapper = Object.fromEntries(actionHandlers);
 
     if (!actionHandlerMapper[action]) {
-      return console.error(`Invalid sheet action. Got ${action}. Valid actions are:`, Object.keys(actionHandlerMapper))
+      return console.error(
+        `Invalid sheet action. Got ${action}. Valid actions are:`,
+        Object.keys(actionHandlerMapper)
+      );
     }
 
-    actionHandlerMapper[action]({ actor, dataset })
+    actionHandlerMapper[action]({ actor, dataset });
   }
 
   /**
@@ -239,33 +311,34 @@ export class R20ActorSheet extends ActorSheet {
     // Remove the type from the dataset since it's in the itemData.type prop.
     delete itemData.system["type"];
 
+    console.log(itemData, header.dataset);
     // Finally, create the item!
-    return await Item.create(itemData, { parent: this.actor });
+    return await R20Item.create(itemData, { parent: this.actor });
   }
 
-  /**
-   * Handle clickable rolls.
-   * @param {Event} event   The originating click event
-   * @private
-   */
+  // /**
+  //  * Handle clickable rolls.
+  //  * @param {Event} event   The originating click event
+  //  * @private
+  //  */
   _onRoll(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-    const actor = this.actor
-    const { rollType } = dataset
+    const actor = this.actor;
+    const { rollType } = dataset;
 
-    const rollHandlers = [
-      rollAttributeResistance,
-      rollSkill,
-    ]
-    const rollHandlerMapper = Object.fromEntries(rollHandlers)
+    const rollHandlers = [rollAttributeResistance, rollSkill];
+    const rollHandlerMapper = Object.fromEntries(rollHandlers);
 
     if (!rollHandlerMapper[rollType]) {
-      return console.error(`Invalid roll type. Got ${rollType}. Valid actions are:`, Object.keys(rollHandlerMapper))
+      return console.error(
+        `Invalid roll type. Got ${rollType}. Valid actions are:`,
+        Object.keys(rollHandlerMapper)
+      );
     }
 
-    rollHandlerMapper[rollType]({ actor, dataset })
+    rollHandlerMapper[rollType]({ actor, dataset });
 
     // handle typed rolls
     // switch (dataset.rollType) {

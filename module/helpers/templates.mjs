@@ -11,12 +11,12 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/r20/templates/actor/parts/pc-skill.hbs',
     // Actor partials.
     'systems/r20/templates/actor/parts/actor-features.hbs',
+    'systems/r20/templates/actor/parts/actor-pc-skills.hbs',
+    'systems/r20/templates/actor/parts/actor-pc-attacks.hbs',
+    'systems/r20/templates/actor/parts/actor-pc-attack.hbs',
     'systems/r20/templates/actor/parts/actor-items.hbs',
     'systems/r20/templates/actor/parts/actor-spells.hbs',
     'systems/r20/templates/actor/parts/actor-effects.hbs',
-    'systems/r20/templates/actor/parts/actor-pc-attacks.hbs',
-    'systems/r20/templates/actor/parts/actor-pc-attack.hbs',
-    'systems/r20/templates/actor/parts/actor-pc-skills.hbs',
     // Item partials
     'systems/r20/templates/item/parts/item-effects.hbs',
   ]);

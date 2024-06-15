@@ -12,6 +12,18 @@ export class R20Item extends Item {
     super.prepareData();
   }
 
+  async prepareDerivedData() {
+    if (this.type === "attack") {
+      console.log("is attack", this)
+      const viewState = this.getFlag("r20", "state")
+      this.setFlag("r20", "state", viewState ?? "view")
+      // this.setFlag("r20", "state", "view")
+
+      this.system.weapon = this.actor.items.get(this.system.weaponId)
+      console.log("attack", this.system)
+    }
+  }
+
   /**
    * Prepare a data object which defines the data schema used by dice roll commands against this Item
    * @override

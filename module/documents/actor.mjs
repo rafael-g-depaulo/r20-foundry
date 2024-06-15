@@ -1,5 +1,7 @@
 import { getAttributeModifier } from "../businessLogic/attributeModifier.mjs"
 import { leftOverSkillPoints, maxSkillProficiency, totalSkillPoints } from "../businessLogic/skills.mjs";
+import { getItemCategory } from "../businessLogic/weapon.mjs";
+import { recursiveFixArraysInplace } from "../helpers/array.mjs";
 
 // TODO: make this generic and extract R20Pc stuff into separate class
 
@@ -19,6 +21,10 @@ export class R20Actor extends Actor {
     // the following, in order: data reset (to clear active effects),
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
+
+    console.log("!!!WAT", this)
+
+    this.system = recursiveFixArraysInplace(this.system)
 
     // prepare derived data once first because it's used in prepareBaseData
     this.prepareDerivedData();
@@ -59,7 +65,6 @@ export class R20Actor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   prepareDerivedData() {
-    console.log("getting derived data", this);
     const actorData = this;
     /** @type {R20Character} */
     const systemData = actorData.system;
@@ -86,7 +91,18 @@ export class R20Actor extends Actor {
     systemData.openSkillPoints = leftOverSkillPoints(systemData)
     systemData.maxSkillProficiency = maxSkillProficiency(systemData.level)
 
-    console.log("derived", systemData)
+    const items = actorData.items
+    const weapons = getItemCategory(items, "weapon")
+    const armor = getItemCategory(items, "armor")
+    const attacks = getItemCategory(items, "attack")
+
+    systemData.weapons = weapons
+    systemData.armor = armor
+    systemData.attacks = attacks
+
+    // console.log({ systemData })
+    // systemData.attacks.forEach(attack => attack.weapon = getWeapon(weapons, attack.weaponId))
+    // console.log("derived", systemData)
   }
 
   /**
