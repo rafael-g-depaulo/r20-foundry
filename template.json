@@ -177,7 +177,8 @@
         "bonusMaxMp": 0,
         "bonusMaxFp": 0,
         "isPaladin": false,
-        "bonusSkillPoints": 0
+        "bonusSkillPoints": 0,
+        "bonusCapacity": 0
       }
     },
     "npc": {
@@ -214,7 +215,6 @@
         "equipment"
       ],
       "tags": [],
-      "twoHanded": false,
       "damage": "1d6",
       "critMargin": 0,
       "critMult": 2

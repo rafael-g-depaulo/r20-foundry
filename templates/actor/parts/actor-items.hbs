@@ -4,7 +4,7 @@
     <div class="item-equiped">is equiped?</div>
     <div class="item-weight">weight</div>
     <div class="item-name">{{localize "Name"}}</div>
-    <div class="item-formula">{{localize "Roll Formula"}}</div>
+    {{!-- <div class="item-formula">{{localize "Roll Formula"}}</div> --}}
     <div class="item-controls">
       <a
         class="item-control item-create"
@@ -16,8 +16,12 @@
       </a>
     </div>
   </li>
-  {{#each gear as |item id|}}
+  {{#each system.items as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
+      <div class="item-ammount">
+        {{item.system.quantity}}
+      </div>
+
       <div>
         <input
           type="checkbox"
@@ -31,10 +35,6 @@
           data-previous-state="{{item.system.isEquiped}}"
           data-item-id="{{item._id}}"
         />
-      </div>
-
-      <div class="item-ammount">
-        {{item.system.ammount}}
       </div>
 
       <div class="item-weight">
@@ -54,7 +54,7 @@
         </div>
         <h4>{{item.name}}</h4>
       </div>
-      <div class="item-formula item-prop">{{item.system.formula}}</div>
+      {{!-- <div class="item-formula item-prop">{{item.system.formula}}</div> --}}
       <div class="item-controls">
         <a
           class="item-control item-edit"
@@ -73,7 +73,9 @@
   {{/each}}
   <div class="item flexrow">
     <span>total:</span>
-    <span>1234</span>
+    <span></span>
+    <span class="item-weight">{{system.currentCapacity}} / {{system.itemCapacity}}</span>
+    {{log this}}
     <span></span>
     <span></span>
     <span></span>

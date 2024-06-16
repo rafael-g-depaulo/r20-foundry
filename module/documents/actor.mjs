@@ -1,5 +1,10 @@
-import { getAttributeModifier } from "../businessLogic/attributeModifier.mjs"
-import { leftOverSkillPoints, maxSkillProficiency, totalSkillPoints } from "../businessLogic/skills.mjs";
+import { getAttributeModifier } from "../businessLogic/attributeModifier.mjs";
+import { getMaxCapacity } from "../businessLogic/inventory.mjs";
+import {
+  leftOverSkillPoints,
+  maxSkillProficiency,
+  totalSkillPoints,
+} from "../businessLogic/skills.mjs";
 import { getItemCategory } from "../businessLogic/weapon.mjs";
 import { recursiveFixArraysInplace } from "../helpers/array.mjs";
 
@@ -22,9 +27,9 @@ export class R20Actor extends Actor {
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
 
-    console.log("!!!WAT", this)
+    console.log("!!!WAT", this);
 
-    this.system = recursiveFixArraysInplace(this.system)
+    this.system = recursiveFixArraysInplace(this.system);
 
     // prepare derived data once first because it's used in prepareBaseData
     this.prepareDerivedData();
@@ -42,7 +47,7 @@ export class R20Actor extends Actor {
     const systemData = actorData.system;
 
     // Resources
-    console.log("AAAAAAAA", systemData)
+    console.log("AAAAAAAA", systemData);
     systemData.resources.hp.max =
       systemData.config.lv1MaxHp +
       systemData.config.hpPerLevel * (systemData.level - 1) +
@@ -71,7 +76,7 @@ export class R20Actor extends Actor {
     // const flags = actorData.flags.r20 || {};
 
     // Ability Modifiers
-    systemData.STR = getAttributeModifier(systemData.attributes.str)
+    systemData.STR = getAttributeModifier(systemData.attributes.str);
     systemData.DEX = getAttributeModifier(systemData.attributes.dex);
     systemData.CON = getAttributeModifier(systemData.attributes.con);
     systemData.INT = getAttributeModifier(systemData.attributes.int);
@@ -79,30 +84,39 @@ export class R20Actor extends Actor {
     systemData.PRE = getAttributeModifier(systemData.attributes.pre);
 
     // Skill totals
-    const skillsList = Object.keys(systemData.skills)
-    skillsList.forEach(skillName => {
+    const skillsList = Object.keys(systemData.skills);
+    skillsList.forEach((skillName) => {
       /** @type import("../typedefs/CharacterTypedef.mjs").Skill */
-      const skill = systemData.skills[skillName]
+      const skill = systemData.skills[skillName];
       skill.total =
-        getAttributeModifier(systemData.attributes[skill.attribute]) + skill.proficiency + skill.bonus
-    })
+        getAttributeModifier(systemData.attributes[skill.attribute]) +
+        skill.proficiency +
+        skill.bonus;
+    });
 
-    systemData.totalSkillPoints = totalSkillPoints(systemData)
-    systemData.openSkillPoints = leftOverSkillPoints(systemData)
-    systemData.maxSkillProficiency = maxSkillProficiency(systemData.level)
+    systemData.totalSkillPoints = totalSkillPoints(systemData);
+    systemData.openSkillPoints = leftOverSkillPoints(systemData);
+    systemData.maxSkillProficiency = maxSkillProficiency(systemData.level);
 
-    const items = actorData.items
-    const weapons = getItemCategory(items, "weapon")
-    const armor = getItemCategory(items, "armor")
-    const attacks = getItemCategory(items, "attack")
+    const items = actorData.items;
+    const weapons = getItemCategory(items, "weapon");
+    const armor = getItemCategory(items, "armor");
+    const attacks = getItemCategory(items, "attack");
 
-    systemData.weapons = weapons
-    systemData.armor = armor
-    systemData.attacks = attacks
+    systemData.weapons = weapons;
+    systemData.armor = armor;
+    systemData.items = [...weapons, ...armor];
+    systemData.attacks = attacks;
 
     // console.log({ systemData })
     // systemData.attacks.forEach(attack => attack.weapon = getWeapon(weapons, attack.weaponId))
     // console.log("derived", systemData)
+
+    // carry capacity
+    systemData.itemCapacity = getMaxCapacity(systemData);
+    systemData.currentCapacity = systemData.items
+      .map((item) => item.system.quantity * item.system.weight)
+      .reduce((a, b) => a + b);
   }
 
   /**
