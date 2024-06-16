@@ -5,26 +5,54 @@
   <span class="rollable" data-roll-type="attack" data-attack-id="{{attack._id}}">{{attack.name}}</span>
 {{/unless}}
 
-<span>TODO: attribute</span>
-
 {{#if (equals flags.r20.state "editing")}}
   <input type="text" class="item-input" name="items.{{attack._id}}.name" value="{{attack.name}}">
 {{/if}}
-  
+
+<select name="items.{{attack._id}}.system.attribute" value={{attack.system.attribute}} class="item-input">
+  {{!-- {{#each  as |testStuff|}} --}}
+  <option value="str" {{selectedIfEquals attack.system.attribute "str"}}>str</option>
+  <option value="dex" {{selectedIfEquals attack.system.attribute "dex"}}>dex</option>
+  <option value="con" {{selectedIfEquals attack.system.attribute "con"}}>con</option>
+  <option value="int" {{selectedIfEquals attack.system.attribute "int"}}>int</option>
+  <option value="sen" {{selectedIfEquals attack.system.attribute "sen"}}>sen</option>
+  <option value="pre" {{selectedIfEquals attack.system.attribute "pre"}}>pre</option>
+  {{!-- {{/each}} --}}
+</select>
+
+{{log "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"}}
+{{log attack}}
+
 <select name="items.{{attack._id}}.system.weaponId" class="item-input" value={{attack.weaponId}}>
   {{#each weapons as |weapon|}}  
     <option value="{{weapon._id}}" {{selectedIfEquals ../attack.system.weaponId weapon._id }}>{{ weapon.name }}</option>
   {{/each}}
 </select>
 
-<div class="rollable" data-type-roll="attack-damage">
-  <div>
-    crit: {{weaponCrit attack.system.weapon}}
-  </div>
-  <div>
-    dmg: {{attack.system.weapon.system.damage}}
-  </div>
+<div class="rollable" data-roll-type="normal-damage" data-attack-id="{{attack._id}}">
+  dmg: {{attack.system.weapon.system.damage}}
 </div>
+
+<div class="rollable" data-roll-type="critical-damage" data-attack-id="{{attack._id}}">
+  crit: {{weaponCrit attack.system.weapon}}
+</div>
+
+
+{{!-- attack config --}}
+{{#if (equals flags.r20.state "editing")}}
+
+<div>
+  <input class="item-input" type="checkbox" id="items.{{attack._id}}.system.isProficient" name="items.{{attack._id}}.system.isProficient" value="{{attack.system.isProficient}}" data-dtype="Boolean" {{checked attack.system.isProficient}} />
+  <label for="items.{{attack._id}}.system.isProficient">is proficient</label>
+</div>
+
+<label for="items.{{attack._id}}.system.damageBonus">damage bonus</label>
+<input type="text" class="item-input" name="items.{{attack._id}}.system.damageBonus" value="{{attack.system.damageBonus}}">
+
+<label for="items.{{attack._id}}.system.attackBonus">attack bonus</label>
+<input type="text" class="item-input" name="items.{{attack._id}}.system.attackBonus" value="{{attack.system.attackBonus}}">
+
+{{/if}}
 
 {{#unless (equals flags.r20.state "editing")}}
 <button class="sheet-action" data-action="edit-attack" data-attack-id="{{attack._id}}">edit attack</button>
