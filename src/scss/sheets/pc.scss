@@ -1,9 +1,8 @@
 section.skills {
   display: grid;
-  grid-template-columns: 1fr min-content min-content min-content minmax(
-      min-content,
-      1.8rem
-    ) min-content min-content;
+  grid-template-columns:
+    1fr min-content min-content min-content minmax(min-content, 1.8rem)
+    min-content min-content;
   grid-template-rows: auto;
   gap: 0.125rem 0.25rem;
   align-items: center;
@@ -46,8 +45,80 @@ section.skills {
   }
 }
 
-
 .attack {
   margin: 2rem 0;
   border: 1px solid black;
+}
+
+.sheet-header {
+  align-self: end;
+}
+
+.header-fields {
+  display: grid;
+  grid-template-areas:
+    "name name"
+    "resources resources"
+    "level defenses";
+  gap: 0.25rem 0.5rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+
+  .charname {
+    grid-area: name;
+  }
+  .resources {
+    grid-area: resources;
+    display: flex;
+    gap: 0.5rem;
+    margin: 0;
+    justify-content: space-around;
+
+    .resource {
+      width: fit-content;
+    }
+
+    .resource-content {
+      align-items: center;
+      & > input {
+        max-width: 3.2rem;
+      }
+      & > span {
+        font-size: 1.5rem;
+        max-width: 1rem;
+        // font-weight: bold;
+      }
+    }
+  }
+  .level {
+    grid-area: level;
+    display: flex;
+    gap: 0.25rem;
+    &>.resource-content {
+      max-width: 2rem;
+    }
+  }
+  .defenses {
+    grid-area: defenses;
+    display: grid;
+    grid-template-areas:
+      "defense defense"
+      "guard dodge";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    align-content: space-between;
+
+    > div {
+      text-align: center;
+    }
+    .defense {
+      grid-area: defense;
+    }
+    .guard {
+      grid-area: guard;
+    }
+    .dodge {
+      grid-area: dodge;
+    }
+  }
 }

@@ -1,0 +1,70 @@
+<form>
+
+  <div>
+    <label for="system.config.bonusDefense">bonus defense</label>
+    <input type="text" name="system.config.bonusDefense" value="{{system.config.bonusDefense}}" data-dtype="Number" >
+  </div> 
+
+  <div>
+    <label for="system.config.bonusGuard">bonus guard</label>
+    <input type="text" name="system.config.bonusGuard" value="{{system.config.bonusGuard}}" data-dtype="Number" >
+  </div> 
+
+  <div>
+    <label for="system.config.bonusDodge">bonus dodge</label>
+    <input type="text" name="system.config.bonusDodge" value="{{system.config.bonusDodge}}" data-dtype="Number" >
+  </div> 
+
+  <div>
+    <label for="system.config.bonusCapacity">bonus inventory capacity</label>
+    <input type="text" name="system.config.bonusCapacity" value="{{system.config.bonusCapacity}}" data-dtype="Number" >
+  </div> 
+
+  <div>
+    <input type="checkbox" id="system.config.isPaladin" name="system.config.isPaladin" value="{{system.config.isPaladin}}" data-dtype="Boolean" {{checked system.config.isPaladin}} />
+    <label for="system.config.isPaladin">é paladino</label>
+  </div>
+
+  <span>Proficiências</span>
+  {{#each system.attributes as |attribute key|}}
+    <div>
+      <input type="checkbox" id="system.attributes.{{key}}.isProficient" name="system.attributes.{{key}}.isProficient" value="{{attribute.isProficient}}" data-dtype="Boolean" {{checked attribute.isProficient}} />
+      <label for="system.attributes.{{key}}.isProficient">{{key}}</label>
+    </div>
+  {{/each}}
+
+  <div>
+    <label for="system.config.lv1MaxHp">starting max Hp</label>
+    <input type="text" name="system.config.lv1MaxHp" value="{{system.config.lv1MaxHp}}" data-dtype="Number" >
+  </div> 
+
+  <div>
+    <label for="system.config.hpPerLevel">HP per level</label>
+    <input type="text" name="system.config.hpPerLevel" value="{{system.config.hpPerLevel}}" data-dtype="Number" >
+  </div>
+
+  <div>
+    <label for="system.config.mpPerLevel">MP per level</label>
+    <input type="text" name="system.config.mpPerLevel" value="{{system.config.mpPerLevel}}" data-dtype="Number" >
+  </div>
+
+  <div>
+    <label for="system.config.bonusMaxHp">bonus max HP</label>
+    <input type="text" name="system.config.bonusMaxHP" value="{{system.config.bonusMaxHP}}" data-dtype="Number" >
+  </div> 
+
+  <div>
+    <label for="system.config.bonusMaxMp">bonus max MP</label>
+    <input type="text" name="system.config.bonusMaxMP" value="{{system.config.bonusMaxMP}}" data-dtype="Number" >
+  </div> 
+
+  <div>
+    <label for="system.config.bonusMaxFp">bonus max FP</label>
+    <input type="text" name="system.config.bonusMaxFP" value="{{system.config.bonusMaxFP}}" data-dtype="Number" >
+  </div> 
+
+  <div>
+    <label for="system.config.bonusSkillPoints">bonus skill points</label>
+    <input type="text" name="system.config.bonusSkillPoints" value="{{system.config.bonusSkillPoints}}" data-dtype="Number" >
+  </div> 
+</form>

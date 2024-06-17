@@ -399,5 +399,66 @@
   margin: 2rem 0;
   border: 1px solid black;
 }
+.r20 .sheet-header {
+  align-self: end;
+}
+.r20 .header-fields {
+  display: grid;
+  grid-template-areas: "name name" "resources resources" "level defenses";
+  gap: 0.25rem 0.5rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+}
+.r20 .header-fields .charname {
+  grid-area: name;
+}
+.r20 .header-fields .resources {
+  grid-area: resources;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  justify-content: space-around;
+}
+.r20 .header-fields .resources .resource {
+  width: fit-content;
+}
+.r20 .header-fields .resources .resource-content {
+  align-items: center;
+}
+.r20 .header-fields .resources .resource-content > input {
+  max-width: 3.2rem;
+}
+.r20 .header-fields .resources .resource-content > span {
+  font-size: 1.5rem;
+  max-width: 1rem;
+}
+.r20 .header-fields .level {
+  grid-area: level;
+  display: flex;
+  gap: 0.25rem;
+}
+.r20 .header-fields .level > .resource-content {
+  max-width: 2rem;
+}
+.r20 .header-fields .defenses {
+  grid-area: defenses;
+  display: grid;
+  grid-template-areas: "defense defense" "guard dodge";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  align-content: space-between;
+}
+.r20 .header-fields .defenses > div {
+  text-align: center;
+}
+.r20 .header-fields .defenses .defense {
+  grid-area: defense;
+}
+.r20 .header-fields .defenses .guard {
+  grid-area: guard;
+}
+.r20 .header-fields .defenses .dodge {
+  grid-area: dodge;
+}
 
 /*# sourceMappingURL=r20.css.map */

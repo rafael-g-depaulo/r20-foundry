@@ -178,7 +178,10 @@
         "bonusMaxFp": 0,
         "isPaladin": false,
         "bonusSkillPoints": 0,
-        "bonusCapacity": 0
+        "bonusCapacity": 0,
+        "bonusDefense": 0,
+        "bonusGuard": 0,
+        "bonusDodge": 0
       }
     },
     "npc": {

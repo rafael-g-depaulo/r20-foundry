@@ -15,6 +15,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/r20/templates/actor/parts/actor-pc-attacks.hbs',
     'systems/r20/templates/actor/parts/actor-pc-attack.hbs',
     'systems/r20/templates/actor/parts/actor-items.hbs',
+    'systems/r20/templates/actor/parts/actor-config.hbs',
     'systems/r20/templates/actor/parts/actor-spells.hbs',
     'systems/r20/templates/actor/parts/actor-effects.hbs',
     // Item partials

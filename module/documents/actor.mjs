@@ -7,6 +7,7 @@ import {
 } from "../businessLogic/skills.mjs";
 import { getItemCategory } from "../businessLogic/weapon.mjs";
 import { recursiveFixArraysInplace } from "../helpers/array.mjs";
+import { getDefense, getDodge, getGuard } from "../helpers/defense.mjs";
 
 // TODO: make this generic and extract R20Pc stuff into separate class
 
@@ -105,7 +106,8 @@ export class R20Actor extends Actor {
 
     systemData.weapons = weapons;
     systemData.armor = armor;
-    systemData.items = [...weapons, ...armor];
+    systemData.gear = [...weapons, ...armor];
+    systemData.items = [...systemData.gear]
     systemData.attacks = attacks;
 
     // console.log({ systemData })
@@ -117,6 +119,11 @@ export class R20Actor extends Actor {
     systemData.currentCapacity = systemData.items
       .map((item) => item.system.quantity * item.system.weight)
       .reduce((a, b) => a + b);
+
+    // defenses
+    systemData.guard = getGuard(systemData)
+    systemData.dodge = getDodge(systemData)
+    systemData.defense = getDefense(systemData)
   }
 
   /**
