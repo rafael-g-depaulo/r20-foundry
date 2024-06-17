@@ -399,7 +399,7 @@
   margin: 2rem 0;
   border: 1px solid black;
 }
-.r20 .sheet-header {
+.r20 .sheet-header > .profile-img {
   align-self: end;
 }
 .r20 .header-fields {
