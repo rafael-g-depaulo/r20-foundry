@@ -1,4 +1,5 @@
 import { getAttributeModifier } from "../businessLogic/attributeModifier.mjs";
+import { fixExtraPropertiesArray } from "../businessLogic/extraProperty.mjs";
 import { getMaxCapacity } from "../businessLogic/inventory.mjs";
 import {
   leftOverSkillPoints,
@@ -31,6 +32,8 @@ export class R20Actor extends Actor {
     console.log("!!!WAT", this);
 
     this.system = recursiveFixArraysInplace(this.system);
+    fixExtraPropertiesArray(this.system)
+    console.log("FIXING", this.system)
 
     // prepare derived data once first because it's used in prepareBaseData
     this.prepareDerivedData();
@@ -118,7 +121,7 @@ export class R20Actor extends Actor {
     systemData.itemCapacity = getMaxCapacity(systemData);
     systemData.currentCapacity = systemData.items
       .map((item) => item.system.quantity * item.system.weight)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
 
     // defenses
     systemData.guard = getGuard(systemData)

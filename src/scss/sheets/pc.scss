@@ -122,3 +122,33 @@ section.skills {
     }
   }
 }
+
+.prop-container {
+  h3 > button {
+    width: auto;
+  }
+.extra-properties {
+
+  display: grid;
+  grid-template-columns: min-content 1fr auto 1fr auto;
+  gap: 0.4rem;
+
+
+  .headers {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+
+    // &:last-child {
+    //   grid-span: 2;
+    // }
+  }
+  .extra-property {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+
+    align-items: center;
+  }
+}
+}

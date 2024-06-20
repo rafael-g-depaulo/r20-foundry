@@ -8,20 +8,21 @@ import { R20ItemSheet } from "./sheets/item-sheet.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { R20 } from "./helpers/config.mjs";
 import { getAttributeModifierStr } from "./businessLogic/attributeModifier.mjs";
-import { look } from "./helpers/effects.mjs";
+import { detailLook, look } from "./helpers/effects.mjs";
 import { R20Combat } from "./combat/combat.mjs";
 import { R20CombatTracker } from "./combat/combatTracker.mjs";
 import { R20Combatant } from "./combat/combatant.mjs";
 import { getWeaponCritStr } from "./businessLogic/weaponCrit.mjs";
 import { getWeapon } from "./businessLogic/weapon.mjs";
+import { R20ActiveEffect } from "./documents/activeEffect.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
-console.log("init?")
+console.log("init?");
 Hooks.once("init", function () {
-  console.log("INIT!!!!!")
+  console.log("INIT!!!!!");
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.r20 = {
@@ -48,6 +49,7 @@ Hooks.once("init", function () {
   CONFIG.Actor.documentClass = R20Actor;
   CONFIG.Item.documentClass = R20Item;
   CONFIG.Combatant.documentClass = R20Combatant;
+  CONFIG.ActiveEffect.documentClass = R20ActiveEffect;
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item
@@ -93,8 +95,11 @@ Handlebars.registerHelper("log", (...args) =>
 );
 
 Handlebars.registerHelper("look", look);
-Handlebars.registerHelper("at", (arr, i) => arr.at(i))
-Handlebars.registerHelper("equals", (a, b) => a == b)
+Handlebars.registerHelper("detailLook", (...args) =>
+  detailLook(...args.slice(0, -1))
+);
+Handlebars.registerHelper("at", (arr, i) => arr.at(i));
+Handlebars.registerHelper("equals", (a, b) => a == b);
 
 /// Business Rules related helpers //////////////////////////
 /// Business Rules related helpers //////////////////////////
@@ -113,8 +118,8 @@ Handlebars.registerHelper(
 Handlebars.registerHelper("canDecreaseSkill", (skillValue) =>
   skillValue > 0 ? "" : " disabled"
 );
-Handlebars.registerHelper("weaponCrit", getWeaponCritStr)
-Handlebars.registerHelper("getWeapon", getWeapon)
+Handlebars.registerHelper("weaponCrit", getWeaponCritStr);
+Handlebars.registerHelper("getWeapon", getWeapon);
 /// Business Rules related helpers //////////////////////////
 /// Business Rules related helpers //////////////////////////
 

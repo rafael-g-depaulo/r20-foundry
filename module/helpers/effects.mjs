@@ -6,29 +6,29 @@
 export function onManageActiveEffect(event, owner) {
   event.preventDefault();
   const a = event.currentTarget;
-  const li = a.closest('li');
+  const li = a.closest("li");
   const effect = li.dataset.effectId
     ? owner.effects.get(li.dataset.effectId)
     : null;
   switch (a.dataset.action) {
-    case 'create':
-      return owner.createEmbeddedDocuments('ActiveEffect', [
+    case "create":
+      return owner.createEmbeddedDocuments("ActiveEffect", [
         {
-          name: game.i18n.format('DOCUMENT.New', {
-            type: game.i18n.localize('DOCUMENT.ActiveEffect'),
+          name: game.i18n.format("DOCUMENT.New", {
+            type: game.i18n.localize("DOCUMENT.ActiveEffect"),
           }),
-          icon: 'icons/svg/aura.svg',
+          icon: "icons/svg/aura.svg",
           origin: owner.uuid,
-          'duration.rounds':
-            li.dataset.effectType === 'temporary' ? 1 : undefined,
-          disabled: li.dataset.effectType === 'inactive',
+          "duration.rounds":
+            li.dataset.effectType === "temporary" ? 1 : undefined,
+          disabled: li.dataset.effectType === "inactive",
         },
       ]);
-    case 'edit':
+    case "edit":
       return effect.sheet.render(true);
-    case 'delete':
+    case "delete":
       return effect.delete();
-    case 'toggle':
+    case "toggle":
       return effect.update({ disabled: !effect.disabled });
   }
 }
@@ -42,18 +42,18 @@ export function prepareActiveEffectCategories(effects) {
   // Define effect header categories
   const categories = {
     temporary: {
-      type: 'temporary',
-      label: game.i18n.localize('R20.Effect.Temporary'),
+      type: "temporary",
+      name: game.i18n.localize("R20.Effect.Temporary"),
       effects: [],
     },
     passive: {
-      type: 'passive',
-      label: game.i18n.localize('R20.Effect.Passive'),
+      type: "passive",
+      name: game.i18n.localize("R20.Effect.Passive"),
       effects: [],
     },
     inactive: {
-      type: 'inactive',
-      label: game.i18n.localize('R20.Effect.Inactive'),
+      type: "inactive",
+      name: game.i18n.localize("R20.Effect.Inactive"),
       effects: [],
     },
   };
@@ -67,4 +67,12 @@ export function prepareActiveEffectCategories(effects) {
   return categories;
 }
 
-export const look = (obj, path) => path.split(".").filter(a => a !== "").reduce((acc, cur) => acc[cur], obj)
+export const look = (obj, path) =>
+  path
+    .split(".")
+    .filter((a) => a !== "")
+    .reduce((acc, cur) => acc[cur], obj);
+
+export const detailLook = (obj, ...path) =>
+  path.length === 0 ? obj : detailLook(obj[path[0]], ...path.slice(1))
+

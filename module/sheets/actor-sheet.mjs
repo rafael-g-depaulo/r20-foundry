@@ -5,15 +5,18 @@ import { R20Item } from "../documents/item.mjs";
 import { groupBy } from "../helpers/array.mjs";
 import {
   onManageActiveEffect,
+  prepareActiveEffectCategories,
 } from "../helpers/effects.mjs";
 import { deepJoin, getPath, makeEntry } from "../helpers/object.mjs";
 import {
+  addExtraProperty,
   addNewAttack,
   decreaseSkillProf,
   editAttack,
   increaseSkillProf,
   removeAttack,
   removeAttackConfim,
+  removeExtraProperty,
   setViewAttack,
   toggleItemEquip,
 } from "./pc-sheet-actions.mjs";
@@ -76,13 +79,13 @@ export class R20ActorSheet extends ActorSheet {
     //
     // // Add roll data for TinyMCE editors.
     // context.rollData = context.actor.getRollData()
-    //
-    // // Prepare active effects
-    // context.effects = prepareActiveEffectCategories(
-    //   // A generator that returns all effects stored on the actor
-    //   // as well as any items
-    //   this.actor.allApplicableEffects()
-    // )
+
+    // Prepare active effects
+    context.effects = prepareActiveEffectCategories(
+      // A generator that returns all effects stored on the actor
+      // as well as any items
+      this.actor.allApplicableEffects()
+    )
 
     return context;
   }
@@ -276,6 +279,8 @@ export class R20ActorSheet extends ActorSheet {
       removeAttack,
       removeAttackConfim,
       setViewAttack,
+      addExtraProperty,
+      removeExtraProperty,
     ];
     const actionHandlerMapper = Object.fromEntries(actionHandlers);
 

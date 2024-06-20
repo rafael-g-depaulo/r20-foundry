@@ -460,5 +460,24 @@
 .r20 .header-fields .defenses .dodge {
   grid-area: dodge;
 }
+.r20 .prop-container h3 > button {
+  width: auto;
+}
+.r20 .prop-container .extra-properties {
+  display: grid;
+  grid-template-columns: min-content 1fr auto 1fr auto;
+  gap: 0.4rem;
+}
+.r20 .prop-container .extra-properties .headers {
+  display: grid;
+  grid-column: 1/-1;
+  grid-template-columns: subgrid;
+}
+.r20 .prop-container .extra-properties .extra-property {
+  display: grid;
+  grid-column: 1/-1;
+  grid-template-columns: subgrid;
+  align-items: center;
+}
 
 /*# sourceMappingURL=r20.css.map */

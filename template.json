@@ -182,7 +182,9 @@
         "bonusDefense": 0,
         "bonusGuard": 0,
         "bonusDodge": 0
-      }
+      },
+      "_extraConfig": [],
+      "extra": {}
     },
     "npc": {
       "templates": [
@@ -197,7 +199,8 @@
       "armor",
       "item",
       "equipment",
-      "attack"
+      "attack",
+      "effect"
     ],
     "templates": {
       "base": {
@@ -207,7 +210,6 @@
         "weight": 0
       },
       "equipment": {
-        "effects": [],
         "isEquiped": false
       }
     },
@@ -240,6 +242,9 @@
       "attackBonus": "",
       "damageBonus": "",
       "weaponId": null
+    },
+    "effect": {
+      "components": []
     }
   }
 }
