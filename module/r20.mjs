@@ -15,14 +15,13 @@ import { R20Combatant } from "./combat/combatant.mjs";
 import { getWeaponCritStr } from "./businessLogic/weaponCrit.mjs";
 import { getWeapon } from "./businessLogic/weapon.mjs";
 import { R20ActiveEffect } from "./documents/activeEffect.mjs";
+import { WeaponDataModel } from "./dataModels/weapon.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
-console.log("init?");
 Hooks.once("init", function () {
-  console.log("INIT!!!!!");
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.r20 = {
@@ -50,6 +49,9 @@ Hooks.once("init", function () {
   CONFIG.Item.documentClass = R20Item;
   CONFIG.Combatant.documentClass = R20Combatant;
   CONFIG.ActiveEffect.documentClass = R20ActiveEffect;
+
+  // Register Data Models. (see: https://foundryvtt.com/article/system-data-models/)
+  CONFIG.Item.dataModels.weapon = WeaponDataModel
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item

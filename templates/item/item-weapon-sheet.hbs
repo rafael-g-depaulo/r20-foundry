@@ -1,4 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off">
+<form class="{{cssClass}} weapon-sheet" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields">
@@ -20,6 +20,7 @@
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">Description</a>
     <a class="item" data-tab="attributes">Attributes</a>
+    <a class="item" data-tab="effects">Effects</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -38,13 +39,12 @@
 
     {{!-- Attributes Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
-      {{!-- As you add new fields, add them in here! --}}
-      <div class="resource">
+      {{!-- <div class="crit"> --}}
         <label for="system.damage">weapon damage</label>
         <input type="text" name="system.damage" value="{{system.damage}}" data-dtype="String"/>
 
         <label for="system.critMargin">crit</label>
-        <div>
+        <div class="crit">
           <span>(</span>
           <input type="text" name="system.critMargin" value="{{system.critMargin}}" data-dtype="String"/>
           <span>/</span>
@@ -52,12 +52,20 @@
           <span>x)</span>
         </div>
 
-        <label for="system.damageBonus">damage bonus</label>
-        <input type="text" name="system.damageBonus" value="{{system.damageBonus}}" data-type="String"/>
+        <h5>Tags <button class="sheet-action" data-action="add-tag">addTag</button></h5>
+        <div class="tags">
+          
+          {{#each system.tags as |tag tagIndex|}}
+            <input type="text" name="system.tags.{{tagIndex}}" value="{{detailLook ../system.tags tagIndex}}" data-type="String"/>
+            <button class="sheet-action" data-action="remove-tag" data-tag-index="{{tagIndex}}">delete</button>
+          {{/each}}
+        </div>
+        {{!-- <label for="system.damageBonus">damage bonus</label> --}}
+        {{!-- <input type="text" name="system.damageBonus" value="{{system.damageBonus}}" data-type="String"/> --}}
+        {{!----}}
+        {{!-- <label for="system.attackBonus">attack bonus</label> --}}
+        {{!-- <input type="text" name="system.attackBonus" value="{{system.attackBonus}}" data-type="String"/> --}}
 
-        <label for="system.attackBonus">attack bonus</label>
-        <input type="text" name="system.attackBonus" value="{{system.attackBonus}}" data-type="String"/>
-
-    </div>
+    {{!-- </div> --}}
   </section>
 </form>

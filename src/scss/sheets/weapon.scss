@@ -1,0 +1,25 @@
+.weapon-sheet {
+
+  
+  .attributes {
+    
+    .crit {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      input {
+        width: 1.5rem;
+        text-align: end;
+      }
+    }
+
+
+    .tags {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.4rem 0.2rem;
+      align-items: center;
+      justify-items: center;
+    }
+  }
+}

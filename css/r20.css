@@ -479,5 +479,21 @@
   grid-template-columns: subgrid;
   align-items: center;
 }
+.r20 .weapon-sheet .attributes .crit {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+.r20 .weapon-sheet .attributes .crit input {
+  width: 1.5rem;
+  text-align: end;
+}
+.r20 .weapon-sheet .attributes .tags {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.4rem 0.2rem;
+  align-items: center;
+  justify-items: center;
+}
 
 /*# sourceMappingURL=r20.css.map */

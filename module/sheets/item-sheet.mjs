@@ -2,6 +2,7 @@ import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
 } from "../helpers/effects.mjs";
+import { addTag, removeTag } from "./item-sheet-actions.mjs";
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
@@ -77,5 +78,26 @@ export class R20ItemSheet extends ItemSheet {
     html.on("click", ".effect-control", (ev) =>
       onManageActiveEffect(ev, this.item)
     );
+
+    html.on("click", ".sheet-action", (ev) => this._onSheetAction(ev));
+  }
+
+  _onSheetAction(event) {
+    event.preventDefault();
+    const { dataset } = event.currentTarget;
+    const { action } = dataset;
+    const object = this.object;
+
+    const actionHandlers = [addTag, removeTag];
+    const actionHandlerMapper = Object.fromEntries(actionHandlers);
+
+    if (!actionHandlerMapper[action]) {
+      return console.error(
+        `Invalid sheet action. Got ${action}. Valid actions are:`,
+        Object.keys(actionHandlerMapper)
+      );
+    }
+
+    actionHandlerMapper[action]({ dataset, object });
   }
 }

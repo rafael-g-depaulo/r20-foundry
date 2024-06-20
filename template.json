@@ -218,11 +218,7 @@
         "base",
         "item",
         "equipment"
-      ],
-      "tags": [],
-      "damage": "1d6",
-      "critMargin": 0,
-      "critMult": 2
+      ]
     },
     "armor": {
       "templates": [
