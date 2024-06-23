@@ -79,13 +79,13 @@ export class R20Actor extends Actor {
     const systemData = actorData.system;
     // const flags = actorData.flags.r20 || {};
 
-    // Ability Modifiers
-    systemData.STR = getAttributeModifier(systemData.attributes.str);
-    systemData.DEX = getAttributeModifier(systemData.attributes.dex);
-    systemData.CON = getAttributeModifier(systemData.attributes.con);
-    systemData.INT = getAttributeModifier(systemData.attributes.int);
-    systemData.SEN = getAttributeModifier(systemData.attributes.sen);
-    systemData.PRE = getAttributeModifier(systemData.attributes.pre);
+    // // Ability Modifiers
+    // systemData.STR = getAttributeModifier(systemData.attributes.str);
+    // systemData.DEX = getAttributeModifier(systemData.attributes.dex);
+    // systemData.CON = getAttributeModifier(systemData.attributes.con);
+    // systemData.INT = getAttributeModifier(systemData.attributes.int);
+    // systemData.SEN = getAttributeModifier(systemData.attributes.sen);
+    // systemData.PRE = getAttributeModifier(systemData.attributes.pre);
 
     // Skill totals
     const skillsList = Object.keys(systemData.skills);

@@ -163,29 +163,7 @@
         }
       }
     },
-    "pc": {
-      "templates": [
-        "base",
-        "character"
-      ],
-      "level": 1,
-      "config": {
-        "lv1MaxHp": 10,
-        "hpPerLevel": 4,
-        "mpPerLevel": 3,
-        "bonusMaxHp": 0,
-        "bonusMaxMp": 0,
-        "bonusMaxFp": 0,
-        "isPaladin": false,
-        "bonusSkillPoints": 0,
-        "bonusCapacity": 0,
-        "bonusDefense": 0,
-        "bonusGuard": 0,
-        "bonusDodge": 0
-      },
-      "_extraConfig": [],
-      "extra": {}
-    },
+    "pc": {},
     "npc": {
       "templates": [
         "base"

@@ -3,15 +3,12 @@
 
   {{#each effects as |section sid|}}
     <li class="items-header flexrow" data-effect-type="{{section.type}}" data-parent-id="{{@root.actor.id}}" >
-      <h3 class="item-name effect-name flexrow">{{localize section.label}}</h3>
+      <h3 class="item-name effect-name flexrow">{{localize section.name}}</h3>
       <div class="effect-source">Effect Source</div>
       <div class="effect-source">Effect Duration</div>
       <div class="item-controls effect-controls flexrow">
         <a class="effect-control" data-action="create" title="{{localize 'DOCUMENT.Create' type="Effect"}}">
           <i class="fas fa-plus"></i> New Effect
-        </a>
-        <a class="effect-control" data-action="edit" title="TESTEEEEE">
-          <i class="fas fa-plus"></i> EDIT????
         </a>
       </div>
     </li>

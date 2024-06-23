@@ -1,5 +1,5 @@
 import { makeNewAttack } from "../businessLogic/attack.mjs";
-import { newExtraProperty } from "../businessLogic/extraProperty.mjs";
+import { ExtraPropertySchema } from "../dataModels/fieldSchemas.mjs";
 import { editItem, setItemFlag } from "../helpers/item.mjs";
 
 export const increaseSkillProf = [
@@ -98,14 +98,12 @@ export const removeAttackConfim = [
 export const addExtraProperty = [
   "add-extra-property",
   async ({ actor }) => {
+    const oldExtraProps = actor.system.extraProperties ?? []
+    const newExtraProperty = ExtraPropertySchema().initial();
+    const newExtraProps = [...oldExtraProps, newExtraProperty]
     return actor.update({
       system: {
-        config: {
-          _extraProps: [
-            ...(actor.system.config._extraProps ?? []),
-            newExtraProperty(),
-          ],
-        },
+        extraProperties: newExtraProps,
       },
     });
   },
@@ -113,18 +111,16 @@ export const addExtraProperty = [
 export const removeExtraProperty = [
   "remove-extra-property",
   async ({ actor, dataset }) => {
-    const { propIndex } = dataset
-    console.log(actor.system.config._extraProps, propIndex)
+    const { propIndex } = dataset;
+    console.log(actor.system.extraProperties, propIndex);
     // remove destructively from current array and return it
-    actor.system.config._extraProps.splice(propIndex, 1)
-    console.log(actor.system.config._extraProps, propIndex)
+    actor.system.extraProperties.splice(propIndex, 1);
+    console.log(actor.system.extraProperties, propIndex);
 
     return actor.update({
       system: {
-        config: {
-          _extraProps: actor.system.config._extraProps
-        }
-      }
-    })
-  }
-]
+        extraProperties: actor.system.extraProperties,
+      },
+    });
+  },
+];

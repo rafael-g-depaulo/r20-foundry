@@ -1,36 +1,34 @@
 <div class="prop-container">
-<h3>Extra properties
-<button class="sheet-action" data-action="add-extra-property">Add extra property</button>
-</h3>
+  <h3>Extra properties
+    <button class="sheet-action" data-action="add-extra-property">Add extra property</button>
+  </h3>
   <div class="extra-properties">
 
     <div class="headers">
-      
-  <span>Show</span>
-  <span>Name</span>
-  <span>Type</span>
-  <span>Value</span>
+      <span>Show</span>
+      <span>Name</span>
+      <span>Type</span>
+      <span>Value</span>
     </div>
 
-  {{#each system.config._extraProps as |extraProp propIndex|}}
-  <div class="extra-property">
+    {{#each system.extraProperties as |extraProp propIndex|}}
+    <div class="extra-property">
+      <input type="checkbox" id="system.extraProperties.{{propIndex}}.show" name="system.extraProperties.{{propIndex}}.show" value="{detailLook ../system.extraProperties propIndex 'show'}}" data-dtype="Boolean" {{checked (detailLook ../system.extraProperties propIndex "show")}} />
 
-    <input type="checkbox" id="system.config._extraProps.{{propIndex}}.show" name="system.config._extraProps.{{propIndex}}.show" value="{{detailLook ../system.config._extraProps propIndex 'show'}}" data-dtype="Boolean" {{checked (detailLook ../system.config._extraProps propIndex "show")}} />
+      <input type="text" name="system.extraProperties.{{propIndex}}.name" value="{{extraProp.name}}">
 
-    <input type="text" name="system.config._extraProps.{{propIndex}}.name" value="{{extraProp.name}}">
+      <select name="system.extraProperties.{{propIndex}}.type" value={{extraProp.type}}>
+        <option value="number" {{selectedIfEquals extraProp.type "number"}}>number</option>
+        <option value="bool" {{selectedIfEquals extraProp.type "bool"}}>bool</option>
+        <option value="text" {{selectedIfEquals extraProp.type "text"}}>text</option>
+      </select>
 
-    <select name="system.config._extraProps.{{propIndex}}.type" value={{extraProp.type}}>
-      <option value="number" {{selectedIfEquals extraProp.type "number"}}>number</option>
-      <option value="bool" {{selectedIfEquals extraProp.type "bool"}}>bool</option>
-      <option value="text" {{selectedIfEquals extraProp.type "text"}}>text</option>
-    </select>
+      <input type="text" name="system.extraProperties.{{propIndex}}.value" value="{{extraProp.value}}">
 
-    <input type="text" name="system.config._extraProps.{{propIndex}}.value" value="{{extraProp.value}}">
-
-    <button class="sheet-action" data-action="remove-extra-property" data-prop-index="{{propIndex}}">Delete</button>
+      <button class="sheet-action" data-action="remove-extra-property" data-prop-index="{{propIndex}}">Delete</button>
+    </div>
+    {{/each}}
   </div>
-  {{/each}}
-</div>
 </div>
 
 
@@ -64,10 +62,10 @@
 
   <span>Proficiências</span>
   {{#each system.attributes as |attribute key|}}
-    <div>
-      <input type="checkbox" id="system.attributes.{{key}}.isProficient" name="system.attributes.{{key}}.isProficient" value="{{attribute.isProficient}}" data-dtype="Boolean" {{checked attribute.isProficient}} />
-      <label for="system.attributes.{{key}}.isProficient">{{key}}</label>
-    </div>
+  <div>
+    <input type="checkbox" id="system.attributes.{{key}}.isProficient" name="system.attributes.{{key}}.isProficient" value="{{attribute.isProficient}}" data-dtype="Boolean" {{checked attribute.isProficient}} />
+    <label for="system.attributes.{{key}}.isProficient">{{key}}</label>
+  </div>
   {{/each}}
 
   <div>

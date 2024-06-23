@@ -1,22 +1,8 @@
-const initialPropName = "propriedade"
-
-export const newExtraProperty = () => ({
-  name: initialPropName,
-  type: "number",
-  value: 0,
-  unused: true,
-});
-
 export const fixExtraPropertiesArray = (system) => {
-  console.log("!@#")
-  system.config._extraProps ??= []
-  const extraPropsConfigArray = system.config._extraProps
+  system.extraProperties ??= []
+  const extraPropsConfigArray = system.extraProperties
 
   extraPropsConfigArray.forEach((prop, i) => {
-    console.log("FIXING", i, prop)
-    if (prop.name === initialPropName)
-      return
-
     const propValue =
       prop.type === "number" ? Number(prop.value) :
         prop.type === "bool" ? !(prop.value === "false") : prop.value

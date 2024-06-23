@@ -8,7 +8,7 @@ export const recursiveFixArraysInplace = (obj) => {
       obj[key] = recursiveFixArraysInplace(obj[key]);
     }
   }
-  if (makeArray && !Array.isArray(obj)) {
+  if (makeArray && Array.isArray(obj)) {
     const newArray = [];
     for (const key in obj) newArray[Number(key)] = obj[key];
     return newArray;
