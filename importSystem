@@ -1,0 +1,11 @@
+#!/bin/bash
+
+R20_DIR="$(pwd)"
+SYSTEMS_DIR="$HOME/.local/share/FoundryVTT/Data/systems"
+
+if [[ ! -d "$SYSTEMS_DIR/r20" ]]; then
+	echo "No system found. Adding symlink to this folder"
+	ln -s "$R20_DIR" "$SYSTEMS_DIR/r20"
+else
+	echo "Already found 'r20' system at $SYSTEMS_DIR. Skipping."
+fi
