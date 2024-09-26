@@ -7,6 +7,7 @@ import {
   totalSkillPoints,
 } from "../businessLogic/skills.mjs";
 import { getItemCategory } from "../businessLogic/weapon.mjs";
+import { PcDataModel } from "../dataModels/pc.mjs";
 import { recursiveFixArraysInplace } from "../helpers/array.mjs";
 import { getDefense, getDodge, getGuard } from "../helpers/defense.mjs";
 
@@ -29,11 +30,10 @@ export class R20Actor extends Actor {
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
 
-    console.log("!!!WAT", this);
-
-    this.system = recursiveFixArraysInplace(this.system);
-    fixExtraPropertiesArray(this.system)
-    console.log("FIXING", this.system)
+    // console.log("PRE-FIXING", this.system)
+    // this.system = recursiveFixArraysInplace(this.system);
+    // fixExtraPropertiesArray(this.system)
+    // console.log("FIXING", this.system)
 
     // prepare derived data once first because it's used in prepareBaseData
     this.prepareDerivedData();
@@ -51,17 +51,11 @@ export class R20Actor extends Actor {
     const systemData = actorData.system;
 
     // Resources
-    console.log("AAAAAAAA", systemData);
-    systemData.resources.hp.max =
-      systemData.config.lv1MaxHp +
-      systemData.config.hpPerLevel * (systemData.level - 1) +
-      systemData.level * systemData.CON +
-      systemData.config.bonusMaxHP;
-    systemData.resources.mp.max =
-      systemData.config.mpPerLevel * systemData.level +
-      systemData.config.bonusMaxMP;
-    systemData.resources.fp.max =
-      5 * systemData.level + systemData.config.bonusMaxFP;
+    // TODO: add all of those into populateVirtualProps
+    systemData.updateMaxResources();
+    systemData.updateMaxSkillProficiency()
+    // systemData.populateExtraProps()
+    systemData.updateVirtualProps()
   }
 
   /**
@@ -79,14 +73,6 @@ export class R20Actor extends Actor {
     const systemData = actorData.system;
     // const flags = actorData.flags.r20 || {};
 
-    // // Ability Modifiers
-    // systemData.STR = getAttributeModifier(systemData.attributes.str);
-    // systemData.DEX = getAttributeModifier(systemData.attributes.dex);
-    // systemData.CON = getAttributeModifier(systemData.attributes.con);
-    // systemData.INT = getAttributeModifier(systemData.attributes.int);
-    // systemData.SEN = getAttributeModifier(systemData.attributes.sen);
-    // systemData.PRE = getAttributeModifier(systemData.attributes.pre);
-
     // Skill totals
     const skillsList = Object.keys(systemData.skills);
     skillsList.forEach((skillName) => {
@@ -100,7 +86,7 @@ export class R20Actor extends Actor {
 
     systemData.totalSkillPoints = totalSkillPoints(systemData);
     systemData.openSkillPoints = leftOverSkillPoints(systemData);
-    systemData.maxSkillProficiency = maxSkillProficiency(systemData.level);
+    systemData.updateMaxSkillProficiency()
 
     const items = actorData.items;
     const weapons = getItemCategory(items, "weapon");

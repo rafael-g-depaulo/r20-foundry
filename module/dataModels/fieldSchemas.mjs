@@ -68,9 +68,15 @@ export const SkillSchema = (attributeName) => {
     attribute: new StringField({
       required: true,
       nullable: false,
-      coices: R20.attributeNames,
+      choices: R20.attributeNamesArray,
       textSearch: false,
       initial: attributeName,
+    }),
+    total: new NumberField({
+      required: false,
+      nullable: false,
+      integer: true,
+      initial: 0,
     }),
   });
 };
@@ -123,7 +129,7 @@ export const ExtraPropertySchema = () => {
       initial: "number",
       textSearch: false,
     }),
-    value: new AnyField({ initial: "" }),
+    value: new StringField({ initial: "" }),
     show: new BooleanField({ initial: false }),
   })
 }

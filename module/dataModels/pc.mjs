@@ -1,3 +1,7 @@
+import {
+  maxSkillProficiency,
+  totalSkillPoints,
+} from "../businessLogic/skills.mjs";
 import { CharacterDataModel } from "./character.mjs";
 import { ExtraPropertySchema, ExtraSkillSchema } from "./fieldSchemas.mjs";
 
@@ -103,46 +107,81 @@ export class PcDataModel extends CharacterDataModel {
           initial: 0,
         }),
       }),
+
+      // skill points related stuff (auto calculated)
+      // TODO: remove since it's most likely not needed anymore
+      maxSkillProficiency: new NumberField({
+        required: false,
+        nullable: true,
+        integer: true,
+        min: 1,
+        initial: maxSkillProficiency(1),
+      }),
+      totalSkillPoints: new NumberField({
+        required: false,
+        nullable: true,
+        integer: true,
+        min: 1,
+      }),
+      openSkillPoints: new NumberField({
+        required: false,
+        nullable: true,
+        integer: true,
+        min: 1,
+      }),
     };
   }
 
-  // // leftover from when i was trying to implement stuff using proxy. it works, but i prefer a more low-tech solution
-  // #_extraProps = { __system__: this }
-  // extra = new Proxy(this.#_extraProps, {
-  //   get(obj, key) {
-  //     const { __system__: system } = obj
-  //     const extraProps = system.extraProperties
-  //     const extraProp = extraProps.find(prop => prop.name === key)
-  //
-  //     if (!extraProp) {
-  //       console.error(`Tried to get extra property ${key} but couldn't. obj:`, obj)
-  //       return undefined
-  //     }
-  //
-  //     if (extraProp.type === "number") return Number(extraProp.value)
-  //     if (extraProp.type === "bool") return extraProp.value !== "false"
-  //     return extraProp.value
-  //   },
-  //   set(obj, prop, value) {
-  //     console.error(`Can't set extra prop of caracter through this proxy`, obj, prop, value)
-  //   },
-  // })
+  // update the props that are supposed to be dynamically calcultated
+  updateVirtualProps() {
+    // update skill total bonus
+    Object.entries(this.skills).forEach(([skillName, skill]) => {
+      this.skills[skillName].total =
+        skill.proficiency +
+        skill.bonus +
+        this.getAttributeModifier(skill.attribute);
+    });
+  }
 
-  extra = {}
-  constructor(data, config) {
-    super(data, config)
+  updateMaxSkillProficiency() {
+    this.maxSkillProficiency = maxSkillProficiency(this.level);
+  }
 
+  updateMaxResources() {
+    this.resources.hp.max =
+      this.config.lv1MaxHp +
+      this.config.hpPerLevel * (this.level - 1) +
+      this.level * this.CON +
+      this.config.bonusMaxHp;
+    this.resources.mp.max =
+      this.config.mpPerLevel * this.level + this.config.bonusMaxMp;
+    this.resources.fp.max = 5 * this.level + this.config.bonusMaxFp;
+  }
+
+  extra = {};
+  populateExtraProps() {
     // populate the extra props
-    data.extraProperties.forEach(({ name, type, value }) => {
-      this.extra[name] = type === "number" ? Number(value) : type === "bool" ? value !== "false" : value
+    this.extraProperties.forEach(({ name, type, value }) => {
+      this.extra[name] =
+        type === "number"
+          ? Number(value)
+          : type === "bool"
+            ? value !== "false"
+            : value;
 
       // also if the prop doesn't have a conflict with a complex object, just lift it to top level
-      console.log(
-        "ACESSING", this[name], !this[name], typeof this[name]
-      )
-      if (typeof this[name] === "object") return
+      console.log("ACESSING", this[name], !this[name], typeof this[name]);
+      if (typeof this[name] === "object") return;
 
-      this[name] = this.extra[name]
-    })
+      this[name] = this.extra[name];
+    });
+  }
+
+  populateExtraSkills() {
+    console.info("TODO: implement populateExtraSkills");
+  }
+
+  constructor(data, config) {
+    super(data, config);
   }
 }

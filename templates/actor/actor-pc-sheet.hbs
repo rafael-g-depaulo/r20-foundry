@@ -1,5 +1,8 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
+  <!-- Extremely important. this hidrates the system to use the methods/getters from PcModel -->
+  {{setVar "system" (hidratePc system) }}
+
   {{!-- Sheet Header --}}
   <header class="sheet-header">
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
