@@ -106,7 +106,7 @@ export const ExtraSkillSchema = () => {
     attribute: new StringField({
       required: true,
       nullable: false,
-      coices: R20.attributeNames,
+      choices: R20.attributeNamesArray,
       textSearch: false,
       initial: R20.attributeNames.INT,
     }),
@@ -131,5 +131,46 @@ export const ExtraPropertySchema = () => {
     }),
     value: new StringField({ initial: "" }),
     show: new BooleanField({ initial: false }),
+  })
+}
+
+export const AttackSchema = () => {
+  const { SchemaField, NumberField, StringField, DocumentIdField } = foundry.data.fields
+
+  return new SchemaField({
+    name: new StringField({
+      required: true,
+      trim: true,
+      nullable: false,
+      initial: "attack",
+    }),
+    attackBonus: new NumberField({
+      required: true,
+      nullable: false,
+      integer: true,
+      initial: 0,
+    }),
+    damageBonus: new NumberField({
+      required: true,
+      nullable: false,
+      integer: true,
+      initial: 0,
+    }),
+    attackAttb: new StringField({
+      required: true,
+      nullable: false,
+      choices: ["", ...R20.attributeNamesArray],
+      initial: "",
+    }),
+    damageAttb: new StringField({
+      required: true,
+      nullable: false,
+      choices: ["", ...R20.attributeNamesArray],
+      initial: "",
+    }),
+    weapon: new DocumentIdField({
+      required: true,
+    })
+
   })
 }

@@ -1,9 +1,9 @@
 import { R20 } from "../helpers/config.mjs";
-import { AttributeSchema, ResourceSchema, SkillSchema } from "./fieldSchemas.mjs";
+import { AttackSchema, AttributeSchema, ResourceSchema, SkillSchema } from "./fieldSchemas.mjs";
 
 export class CharacterDataModel extends foundry.abstract.DataModel {
   static defineSchema() {
-    const { SchemaField } = foundry.data.fields;
+    const { SchemaField, ArrayField } = foundry.data.fields;
 
     return {
       resources: new SchemaField({
@@ -27,6 +27,10 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
           ])
         )
       ),
+      attacks: new ArrayField(AttackSchema(), {
+        required: true,
+        initial: [],
+      })
     };
   }
 
