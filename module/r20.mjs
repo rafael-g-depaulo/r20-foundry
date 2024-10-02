@@ -97,10 +97,10 @@ Handlebars.registerHelper("selectedIfEquals", function (a, b) {
 Handlebars.registerHelper("log", (...args) =>
   console.log(...args.slice(0, -1))
 );
-Handlebars.registerHelper("logJson", (...args) =>
+Handlebars.registerHelper("showJson", (...args) =>
   args
     .slice(0, -1)
-    .map(arg => `<pre>${JSON.stringify(arg, null, 2)}</pre>`)
+    .map(arg => JSON.stringify(arg, null, 2))
     .join("\n")
 )
 
@@ -110,7 +110,11 @@ Handlebars.registerHelper("detailLook", (...args) =>
 );
 Handlebars.registerHelper("at", (arr, i) => arr.at(i));
 Handlebars.registerHelper("equals", (a, b) => a == b);
-Handlebars.registerHelper("hidratePc", (pcSystemData) => CONFIG.Actor.dataModels.pc.fromSource(pcSystemData))
+Handlebars.registerHelper("hidratePc", (pcSystemData) => {
+  const hidratedPc = CONFIG.Actor.dataModels.pc.fromSource(pcSystemData)
+  hidratedPc.populateExternalIds()
+  return hidratedPc
+})
 Handlebars.registerHelper("setVar", (varName, varValue, opts) => {
   opts.data.root[varName] = varValue;
 })

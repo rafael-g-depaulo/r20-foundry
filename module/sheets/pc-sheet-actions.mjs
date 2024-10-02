@@ -59,21 +59,19 @@ export const addNewAttack = [
   "add-new-attack",
   async ({ actor }) => {
     // TODO: add unarmed attack fallback
-    const weapon = actor.items.find(i => i.type === "weapon") ?? game.items.get("XcVwokcl59UNSYI6")
+    // const weapon = actor.items.find(i => i.type === "weapon") ?? game.items.get("XcVwokcl59UNSYI6")
+    const weaponId = actor.items.find(i => i.type === "weapon")?.id ?? "XcVwokcl59UNSYI6"
 
-    if (!weapon) {
+    if (!weaponId) {
       console.error("Tried to create attack for char without a weapon.", { actor })
       return
     }
 
+    const newAttack = makeNewAttack({ weaponId })
+
     return actor.update({
       system: {
-        attributes: {
-          con: {
-            value: 87
-          }
-        },
-        attacks: [...actor.system.attacks, makeNewAttack({ weapon })],
+        attacks: [...actor.system.attacks, newAttack],
       }
     })
   },

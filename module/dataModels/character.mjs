@@ -39,6 +39,17 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
     return Math.floor((attribute.value + attribute.bonus - 10) / 2);
   }
 
+  populateExternalIds({ items } = {}) {
+    const globalItems = items ?? game.items
+
+    this.attacks.forEach((attack, attackIndex) => {
+      const { weaponId } = attack
+      const weapon = globalItems.find(item => item.id === weaponId)
+
+      this.attacks[attackIndex] = { ...attack, weapon, weaponId }
+    })
+  }
+
   get STR() {
     return this.getAttributeModifier("str");
   }

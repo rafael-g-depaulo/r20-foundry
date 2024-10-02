@@ -84,35 +84,30 @@ export class R20Actor extends Actor {
         skill.bonus;
     });
 
+    //     const items = actorData.items;
+    //     const weapons = getItemCategory(items, "weapon");
+    //     const armor = getItemCategory(items, "armor");
+    //     const attacks = getItemCategory(items, "attack");
+
     systemData.totalSkillPoints = totalSkillPoints(systemData);
     systemData.openSkillPoints = leftOverSkillPoints(systemData);
     systemData.updateMaxSkillProficiency()
-
-    const items = actorData.items;
-    const weapons = getItemCategory(items, "weapon");
-    const armor = getItemCategory(items, "armor");
-    const attacks = getItemCategory(items, "attack");
-
-    systemData.weapons = weapons;
-    systemData.armor = armor;
-    systemData.gear = [...weapons, ...armor];
-    systemData.items = [...systemData.gear]
-    systemData.attacks = attacks;
+    systemData.populateExternalIds()
 
     // console.log({ systemData })
     // systemData.attacks.forEach(attack => attack.weapon = getWeapon(weapons, attack.weaponId))
     // console.log("derived", systemData)
 
-    // carry capacity
-    systemData.itemCapacity = getMaxCapacity(systemData);
-    systemData.currentCapacity = systemData.items
-      .map((item) => item.system.quantity * item.system.weight)
-      .reduce((a, b) => a + b, 0);
+    // // carry capacity
+    // systemData.itemCapacity = getMaxCapacity(systemData);
+    // systemData.currentCapacity = systemData.items
+    //   .map((item) => item.system.quantity * item.system.weight)
+    //   .reduce((a, b) => a + b, 0);
 
-    // defenses
-    systemData.guard = getGuard(systemData)
-    systemData.dodge = getDodge(systemData)
-    systemData.defense = getDefense(systemData)
+    // // defenses
+    // systemData.guard = getGuard(systemData)
+    // systemData.dodge = getDodge(systemData)
+    // systemData.defense = getDefense(systemData)
   }
 
   /**

@@ -1,6 +1,6 @@
 import { AttackSchema } from "../dataModels/fieldSchemas.mjs";
 
-export const makeNewAttack = ({ weapon }) => ({
+export const makeNewAttack = ({ weaponId }) => ({
   ...AttackSchema().initial(),
-  weapon,
+  weaponId,
 })

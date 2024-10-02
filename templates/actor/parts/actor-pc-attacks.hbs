@@ -2,10 +2,10 @@
   testereeeeee
   <button class="sheet-action" data-action="add-new-attack">create new attack</button>
 </div>
-{{log attacks weapons}}
 {{#each attacks as |attack attackIndex|}}
   {{!-- {{log "answer??????" this attack attackIndex}} --}}
   {{!-- {{log "a" attacksState attackIndex }} --}}
+  <pre>{{showJson attack}}</pre>
   {{>"systems/r20/templates/actor/parts/actor-pc-attack.hbs" weapons=../weapons attack=this }}
 {{/each}}
 
