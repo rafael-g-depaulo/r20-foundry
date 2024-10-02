@@ -58,8 +58,24 @@ export const toggleItemEquip = [
 export const addNewAttack = [
   "add-new-attack",
   async ({ actor }) => {
-    console.log("adding a new attack for actor");
-    return actor.createEmbeddedDocuments("Item", [makeNewAttack()]);
+    // TODO: add unarmed attack fallback
+    const weapon = actor.items.find(i => i.type === "weapon") ?? game.items.get("XcVwokcl59UNSYI6")
+
+    if (!weapon) {
+      console.error("Tried to create attack for char without a weapon.", { actor })
+      return
+    }
+
+    return actor.update({
+      system: {
+        attributes: {
+          con: {
+            value: 87
+          }
+        },
+        attacks: [...actor.system.attacks, makeNewAttack({ weapon })],
+      }
+    })
   },
 ];
 

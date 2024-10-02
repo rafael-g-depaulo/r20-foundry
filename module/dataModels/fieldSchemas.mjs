@@ -1,4 +1,6 @@
 import { R20 } from "../helpers/config.mjs";
+import { WeaponDataModel } from "./weapon.mjs";
+import { R20Item } from "../documents/item.mjs"
 
 export const ResourceSchema = () => {
   const { NumberField, SchemaField } = foundry.data.fields;
@@ -168,9 +170,10 @@ export const AttackSchema = () => {
       choices: ["", ...R20.attributeNamesArray],
       initial: "",
     }),
-    weapon: new DocumentIdField({
-      required: true,
+    // weapon: new EmbeddedDocumentField(R20Item, { required: false })
+    weaponId: new DocumentIdField({
+      required: false,
+      nullable: true,
     })
-
   })
 }
