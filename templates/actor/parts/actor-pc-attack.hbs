@@ -20,9 +20,6 @@
   {{!-- {{/each}} --}}
 </select>
 
-{{log "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"}}
-{{log attack}}
-
 <select name="items.{{attack._id}}.system.weaponId" class="item-input" value={{attack.weaponId}}>
   {{#each weapons as |weapon|}}  
     <option value="{{weapon._id}}" {{selectedIfEquals ../attack.system.weaponId weapon._id }}>{{ weapon.name }}</option>

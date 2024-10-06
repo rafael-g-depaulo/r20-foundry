@@ -110,9 +110,11 @@ Handlebars.registerHelper("detailLook", (...args) =>
 );
 Handlebars.registerHelper("at", (arr, i) => arr.at(i));
 Handlebars.registerHelper("equals", (a, b) => a == b);
-Handlebars.registerHelper("hidratePc", (pcSystemData) => {
-  const hidratedPc = CONFIG.Actor.dataModels.pc.fromSource(pcSystemData)
-  hidratedPc.populateExternalIds()
+Handlebars.registerHelper("hidratePc", (pcSystemData, opts) => {
+  const actor = opts.data.root.actor
+  const hidratedPc = CONFIG.Actor.dataModels.pc.fromSource(pcSystemData, { parent: actor })
+  const items = actor.items
+  hidratedPc.populateExternalIds({ items })
   return hidratedPc
 })
 Handlebars.registerHelper("setVar", (varName, varValue, opts) => {

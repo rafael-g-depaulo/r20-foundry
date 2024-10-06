@@ -92,7 +92,8 @@ export class R20Actor extends Actor {
     systemData.totalSkillPoints = totalSkillPoints(systemData);
     systemData.openSkillPoints = leftOverSkillPoints(systemData);
     systemData.updateMaxSkillProficiency()
-    systemData.populateExternalIds()
+    const items = this.items
+    systemData.populateExternalIds({ items })
 
     // console.log({ systemData })
     // systemData.attacks.forEach(attack => attack.weapon = getWeapon(weapons, attack.weaponId))

@@ -41,10 +41,16 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
 
   populateExternalIds({ items } = {}) {
     const globalItems = items ?? game.items
+    console.log("populate external ids", this, globalItems)
 
     this.attacks.forEach((attack, attackIndex) => {
       const { weaponId } = attack
       const weapon = globalItems.find(item => item.id === weaponId)
+
+      if (!weapon) {
+        console.error(`Error trying to find weapon with id ${weaponId}.`, { chaeacter: this, attack, items })
+        return
+      }
 
       this.attacks[attackIndex] = { ...attack, weapon, weaponId }
     })

@@ -161,12 +161,14 @@ export const AttackSchema = () => {
     attackAttb: new StringField({
       required: true,
       nullable: false,
+      blank: true,
       choices: ["", ...R20.attributeNamesArray],
       initial: "",
     }),
     damageAttb: new StringField({
       required: true,
       nullable: false,
+      blank: true,
       choices: ["", ...R20.attributeNamesArray],
       initial: "",
     }),

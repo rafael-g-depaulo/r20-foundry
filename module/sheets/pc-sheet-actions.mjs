@@ -60,7 +60,7 @@ export const addNewAttack = [
   async ({ actor }) => {
     // TODO: add unarmed attack fallback
     // const weapon = actor.items.find(i => i.type === "weapon") ?? game.items.get("XcVwokcl59UNSYI6")
-    const weaponId = actor.items.find(i => i.type === "weapon")?.id ?? "XcVwokcl59UNSYI6"
+    const weaponId = actor.items.find(i => i.type === "weapon")?.id ?? 'eKFB8pp9Lt9szwku'
 
     if (!weaponId) {
       console.error("Tried to create attack for char without a weapon.", { actor })
