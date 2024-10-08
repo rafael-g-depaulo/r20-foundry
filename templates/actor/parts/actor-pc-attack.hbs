@@ -2,36 +2,52 @@
 <div class="attack">
 
 {{#unless (equals flags.r20.state "editing")}}
-  <span class="rollable" data-roll-type="attack" data-attack-id="{{attack._id}}">{{attack.name}}</span>
+  <span class="rollable" data-roll-type="attack" data-attack-id="{{attackIndex}}">{{attack.name}}</span>
 {{/unless}}
 
 {{#if (equals flags.r20.state "editing")}}
-  <input type="text" class="item-input" name="items.{{attack._id}}.name" value="{{attack.name}}">
+  <input type="text" class="item-input" name="attacks.{{attackIndex}}.name" value="{{attack.name}}">
 {{/if}}
 
-<select name="items.{{attack._id}}.system.attribute" value={{attack.system.attribute}} class="item-input">
-  {{!-- {{#each  as |testStuff|}} --}}
-  <option value="str" {{selectedIfEquals attack.system.attribute "str"}}>str</option>
-  <option value="dex" {{selectedIfEquals attack.system.attribute "dex"}}>dex</option>
-  <option value="con" {{selectedIfEquals attack.system.attribute "con"}}>con</option>
-  <option value="int" {{selectedIfEquals attack.system.attribute "int"}}>int</option>
-  <option value="sen" {{selectedIfEquals attack.system.attribute "sen"}}>sen</option>
-  <option value="pre" {{selectedIfEquals attack.system.attribute "pre"}}>pre</option>
-  {{!-- {{/each}} --}}
+<br/>
+<label for="system.attacks.{{attackIndex}}.attackAttb">to hit ATB</label>
+<select name="system.attacks.{{attackIndex}}.attackAttb" value="{{attack.attackAttb}}" class="sheet-action" data-action="ASDASD">
+  <option value=""    {{selectedIfEquals attack.attackAttb ""}}>-</option>
+  <option value="str" {{selectedIfEquals attack.attackAttb "str"}}>str</option>
+  <option value="dex" {{selectedIfEquals attack.attackAttb "dex"}}>dex</option>
+  <option value="con" {{selectedIfEquals attack.attackAttb "con"}}>con</option>
+  <option value="int" {{selectedIfEquals attack.attackAttb "int"}}>int</option>
+  <option value="sen" {{selectedIfEquals attack.attackAttb "sen"}}>sen</option>
+  <option value="pre" {{selectedIfEquals attack.attackAttb "pre"}}>pre</option>
 </select>
 
-<select name="items.{{attack._id}}.system.weaponId" class="item-input" value={{attack.weaponId}}>
+<br/>
+<label for="system.attacks.{{attackIndex}}.damageAttb">dmg ATB</label>
+<select name="system.attacks.{{attackIndex}}.damageAttb" value="{{attack.damageAttb}}" class="sheet-action" data-action="ASDASD">
+  <option value=""    {{selectedIfEquals attack.damageAttb ""}}>-</option>
+  <option value="str" {{selectedIfEquals attack.damageAttb "str"}}>str</option>
+  <option value="dex" {{selectedIfEquals attack.damageAttb "dex"}}>dex</option>
+  <option value="con" {{selectedIfEquals attack.damageAttb "con"}}>con</option>
+  <option value="int" {{selectedIfEquals attack.damageAttb "int"}}>int</option>
+  <option value="sen" {{selectedIfEquals attack.damageAttb "sen"}}>sen</option>
+  <option value="pre" {{selectedIfEquals attack.damageAttb "pre"}}>pre</option>
+</select>
+
+<br />
+
+<label for="system.attacks.{{attackIndex}}.weaponId">Weapon</label>
+<select name="system.attacks.{{attackIndex}}.weaponId" value={{attack.weaponId}}>
   {{#each weapons as |weapon|}}  
-    <option value="{{weapon._id}}" {{selectedIfEquals ../attack.system.weaponId weapon._id }}>{{ weapon.name }}</option>
+    <option value="{{weapon._id}}" {{selectedIfEquals ../attack.weaponId weapon._id }}>{{ weapon.name }}</option>
   {{/each}}
 </select>
 
-<div class="rollable" data-roll-type="normal-damage" data-attack-id="{{attack._id}}">
-  dmg: {{attack.system.weapon.system.damage}}
+<div class="rollable" data-roll-type="normal-damage" data-attack-id="{{attackIndex}}">
+  dmg: {{attack.weapon.system.damage}}
 </div>
 
-<div class="rollable" data-roll-type="critical-damage" data-attack-id="{{attack._id}}">
-  crit: {{weaponCrit attack.system.weapon}}
+<div class="rollable" data-roll-type="critical-damage" data-attack-id="{{attackIndex}}">
+  crit: {{weaponCrit attack.weapon}}
 </div>
 
 
@@ -39,31 +55,31 @@
 {{#if (equals flags.r20.state "editing")}}
 
 <div>
-  <input class="item-input" type="checkbox" id="items.{{attack._id}}.system.isProficient" name="items.{{attack._id}}.system.isProficient" value="{{attack.system.isProficient}}" data-dtype="Boolean" {{checked attack.system.isProficient}} />
-  <label for="items.{{attack._id}}.system.isProficient">is proficient</label>
+  <input class="item-input" type="checkbox" id="attacks.{{attackIndex}}.isProficient" name="attacks.{{attackIndex}}.isProficient" value="{{attack.system.isProficient}}" data-dtype="Boolean" {{checked attack.system.isProficient}} />
+  <label for="attacks.{{attackIndex}}.isProficient">is proficient</label>
 </div>
 
-<label for="items.{{attack._id}}.system.damageBonus">damage bonus</label>
-<input type="text" class="item-input" name="items.{{attack._id}}.system.damageBonus" value="{{attack.system.damageBonus}}">
+<label for="attacks.{{attackIndex}}.damageBonus">damage bonus</label>
+<input type="text" class="item-input" name="attacks.{{attackIndex}}.damageBonus" value="{{attack.system.damageBonus}}">
 
-<label for="items.{{attack._id}}.system.attackBonus">attack bonus</label>
-<input type="text" class="item-input" name="items.{{attack._id}}.system.attackBonus" value="{{attack.system.attackBonus}}">
+<label for="attacks.{{attackIndex}}.attackBonus">attack bonus</label>
+<input type="text" class="item-input" name="attacks.{{attackIndex}}.attackBonus" value="{{attack.system.attackBonus}}">
 
 {{/if}}
 
 {{#unless (equals flags.r20.state "editing")}}
-<button class="sheet-action" data-action="edit-attack" data-attack-id="{{attack._id}}">edit attack</button>
+<button class="sheet-action" data-action="edit-attack" data-attack-id="{{attackIndex}}">edit attack</button>
 {{/unless}}
 {{#if (equals flags.r20.state "editing")}}
-<button class="sheet-action" data-action="view-attack" data-attack-id="{{attack._id}}">stop editing</button>
+<button class="sheet-action" data-action="view-attack" data-attack-id="{{attackIndex}}">stop editing</button>
 {{/if}}
 
 {{#unless (equals flags.r20.state "deleting")}}
-<button class="sheet-action" data-action="remove-attack" data-attack-id="{{{attack._id}}}" >delete attack</button>
+<button class="sheet-action" data-action="remove-attack" data-attack-id="{{{attackIndex}}}" >delete attack</button>
 {{/unless}}
 
 {{#if (equals flags.r20.state "deleting")}}
-<button class="sheet-action" data-action="remove-attack-confirm" data-attack-id="{{attack._id}}">really delete!</button>
+<button class="sheet-action" data-action="remove-attack-confirm" data-attack-id="{{attackIndex}}">really delete!</button>
 {{/if}}
 
 
