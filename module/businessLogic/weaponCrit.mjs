@@ -8,7 +8,6 @@ import { getWeapon } from "./weapon.mjs";
 export const getWeaponCritStr = (weapon) => {
   // const weapon = getWeapon(weapons, weaponId)
 
-  console.log("crit", { weapon })
   if (!weapon?.system) return "error"
   return `(${20 - weapon.system.critMargin}/${weapon.system.critMult}x)`;
 };

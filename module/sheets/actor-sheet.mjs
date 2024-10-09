@@ -155,7 +155,7 @@ export class R20ActorSheet extends ActorSheet {
 
     // context.gear = [...(context.weapons ?? []), ...(context.armor ?? [])]
     // console.clear();
-    console.log(context);
+    // console.log(context);
     // this.attacksState = context.attacksState = context.system.attacks.map(() => "view");
   }
 
@@ -206,6 +206,8 @@ export class R20ActorSheet extends ActorSheet {
     // input that changes item
     html.on("change", ".item-input", this._onItemInput.bind(this));
 
+    html.on("change", ".attack-input", this._onAttackInput.bind(this))
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
@@ -222,6 +224,8 @@ export class R20ActorSheet extends ActorSheet {
     const actor = this.actor;
     const { dataset } = event.currentTarget;
     const inputData = await event.result;
+
+    console.log("))))))))))))))))))))))))))))))))))", {dataset, inputData, actor})
 
     const itemChangesList = Object.entries(inputData)
       .filter(([key]) => key.startsWith("items."))
@@ -292,6 +296,42 @@ export class R20ActorSheet extends ActorSheet {
     }
 
     actionHandlerMapper[action]({ actor, dataset });
+  }
+
+  async _onAttackInput(event) {
+    event.preventDefault()
+
+    const { dataset, value, checked } = event.currentTarget
+    const attackIndex = parseInt(dataset.attackIndex)
+    const { dtype, property } = dataset
+
+    if (isNaN(attackIndex)) {
+      console.error(`Bad Template. attack input without attackIndex. event:`, { event })
+      return
+    }
+
+    const attacksArr = this.actor.system.attacks
+    
+    if (! property in attacksArr[attackIndex]) {
+      console.error(`Bad Template. attack input without proper property`, { property, event })
+      return
+    }
+
+    // update prop
+    if (dtype === "Boolean") {
+      attacksArr[attackIndex][property] = checked
+    } else if (dtype === "Number") {
+      attacksArr[attackIndex][property] = Number(value)
+    } else {
+      attacksArr[attackIndex][property] = value
+    }
+    attacksArr[attackIndex].state = "edit"
+
+    return this.actor.update({
+      system: {
+        attacks: attacksArr
+      }
+    })
   }
 
   /**

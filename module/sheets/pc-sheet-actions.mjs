@@ -1,5 +1,6 @@
 import { makeNewAttack } from "../businessLogic/attack.mjs";
 import { ExtraPropertySchema } from "../dataModels/fieldSchemas.mjs";
+import { deleteAttack, setAttackState } from "../helpers/attack.mjs";
 import { editItem, setItemFlag } from "../helpers/item.mjs";
 
 export const increaseSkillProf = [
@@ -81,7 +82,7 @@ export const editAttack = [
   "edit-attack",
   async ({ dataset, actor }) => {
     const { attackId } = dataset;
-    setItemFlag(actor, attackId, "state", "editing");
+    setAttackState(actor, attackId, "edit");
   },
 ];
 
@@ -89,7 +90,7 @@ export const removeAttack = [
   "remove-attack",
   async ({ dataset, actor }) => {
     const { attackId } = dataset;
-    setItemFlag(actor, attackId, "state", "deleting");
+    setAttackState(actor, attackId, "delete");
   },
 ];
 
@@ -97,7 +98,7 @@ export const setViewAttack = [
   "view-attack",
   async ({ dataset, actor }) => {
     const { attackId } = dataset;
-    setItemFlag(actor, attackId, "state", "view");
+    setAttackState(actor, attackId, "view");
   },
 ];
 
@@ -105,7 +106,7 @@ export const removeAttackConfim = [
   "remove-attack-confirm",
   async ({ actor, dataset }) => {
     const { attackId } = dataset;
-    return actor.deleteEmbeddedDocuments("Item", [attackId]);
+    deleteAttack(actor, attackId);
   },
 ];
 

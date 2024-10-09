@@ -137,9 +137,14 @@ export const ExtraPropertySchema = () => {
 }
 
 export const AttackSchema = () => {
-  const { SchemaField, NumberField, StringField, DocumentIdField } = foundry.data.fields
+  const { SchemaField, BooleanField, NumberField, StringField, DocumentIdField } = foundry.data.fields
 
   return new SchemaField({
+    isProficient: new BooleanField({
+      required: true,
+      nullable: false,
+      initial: true,
+    }),
     name: new StringField({
       required: true,
       trim: true,
@@ -176,6 +181,13 @@ export const AttackSchema = () => {
     weaponId: new DocumentIdField({
       required: false,
       nullable: true,
+    }),
+    state: new StringField({
+      required: true,
+      nullable: false,
+      blank: false,
+      choices: ["view", "edit", "delete"],
+      initial: "view"
     })
   })
 }
