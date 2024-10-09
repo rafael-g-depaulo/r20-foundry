@@ -7,21 +7,10 @@ export const rollAttack = [
     /** @type import("../typedefs/PcTypedef.mjs").R20Pc */
     const pc = actor.system;
     const { attackId } = dataset;
-    const attack = pc.attacks.find((attack) => attack.id === attackId);
+    const attack = pc.attacks[attackId]
 
-    console.log("!!!!!!!!!!!!", pc, attack);
-    // const attribute = pc.attributes[attack.system.attributeName]
-    const prof = attack.isProficient ? getProficiency(pc.level) : 0;
-    const attb = pc[(attack.system.attribute ?? "").toUpperCase()] ?? 0;
-    const bonus =
-      attack.system.attackBonus !== "" ? attack.system.attackBonus : 0;
-
-    console.log(prof, attb, bonus);
-
-    const roll = new Roll(`1d20 + @prof + @attb + @bonus`, {
-      prof,
-      attb,
-      bonus,
+    const roll = new Roll(`1d20 + @toHitBonus`, {
+      toHitBonus: attack.toHit,
     });
 
     await roll.evaluate();
@@ -43,18 +32,9 @@ export const rollNormalDamage = [
     /** @type import("../typedefs/PcTypedef.mjs").R20Pc */
     const pc = actor.system;
     const { attackId } = dataset;
-    const attack = pc.attacks.find((attack) => attack.id === attackId);
+    const attack = pc.attacks[attackId]
 
-    const attackAttb = !attack.system.attribute
-      ? ""
-      : ` + ${pc[attack.system.attribute.toUpperCase()]}`;
-    const damageBonus =
-      attack.system.damageBonus === "" ? "" : ` + ${attack.system.damageBonus}`;
-    const rollStr =
-      `${attack.system.weapon.system.damage}` + damageBonus + attackAttb;
-
-    const roll = new Roll(rollStr);
-
+    const roll = new Roll(attack.damageStr);
     await roll.evaluate();
 
     const message = roll.toMessage({
@@ -74,23 +54,9 @@ export const rollCriticalDamage = [
     /** @type import("../typedefs/PcTypedef.mjs").R20Pc */
     const pc = actor.system;
     const { attackId } = dataset;
-    const attack = pc.attacks.find((attack) => attack.id === attackId);
+    const attack = pc.attacks[attackId]
 
-    const attackAttb = !attack.system.attribute
-      ? ""
-      : ` + ${pc[attack.system.attribute.toUpperCase()]}`;
-
-    const damageBonus =
-      attack.system.damageBonus === "" ? "" : ` + ${attack.system.damageBonus}`;
-
-    const baseDamage = multiplyDice(
-      attack.system.weapon.system.damage,
-      attack.system.weapon.system.critMult
-    );
-
-    const rollStr = baseDamage + damageBonus + attackAttb;
-
-    const roll = new Roll(rollStr);
+    const roll = new Roll(attack.critDamageStr);
 
     await roll.evaluate();
 

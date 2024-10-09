@@ -1,4 +1,5 @@
 import { R20 } from "../helpers/config.mjs";
+import { multiplyDice } from "../helpers/dice.mjs";
 import { AttackSchema, AttributeSchema, ResourceSchema, SkillSchema } from "./fieldSchemas.mjs";
 
 export class CharacterDataModel extends foundry.abstract.DataModel {
@@ -35,6 +36,8 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
   }
 
   getAttributeModifier(attributeName) {
+    if (!R20.attributeNamesArray.includes(attributeName))
+      return 0
     const attribute = this.attributes[attributeName];
     return Math.floor((attribute.value + attribute.bonus - 10) / 2);
   }
@@ -47,7 +50,31 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
     }
 
     return this.items.filter(item => item.type === "weapon")
-  } 
+  }
+
+  populateVirtualProps() {
+    // attack bonuses
+    this.attacks.forEach((attack, attackIndex) => {
+      const toHit = this.getAttributeModifier(attack.attackAttb) +
+        attack.attackBonus +
+        (attack.isProficient ? this.proficiency ?? 0 : 0)
+
+      const baseDamageStr = attack.weapon.system.damage
+      const bonusDamage = this.getAttributeModifier(attack.damageAttb) + attack.damageBonus
+      const bonusDamageStr = bonusDamage < 0 ? bonusDamage : bonusDamage > 0 ? `+${bonusDamage}` : ""
+
+      const damageStr = `${baseDamageStr} ${bonusDamageStr}`.trim()
+
+      // TODO: add crit margin and crit mult options to attack
+      const critBaseDamageStr = multiplyDice(attack.weapon.system.damage, attack.weapon.system.critMult)
+      const critDamageStr = `${critBaseDamageStr} ${bonusDamageStr}`.trim()
+
+      this.attacks[attackIndex].toHit = toHit
+      this.attacks[attackIndex].damageStr = damageStr
+      this.attacks[attackIndex].critDamageStr = critDamageStr
+    })
+
+  }
 
   populateExternalIds({ items } = {}) {
     const itemsSource = items ?? game.items

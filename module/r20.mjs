@@ -115,6 +115,7 @@ Handlebars.registerHelper("hidratePc", (pcSystemData, opts) => {
   const hidratedPc = CONFIG.Actor.dataModels.pc.fromSource(pcSystemData, { parent: actor })
   const items = actor.items
   hidratedPc.populateExternalIds({ items })
+  hidratedPc.populateVirtualProps()
   return hidratedPc
 })
 Handlebars.registerHelper("setVar", (varName, varValue, opts) => {

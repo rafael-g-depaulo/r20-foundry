@@ -4,3 +4,4 @@ export const makeNewAttack = ({ weaponId }) => ({
   ...AttackSchema().initial(),
   weaponId,
 })
+

@@ -11,6 +11,5 @@ export const getAttributeProficiency = (pc, attbName) =>
       : getProficiency(pc.system.level);
 
 export const getProficiency = (level) => {
-  console.log("---------------", level)
-  return level + 4;
+  return Math.ceil(level / 2)
 }

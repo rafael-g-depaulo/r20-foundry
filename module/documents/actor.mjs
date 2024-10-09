@@ -53,9 +53,8 @@ export class R20Actor extends Actor {
     // Resources
     // TODO: add all of those into populateVirtualProps
     systemData.updateMaxResources();
-    systemData.updateMaxSkillProficiency()
     // systemData.populateExtraProps()
-    systemData.updateVirtualProps()
+    systemData.populateVirtualProps()
   }
 
   /**
@@ -91,9 +90,9 @@ export class R20Actor extends Actor {
 
     systemData.totalSkillPoints = totalSkillPoints(systemData);
     systemData.openSkillPoints = leftOverSkillPoints(systemData);
-    systemData.updateMaxSkillProficiency()
     const items = this.items
     systemData.populateExternalIds({ items })
+    systemData.populateVirtualProps()
 
     // console.log({ systemData })
     // systemData.attacks.forEach(attack => attack.weapon = getWeapon(weapons, attack.weaponId))

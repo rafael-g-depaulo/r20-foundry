@@ -6,49 +6,53 @@
 {{/unless}}
 
 {{#if (equals attack.state "edit")}}
-<input type="text" name="system.attacks.{{attackIndex}}.name" class="attack-input" data-attack-index="{{attackIndex}}" data-property="name" value="{{attack.name}}">
+  <input type="text" name="system.attacks.{{attackIndex}}.name" class="attack-input" data-attack-index="{{attackIndex}}" data-property="name" value="{{attack.name}}">
 
-<br/>
-<label for="system.attacks.{{attackIndex}}.attackAttb">to hit ATB</label>
-<select name="system.attacks.{{attackIndex}}.attackAttb" value="{{attack.attackAttb}}">
-  <option value=""    {{selectedIfEquals attack.attackAttb ""}}>-</option>
-  <option value="str" {{selectedIfEquals attack.attackAttb "str"}}>str</option>
-  <option value="dex" {{selectedIfEquals attack.attackAttb "dex"}}>dex</option>
-  <option value="con" {{selectedIfEquals attack.attackAttb "con"}}>con</option>
-  <option value="int" {{selectedIfEquals attack.attackAttb "int"}}>int</option>
-  <option value="sen" {{selectedIfEquals attack.attackAttb "sen"}}>sen</option>
-  <option value="pre" {{selectedIfEquals attack.attackAttb "pre"}}>pre</option>
-</select>
+  <br/>
+  <label for="system.attacks.{{attackIndex}}.attackAttb">to hit ATB</label>
+  <select name="system.attacks.{{attackIndex}}.attackAttb" value="{{attack.attackAttb}}">
+    <option value=""    {{selectedIfEquals attack.attackAttb ""}}>-</option>
+    <option value="str" {{selectedIfEquals attack.attackAttb "str"}}>str</option>
+    <option value="dex" {{selectedIfEquals attack.attackAttb "dex"}}>dex</option>
+    <option value="con" {{selectedIfEquals attack.attackAttb "con"}}>con</option>
+    <option value="int" {{selectedIfEquals attack.attackAttb "int"}}>int</option>
+    <option value="sen" {{selectedIfEquals attack.attackAttb "sen"}}>sen</option>
+    <option value="pre" {{selectedIfEquals attack.attackAttb "pre"}}>pre</option>
+  </select>
 
-<br/>
-<label for="system.attacks.{{attackIndex}}.damageAttb">dmg ATB</label>
-<select name="system.attacks.{{attackIndex}}.damageAttb" value="{{attack.damageAttb}}">
-  <option value=""    {{selectedIfEquals attack.damageAttb ""}}>-</option>
-  <option value="str" {{selectedIfEquals attack.damageAttb "str"}}>str</option>
-  <option value="dex" {{selectedIfEquals attack.damageAttb "dex"}}>dex</option>
-  <option value="con" {{selectedIfEquals attack.damageAttb "con"}}>con</option>
-  <option value="int" {{selectedIfEquals attack.damageAttb "int"}}>int</option>
-  <option value="sen" {{selectedIfEquals attack.damageAttb "sen"}}>sen</option>
-  <option value="pre" {{selectedIfEquals attack.damageAttb "pre"}}>pre</option>
-</select>
+  <br/>
+  <label for="system.attacks.{{attackIndex}}.damageAttb">dmg ATB</label>
+  <select name="system.attacks.{{attackIndex}}.damageAttb" value="{{attack.damageAttb}}">
+    <option value=""    {{selectedIfEquals attack.damageAttb ""}}>-</option>
+    <option value="str" {{selectedIfEquals attack.damageAttb "str"}}>str</option>
+    <option value="dex" {{selectedIfEquals attack.damageAttb "dex"}}>dex</option>
+    <option value="con" {{selectedIfEquals attack.damageAttb "con"}}>con</option>
+    <option value="int" {{selectedIfEquals attack.damageAttb "int"}}>int</option>
+    <option value="sen" {{selectedIfEquals attack.damageAttb "sen"}}>sen</option>
+    <option value="pre" {{selectedIfEquals attack.damageAttb "pre"}}>pre</option>
+  </select>
 
-<br />
+  <br />
 
-<label for="system.attacks.{{attackIndex}}.weaponId">Weapon</label>
-<select name="system.attacks.{{attackIndex}}.weaponId" value={{attack.weaponId}}>
-  {{#each weapons as |weapon|}}  
-    <option value="{{weapon._id}}" {{selectedIfEquals ../attack.weaponId weapon._id }}>{{ weapon.name }}</option>
-  {{/each}}
-</select>
+  <label for="system.attacks.{{attackIndex}}.weaponId">Weapon</label>
+  <select name="system.attacks.{{attackIndex}}.weaponId" value={{attack.weaponId}}>
+    {{#each weapons as |weapon|}}  
+      <option value="{{weapon._id}}" {{selectedIfEquals ../attack.weaponId weapon._id }}>{{ weapon.name }}</option>
+    {{/each}}
+  </select>
 {{/if}}
 
-<div class="rollable" data-roll-type="normal-damage" data-attack-id="{{attackIndex}}">
-  dmg: {{attack.weapon.system.damage}}
-</div>
+{{#if (equals attack.state "view")}}
+<div>to hit bonus: {{attack.toHit}}</div>
 
-<div class="rollable" data-roll-type="critical-damage" data-attack-id="{{attackIndex}}">
-  crit: {{weaponCrit attack.weapon}}
-</div>
+  <div class="rollable" data-roll-type="normal-damage" data-attack-id="{{attackIndex}}">
+    dmg: {{attack.weapon.system.damage}}
+  </div>
+
+  <div class="rollable" data-roll-type="critical-damage" data-attack-id="{{attackIndex}}">
+    crit: {{weaponCrit attack.weapon}}
+  </div>
+{{/if}}
 
 
 {{!-- attack config --}}

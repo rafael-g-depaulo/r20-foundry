@@ -1,3 +1,4 @@
+import { getProficiency } from "../businessLogic/proficiency.mjs";
 import {
   maxSkillProficiency,
   totalSkillPoints,
@@ -133,7 +134,8 @@ export class PcDataModel extends CharacterDataModel {
   }
 
   // update the props that are supposed to be dynamically calcultated
-  updateVirtualProps() {
+  populateVirtualProps() {
+    super.populateVirtualProps()
     // update skill total bonus
     Object.entries(this.skills).forEach(([skillName, skill]) => {
       this.skills[skillName].total =
@@ -143,9 +145,14 @@ export class PcDataModel extends CharacterDataModel {
     });
   }
 
-  updateMaxSkillProficiency() {
-    this.maxSkillProficiency = maxSkillProficiency(this.level);
+  get proficiency() {
+    return getProficiency(this.level)
   }
+  set proficiency(a) { }
+  get maxSkillProficiency() {
+    return maxSkillProficiency(this.level);
+  }
+  set maxSkillProficiency(a) { }
 
   updateMaxResources() {
     this.resources.hp.max =
@@ -160,21 +167,21 @@ export class PcDataModel extends CharacterDataModel {
 
   extra = {};
   populateExtraProps() {
-    // populate the extra props
-    this.extraProperties.forEach(({ name, type, value }) => {
-      this.extra[name] =
-        type === "number"
-          ? Number(value)
-          : type === "bool"
-            ? value !== "false"
-            : value;
+    // // populate the extra props
+    // this.extraProperties.forEach(({ name, type, value }) => {
+    //   this.extra[name] =
+    //     type === "number"
+    //       ? Number(value)
+    //       : type === "bool"
+    //         ? value !== "false"
+    //         : value;
 
-      // also if the prop doesn't have a conflict with a complex object, just lift it to top level
-      console.log("ACESSING", this[name], !this[name], typeof this[name]);
-      if (typeof this[name] === "object") return;
+    //   // also if the prop doesn't have a conflict with a complex object, just lift it to top level
+    //   console.log("ACESSING", this[name], !this[name], typeof this[name]);
+    //   if (typeof this[name] === "object") return;
 
-      this[name] = this.extra[name];
-    });
+    //   this[name] = this.extra[name];
+    // });
   }
 
   populateExtraSkills() {
