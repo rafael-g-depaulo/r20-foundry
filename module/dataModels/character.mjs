@@ -86,7 +86,8 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
       const weapon = itemsSource.find(item => item.id === weaponId)
 
       if (!weapon) {
-        console.error(`Error trying to find weapon with id ${weaponId}.`, { chaeacter: this, attack, items })
+        console.error(`Error trying to find weapon with id ${weaponId}. Deleting attack just to be safe.`)
+        this.attacks.splice(attackIndex, 1)
         return
       }
 
