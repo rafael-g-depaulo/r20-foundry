@@ -191,23 +191,8 @@
         "isEquiped": false
       }
     },
-    "weapon": {
-      "templates": [
-        "base",
-        "item",
-        "equipment"
-      ]
-    },
-    "armor": {
-      "templates": [
-        "base",
-        "item",
-        "equipment"
-      ],
-      "guard": 0,
-      "dodge": 0,
-      "movPenalty": 0
-    },
+    "weapon": {},
+    "armor": {},
     "attack": {
       "templates": [
         "base"

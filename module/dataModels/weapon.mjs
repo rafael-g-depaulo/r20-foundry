@@ -5,6 +5,7 @@ export class WeaponDataModel extends ItemDataModel {
     const { StringField, NumberField, ArrayField } = foundry.data.fields;
 
     const itemSchema = super.defineSchema()
+    console.log("NNNNN", itemSchema)
 
     return {
       ...itemSchema,

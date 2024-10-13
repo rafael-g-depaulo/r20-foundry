@@ -1,4 +1,66 @@
+<form class="{{cssClass}} armor-sheet" autocomplete="off">
 
-<div>
-  armor test
-</div>
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+      <div class="grid grid-2col">
+        <div class="resource">
+          <label class="resource-label">Quantity</label>
+          <input type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number"/>
+        </div>
+        <div class="resource">
+          <label class="resource-label">Weight</label>
+          <input type="text" name="system.weight" value="{{system.weight}}" data-dtype="Number"/>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="attributes">Attributes</a>
+    <a class="item" data-tab="effects">Effects</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+      {{!-- To render inline rolls in a TinyMCE editor, you need to pass the parent actor's (if any) roll data to the rollData prop. --}}
+      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+    </div>
+
+    {{!-- Effects Tab --}}
+    <div class="tab effects" data-group="primary" data-tab="effects">
+      {{> "systems/r20/templates/item/parts/item-effects.hbs"}}
+    </div>
+
+    {{!-- Attributes Tab --}}
+    <div class="tab attributes" data-group="primary" data-tab="attributes">
+      {{!-- <div class="crit"> --}}
+
+        <label for="system.guard">guard</label>
+        <input type="text" name="system.guard" value="{{system.guard}}" data-dtype="Number"/>
+
+        <label for="system.dodge">dodge</label>
+        <input type="text" name="system.dodge" value="{{system.dodge}}" data-dtype="Number"/>
+
+        <label for="system.defense">defense</label>
+        <input type="text" name="system.defense" value="{{system.defense}}" data-dtype="Number"/>
+
+        <label for="system.movementPenalty">movementPenalty</label>
+        <input type="text" name="system.movementPenalty" value="{{system.movementPenalty}}" data-dtype="Number"/>
+
+        {{!-- <h5>Tags <button class="sheet-action" data-action="add-tag">addTag</button></h5> --}}
+        {{!-- <div class="tags"> --}}
+        {{!--   {{#each system.tags as |tag tagIndex|}} --}}
+        {{!--     <input type="text" name="system.tags.{{tagIndex}}" value="{{detailLook ../system.tags tagIndex}}" data-type="String"/> --}}
+        {{!--     <button class="sheet-action" data-action="remove-tag" data-tag-index="{{tagIndex}}">delete</button> --}}
+        {{!--   {{/each}} --}}
+        {{!-- </div> --}}
+
+  </section>
+</form>
