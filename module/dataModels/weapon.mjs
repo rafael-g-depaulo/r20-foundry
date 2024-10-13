@@ -1,8 +1,13 @@
-export class WeaponDataModel extends foundry.abstract.DataModel {
+import { ItemDataModel } from "./item.mjs";
+
+export class WeaponDataModel extends ItemDataModel {
   static defineSchema() {
     const { StringField, NumberField, ArrayField } = foundry.data.fields;
 
+    const itemSchema = super.defineSchema()
+
     return {
+      ...itemSchema,
       damage: new StringField({
         required: true,
         blank: false,

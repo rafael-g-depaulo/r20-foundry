@@ -51,6 +51,14 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
 
     return this.items.filter(item => item.type === "weapon")
   }
+  get armor() {
+    if (!this.items) {
+      console.error(`Tried to access weapons of character before populating items`)
+      return []
+    }
+
+    return this.items.filter(item => item.type === "armor")
+  }
 
   populateVirtualProps() {
     // attack bonuses
