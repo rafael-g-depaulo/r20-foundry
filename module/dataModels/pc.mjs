@@ -1,3 +1,4 @@
+import { getMaxCapacity } from "../businessLogic/inventory.mjs";
 import { getProficiency } from "../businessLogic/proficiency.mjs";
 import {
   maxSkillProficiency,
@@ -168,6 +169,25 @@ export class PcDataModel extends CharacterDataModel {
     this.resources.mp.max =
       this.config.mpPerLevel * this.level + this.config.bonusMaxMp;
     this.resources.fp.max = 5 * this.level + this.config.bonusMaxFp;
+  }
+
+  get currentCapacity() {
+    if (!this.items) {
+      console.error("Tried getting item capacity but item list not given...", this)
+      return -1
+    }
+
+    const asdasd = this.items
+      .map(({ system }) => system.weight * system.quantity)
+      .reduce((a, b) => a + b, 0)
+
+    console.log("_______", asdasd)
+
+    return asdasd
+  }
+
+  get itemCapacity() {
+    return getMaxCapacity(this)
   }
 
   extra = {};
