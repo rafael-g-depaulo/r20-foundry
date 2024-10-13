@@ -154,6 +154,11 @@ export class PcDataModel extends CharacterDataModel {
   }
   set maxSkillProficiency(a) { }
 
+  // Not needed yet to override
+  // get defense() {}
+  // get guard() {}
+  // get dodge() {}
+
   updateMaxResources() {
     this.resources.hp.max =
       this.config.lv1MaxHp +

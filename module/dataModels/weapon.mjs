@@ -2,13 +2,18 @@ import { ItemDataModel } from "./item.mjs";
 
 export class WeaponDataModel extends ItemDataModel {
   static defineSchema() {
-    const { StringField, NumberField, ArrayField } = foundry.data.fields;
+    const { StringField, NumberField, ArrayField, BooleanField } = foundry.data.fields;
 
     const itemSchema = super.defineSchema()
-    console.log("NNNNN", itemSchema)
 
     return {
       ...itemSchema,
+      isEquiped: new BooleanField({
+        required: true,
+        nullable: false,
+        initial: false,
+        label: "IS_EQUIPED_",
+      }),
       damage: new StringField({
         required: true,
         blank: false,
