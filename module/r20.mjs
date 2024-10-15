@@ -17,6 +17,7 @@ import { getWeapon } from "./businessLogic/weapon.mjs";
 import { R20ActiveEffect } from "./documents/activeEffect.mjs";
 import { WeaponDataModel } from "./dataModels/weapon.mjs";
 import { PcDataModel } from "./dataModels/pc.mjs";
+import { activateChatListeners } from "./listeners/chatListeners.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -218,3 +219,9 @@ function rollItemMacro(itemUuid) {
     item.roll();
   });
 }
+
+
+Hooks.on("renderChatMessage", (message, html, opts) => {
+  activateChatListeners(html)
+})
+Hooks.once("renderChatLog", (_, html) => activateChatListeners(html))
