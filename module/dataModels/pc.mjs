@@ -1,4 +1,5 @@
 import { getMaxCapacity } from "../businessLogic/inventory.mjs";
+import { getPcMovementSpeed } from "../businessLogic/movement.mjs";
 import { getProficiency } from "../businessLogic/proficiency.mjs";
 import {
   maxSkillProficiency,
@@ -108,6 +109,12 @@ export class PcDataModel extends CharacterDataModel {
           integer: true,
           initial: 0,
         }),
+        bonusMovementSpeed: new NumberField({
+          required: true,
+          nullable: false,
+          integer: true,
+          initial: 0,
+        })
       }),
 
       // skill points related stuff (auto calculated)
@@ -144,6 +151,13 @@ export class PcDataModel extends CharacterDataModel {
         skill.bonus +
         this.getAttributeModifier(skill.attribute);
     });
+  }
+
+  get isEncumbered() {
+    return (this.currentCapacity / this.itemCapacity) >= 1
+  }
+  get movementSpeed() {
+    return getPcMovementSpeed(this.STR, this.config.bonusMovementSpeed, this.isEncumbered)
   }
 
   get proficiency() {

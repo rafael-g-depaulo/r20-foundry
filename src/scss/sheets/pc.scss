@@ -57,11 +57,11 @@ section.skills {
 .header-fields {
   display: grid;
   grid-template-areas:
-    "name name"
-    "resources resources"
-    "level defenses";
+    "name name name"
+    "resources resources resources"
+    "level movement defenses";
   gap: 0.25rem 0.5rem;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto;
 
   .charname {
@@ -92,6 +92,14 @@ section.skills {
   }
   .level {
     grid-area: level;
+    display: flex;
+    gap: 0.25rem;
+    &>.resource-content {
+      max-width: 2rem;
+    }
+  }
+  .movement {
+    grid-area: movement;
     display: flex;
     gap: 0.25rem;
     &>.resource-content {

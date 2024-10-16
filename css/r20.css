@@ -404,9 +404,9 @@
 }
 .r20 .header-fields {
   display: grid;
-  grid-template-areas: "name name" "resources resources" "level defenses";
+  grid-template-areas: "name name name" "resources resources resources" "level movement defenses";
   gap: 0.25rem 0.5rem;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto;
 }
 .r20 .header-fields .charname {
@@ -438,6 +438,14 @@
   gap: 0.25rem;
 }
 .r20 .header-fields .level > .resource-content {
+  max-width: 2rem;
+}
+.r20 .header-fields .movement {
+  grid-area: movement;
+  display: flex;
+  gap: 0.25rem;
+}
+.r20 .header-fields .movement > .resource-content {
   max-width: 2rem;
 }
 .r20 .header-fields .defenses {
