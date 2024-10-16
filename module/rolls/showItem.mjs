@@ -4,9 +4,16 @@ import { sendMessage } from "../helpers/chat.mjs"
 export const showItem = [
   "show-item",
   async ({ actor, dataset }) => {
-    console.log("Hi, im trying to show the item", dataset, actor)
+    const { itemId } = dataset
 
-    const messageHtmlContent = await CompileChatTemplate("chatListeners", { var: "is it working?" })
+    const item = actor.items.get(itemId)
+
+    if (!item) {
+      console.error(`Item not found when tring to show item with id ${itemId}`)
+      return
+    }
+
+    const messageHtmlContent = await CompileChatTemplate("showItem", { item })
     
     return sendMessage({
       content: messageHtmlContent,
