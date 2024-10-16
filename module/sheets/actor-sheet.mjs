@@ -8,6 +8,7 @@ import {
   prepareActiveEffectCategories,
 } from "../helpers/effects.mjs";
 import { deepJoin, getPath, makeEntry } from "../helpers/object.mjs";
+import { showItem } from "../rolls/showItem.mjs";
 import {
   addExtraProperty,
   addNewAttack,
@@ -374,7 +375,7 @@ export class R20ActorSheet extends ActorSheet {
     const actor = this.actor;
     const { rollType } = dataset;
 
-    const rollHandlers = [rollAttributeResistance, rollSkill, rollAttack, rollNormalDamage, rollCriticalDamage];
+    const rollHandlers = [rollAttributeResistance, rollSkill, rollAttack, rollNormalDamage, showItem, rollCriticalDamage];
     const rollHandlerMapper = Object.fromEntries(rollHandlers);
 
     if (!rollHandlerMapper[rollType]) {

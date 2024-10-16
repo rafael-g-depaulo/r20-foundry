@@ -20,5 +20,8 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/r20/templates/actor/parts/actor-effects.hbs',
     // Item partials
     'systems/r20/templates/item/parts/item-effects.hbs',
+    
+    // Chat Partials
+    'systems/r20/templates/applications/chatListeners.hbs',
   ]);
 };
