@@ -20,6 +20,7 @@ import { ArmorDataModel } from "./dataModels/armor.mjs";
 import { PcDataModel } from "./dataModels/pc.mjs";
 import { activateChatListeners } from "./listeners/chatListeners.mjs";
 import { SpellDataModel } from "./dataModels/spell.mjs";
+import { NpcDataModel } from "./dataModels/npc.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -59,6 +60,7 @@ Hooks.once("init", function () {
   CONFIG.Item.dataModels.armor = ArmorDataModel;
   CONFIG.Item.dataModels.spell = SpellDataModel;
   CONFIG.Actor.dataModels.pc = PcDataModel;
+  CONFIG.Actor.dataModels.npc = NpcDataModel;
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item

@@ -14,7 +14,7 @@ export class SpellDataModel extends foundry.abstract.DataModel {
         required: false,
         blank: true,
         nullable: false,
-        initial: "",
+        initial: "description here",
         label: "DESCRIPTION_",
       })
     }
