@@ -1,5 +1,6 @@
 <ol class='items-list'>
   {{#each spells as |spells spellLevel|}}
+    {{log "circle" spells}}
     <li class='item flexrow items-header'>
       <div class='item-name'>
         {{localize 'R20.Item.Spell.SpellLVL' level=spellLevel}}
@@ -16,11 +17,12 @@
         </a>
       </div>
     </li>
-    {{#each spells as |item id|}}
+    {{#each spells as |item __id|}}
+      {{log "spell" item}}
       <li class='item flexrow' data-item-id='{{item._id}}'>
-        <div class='item-name flexrow'>
+        <div class='item-name flexrow rollable' data-roll-type='show-item' data-item-id='{{item._id}}'>
           <div class='item-image'>
-            <a class='rollable' data-roll-type='item'><img
+            <a><img
                 src='{{item.img}}'
                 title='{{item.name}}'
                 width='24'

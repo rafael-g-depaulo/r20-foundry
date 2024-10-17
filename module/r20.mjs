@@ -16,8 +16,10 @@ import { getWeaponCritStr } from "./businessLogic/weaponCrit.mjs";
 import { getWeapon } from "./businessLogic/weapon.mjs";
 import { R20ActiveEffect } from "./documents/activeEffect.mjs";
 import { WeaponDataModel } from "./dataModels/weapon.mjs";
+import { ArmorDataModel } from "./dataModels/armor.mjs";
 import { PcDataModel } from "./dataModels/pc.mjs";
 import { activateChatListeners } from "./listeners/chatListeners.mjs";
+import { SpellDataModel } from "./dataModels/spell.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -54,6 +56,8 @@ Hooks.once("init", function () {
 
   // Register Data Models. (see: https://foundryvtt.com/article/system-data-models/)
   CONFIG.Item.dataModels.weapon = WeaponDataModel;
+  CONFIG.Item.dataModels.armor = ArmorDataModel;
+  CONFIG.Item.dataModels.spell = SpellDataModel;
   CONFIG.Actor.dataModels.pc = PcDataModel;
 
   // Active Effects are never copied to the Actor,
