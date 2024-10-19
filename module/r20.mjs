@@ -16,10 +16,8 @@ import { getWeaponCritStr } from "./businessLogic/weaponCrit.mjs";
 import { getWeapon } from "./businessLogic/weapon.mjs";
 import { R20ActiveEffect } from "./documents/activeEffect.mjs";
 import { WeaponDataModel } from "./dataModels/weapon.mjs";
-import { ArmorDataModel } from "./dataModels/armor.mjs";
 import { PcDataModel } from "./dataModels/pc.mjs";
 import { activateChatListeners } from "./listeners/chatListeners.mjs";
-import { SpellDataModel } from "./dataModels/spell.mjs";
 import { NpcDataModel } from "./dataModels/npc.mjs";
 
 /* -------------------------------------------- */
@@ -57,8 +55,6 @@ Hooks.once("init", function () {
 
   // Register Data Models. (see: https://foundryvtt.com/article/system-data-models/)
   CONFIG.Item.dataModels.weapon = WeaponDataModel;
-  CONFIG.Item.dataModels.armor = ArmorDataModel;
-  CONFIG.Item.dataModels.spell = SpellDataModel;
   CONFIG.Actor.dataModels.pc = PcDataModel;
   CONFIG.Actor.dataModels.npc = NpcDataModel;
 
@@ -117,6 +113,13 @@ Handlebars.registerHelper("detailLook", (...args) =>
 );
 Handlebars.registerHelper("at", (arr, i) => arr.at(i));
 Handlebars.registerHelper("equals", (a, b) => a == b);
+Handlebars.registerHelper("hidrateNpc", (npcSystemData) => {
+  const hidratedNpc = CONFIG.Actor.dataModels.npc.fromSource(npcSystemData)
+  // hidratedNpc.populateExternalIds({ items })
+  hidratedNpc.populateVirtualProps()
+  console.log("!!!!", hidratedNpc)
+  return hidratedNpc
+})
 Handlebars.registerHelper("hidratePc", (pcSystemData, opts) => {
   const actor = opts.data.root.actor
   const hidratedPc = CONFIG.Actor.dataModels.pc.fromSource(pcSystemData, { parent: actor })

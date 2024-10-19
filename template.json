@@ -24,7 +24,6 @@
       "item",
       "equipment",
       "attack",
-      "spell",
       "effect"
     ],
     "templates": {
@@ -39,7 +38,6 @@
       }
     },
     "weapon": {},
-    "spell": {},
     "armor": {},
     "attack": {
       "templates": [

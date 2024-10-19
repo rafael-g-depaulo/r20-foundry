@@ -12,6 +12,7 @@ import { ExtraPropertySchema, ExtraSkillSchema } from "./fieldSchemas.mjs";
 // TODO: Add max resources calc
 // TODO: Add maxSkill stuff
 // TODO: Add defenses stuff(on char, not pc)
+// TODO: Add movement stuff
 // TODO: change get ATB() stuff to a getter method (on char, not pc)
 export class PcDataModel extends CharacterDataModel {
   static defineSchema() {

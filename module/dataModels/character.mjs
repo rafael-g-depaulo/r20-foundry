@@ -1,5 +1,4 @@
 import { getGuard, getDodge, getDefense } from "../businessLogic/defenses.mjs";
-import { groupBy } from "../helpers/array.mjs";
 import { R20 } from "../helpers/config.mjs";
 import { multiplyDice } from "../helpers/dice.mjs";
 import { AttackSchema, AttributeSchema, ResourceSchema, SkillSchema } from "./fieldSchemas.mjs";
@@ -119,7 +118,7 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
   populateExternalIds({ items } = {}) {
     const itemsSource = items ?? game.items
     this.items = itemsSource
-    // console.log("populate external ids", this, itemsSource)
+    console.log("populate external ids", this, itemsSource)
 
     this.attacks.forEach((attack, attackIndex) => {
       const { weaponId } = attack
@@ -133,9 +132,6 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
 
       this.attacks[attackIndex] = { ...attack, weapon, weaponId }
     })
-
-    this.spells = items.filter(i => i.type === "spell")
-    this.spellsByCircle = groupBy(spell => spell.system.circle, this.spells)
   }
 
   get STR() {
