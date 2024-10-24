@@ -9,6 +9,7 @@ import {
 } from "../helpers/effects.mjs";
 import { deepJoin, getPath, makeEntry } from "../helpers/object.mjs";
 import { showItem } from "../rolls/showItem.mjs";
+import { addNpcAttack } from "./npc-sheet-actions.mjs";
 import {
   addExtraProperty,
   addNewAttack,
@@ -286,6 +287,9 @@ export class R20ActorSheet extends ActorSheet {
       setViewAttack,
       addExtraProperty,
       removeExtraProperty,
+
+      // npc actions
+      addNpcAttack,
     ];
     const actionHandlerMapper = Object.fromEntries(actionHandlers);
 

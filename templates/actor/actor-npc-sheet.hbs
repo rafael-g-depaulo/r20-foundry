@@ -1,5 +1,4 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
-  {{log system}}
   {{setVar "system" (hidrateNpc system) }}
 
   {{!-- Sheet Header --}}
@@ -68,7 +67,7 @@
     </div>
 
     {{!-- skills and attributes tab --}}
-    <div class="tab items" data-group="primary" data-tab="skills">
+    <div class="tab skills" data-group="primary" data-tab="skills">
        {{> "systems/r20/templates/actor/parts/actor-pc-skills.hbs" attributes=system.attributes openSkillPoints=system.openSkillPoints skills=system.skills maxSkillProficiency=100}}
     </div>
 

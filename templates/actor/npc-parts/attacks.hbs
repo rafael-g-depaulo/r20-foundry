@@ -1,0 +1,7 @@
+<div>
+  <button class="sheet-action" data-action="add-new-npc-attack">create new attack</button>
+</div>
+
+{{#each attacks as |attack attackIndex|}}
+  {{>"systems/r20/templates/actor/npc-parts/attack.hbs" attack=this}}
+{{/each}}
