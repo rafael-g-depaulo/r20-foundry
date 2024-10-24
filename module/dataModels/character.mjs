@@ -115,6 +115,7 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
 
   }
 
+  isNPC = false
   populateExternalIds({ items } = {}) {
     const itemsSource = items ?? game.items
     this.items = itemsSource
@@ -124,7 +125,8 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
       const { weaponId } = attack
       const weapon = itemsSource.find(item => item.id === weaponId)
 
-      if (!weapon) {
+      if (!weapon && !this.isNPC) {
+      // if (!weapon) {
         console.error(`Error trying to find weapon with id ${weaponId}. Deleting attack just to be safe.`)
         this.attacks.splice(attackIndex, 1)
         return

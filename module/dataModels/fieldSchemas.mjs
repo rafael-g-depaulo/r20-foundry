@@ -136,15 +136,36 @@ export const ExtraPropertySchema = () => {
   })
 }
 
-export const AttackSchema = () => {
-  const { SchemaField, BooleanField, NumberField, StringField, DocumentIdField } = foundry.data.fields
+export const NpcAttackSchema = () => {
+  const { SchemaField, NumberField, StringField, DocumentIdField } = foundry.data.fields
 
   return new SchemaField({
-    isProficient: new BooleanField({
+    name: new StringField({
+      required: true,
+      trim: true,
+      nullable: false,
+      initial: "attack",
+    }),
+    toHitBonus: new NumberField({
       required: true,
       nullable: false,
-      initial: true,
+      integer: true,
+      initial: 0,
+      label: "TO_HIT_"
     }),
+    damage: new StringField({
+      required: true,
+      nullable: false,
+      trim: true,
+      initial: "",
+      label: "DAMAGE_",
+    }),
+  })
+}
+export const AttackSchema = () => {
+  const { SchemaField, NumberField, StringField, DocumentIdField } = foundry.data.fields
+
+  return new SchemaField({
     name: new StringField({
       required: true,
       trim: true,

@@ -1,9 +1,13 @@
 import { CharacterDataModel } from "./character.mjs";
+import { NpcAttackSchema } from "./fieldSchemas.mjs";
 
 export class NpcDataModel extends CharacterDataModel {
   static defineSchema() {
     const baseCharacterSchema = CharacterDataModel.defineSchema()
-    const { NumberField, StringField } = foundry.data.fields
+    const { NumberField, StringField, ArrayField } = foundry.data.fields
+
+    // remove attacks
+    delete baseCharacterSchema.attacks
 
     return {
       ...baseCharacterSchema,
@@ -29,6 +33,12 @@ export class NpcDataModel extends CharacterDataModel {
         initial: "description",
         label: "DESCRIOTION_",
       }),
+      attacks: new ArrayField(NpcAttackSchema(), {
+        required: true,
+        initial: [],
+      })
     }
   }
+
+  isNPC = true
 }
