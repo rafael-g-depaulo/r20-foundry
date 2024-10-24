@@ -157,8 +157,15 @@ export const NpcAttackSchema = () => {
       required: true,
       nullable: false,
       trim: true,
-      initial: "",
+      initial: "1d6+2",
       label: "DAMAGE_",
+    }),
+    state: new StringField({
+      required: true,
+      nullable: false,
+      blank: false,
+      choices: ["view", "edit", "delete"],
+      initial: "view"
     }),
   })
 }
@@ -209,6 +216,6 @@ export const AttackSchema = () => {
       blank: false,
       choices: ["view", "edit", "delete"],
       initial: "view"
-    })
+    }),
   })
 }

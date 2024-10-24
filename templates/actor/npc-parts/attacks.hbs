@@ -3,5 +3,5 @@
 </div>
 
 {{#each attacks as |attack attackIndex|}}
-  {{>"systems/r20/templates/actor/npc-parts/attack.hbs" attack=this}}
+  {{>"systems/r20/templates/actor/npc-parts/attack.hbs" attack=this attackIndex=attackIndex}}
 {{/each}}

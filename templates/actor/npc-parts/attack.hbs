@@ -1,3 +1,37 @@
-<div>
-  test attack {{attack.name}}
+<div class="attack {{attack.state}}">
+
+{{#unless (equals attack.state "edit")}}
+  <span class="rollable" data-roll-type="attack" data-attack-id="{{attackIndex}}">{{attack.name}}</span>
+{{/unless}}
+
+{{#if (equals attack.state "edit")}}
+  <input type="text" name="system.attacks.{{attackIndex}}.name" class="attack-input" data-attack-index="{{attackIndex}}" data-property="name" value="{{attack.name}}">
+
+  <br/>
+
+
+  <input type="text" name="system.attacks.{{attackIndex}}.toHitBonus" class="attack-input" data-attack-index="{{attackIndex}}" data-property="toHitBonus" data-dtype="Number" value="{{attack.toHitBonus}}">
+
+  <input type="text" name="system.attacks.{{attackIndex}}.damage" class="attack-input" data-attack-index="{{attackIndex}}" data-property="damage" value="{{attack.damage}}">
+
+{{/if}}
+
+
+{{log "ATK" attackIndex attack}}
+{{!-- state buttons --}}
+{{#unless (equals attack.state "edit")}}
+<button class="sheet-action" data-action="edit-attack" data-attack-id="{{attackIndex}}">edit attack</button>
+{{/unless}}
+{{#if (equals attack.state "edit")}}
+<button class="sheet-action" data-action="view-attack" data-attack-id="{{attackIndex}}">stop edit</button>
+{{/if}}
+
+{{#unless (equals attack.state "delete")}}
+<button class="sheet-action" data-action="remove-attack" data-attack-id="{{attackIndex}}" >delete attack</button>
+{{/unless}}
+
+{{#if (equals attack.state "delete")}}
+<button class="sheet-action" data-action="view-attack" data-attack-id="{{attackIndex}}">cancel</button>
+<button class="sheet-action" data-action="remove-attack-confirm" data-attack-id="{{attackIndex}}">really delete!</button>
+{{/if}}
 </div>

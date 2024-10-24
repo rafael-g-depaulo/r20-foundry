@@ -3,7 +3,6 @@ export const setAttackState = (actor, attackId, newState) => {
   const attacksArr = actor.system.attacks
   attacksArr[attackId].state = newState
 
-  console.log("!@!!!!!", attacksArr, actor)
   actor.update({
     system: {
       attacks: attacksArr,
