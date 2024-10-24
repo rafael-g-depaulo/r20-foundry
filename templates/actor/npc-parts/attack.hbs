@@ -9,15 +9,18 @@
 
   <br/>
 
+  <input type="text" name="system.attacks.{{attackIndex}}.toHit" class="attack-input" data-attack-index="{{attackIndex}}" data-property="toHit" data-dtype="Number" value="{{attack.toHit}}">
 
-  <input type="text" name="system.attacks.{{attackIndex}}.toHitBonus" class="attack-input" data-attack-index="{{attackIndex}}" data-property="toHitBonus" data-dtype="Number" value="{{attack.toHitBonus}}">
-
-  <input type="text" name="system.attacks.{{attackIndex}}.damage" class="attack-input" data-attack-index="{{attackIndex}}" data-property="damage" value="{{attack.damage}}">
+  <input type="text" name="system.attacks.{{attackIndex}}.damageStr" class="attack-input" data-attack-index="{{attackIndex}}" data-property="damageStr" value="{{attack.damageStr}}">
 
 {{/if}}
 
+{{#if (equals attack.state "view")}}
+  <div>to hit bonus: {{attack.toHit}}</div>
+  <div class="rollable" data-roll-type="normal-damage" data-attack-id="{{attackIndex}}">dmg: {{attack.damageStr}}</div>
+{{/if}}
 
-{{log "ATK" attackIndex attack}}
+
 {{!-- state buttons --}}
 {{#unless (equals attack.state "edit")}}
 <button class="sheet-action" data-action="edit-attack" data-attack-id="{{attackIndex}}">edit attack</button>

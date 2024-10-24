@@ -144,16 +144,16 @@ export const NpcAttackSchema = () => {
       required: true,
       trim: true,
       nullable: false,
-      initial: "attack",
+      initial: "attack name here",
     }),
-    toHitBonus: new NumberField({
+    toHit: new NumberField({
       required: true,
       nullable: false,
       integer: true,
       initial: 0,
       label: "TO_HIT_"
     }),
-    damage: new StringField({
+    damageStr: new StringField({
       required: true,
       nullable: false,
       trim: true,

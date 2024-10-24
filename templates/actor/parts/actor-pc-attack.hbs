@@ -43,7 +43,7 @@
 {{/if}}
 
 {{#if (equals attack.state "view")}}
-<div>to hit bonus: {{attack.toHit}}</div>
+  <div>to hit bonus: {{attack.toHit}}</div>
 
   <div class="rollable" data-roll-type="normal-damage" data-attack-id="{{attackIndex}}">
     dmg: {{attack.weapon.system.damage}}
