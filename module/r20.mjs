@@ -113,9 +113,11 @@ Handlebars.registerHelper("detailLook", (...args) =>
 );
 Handlebars.registerHelper("at", (arr, i) => arr.at(i));
 Handlebars.registerHelper("equals", (a, b) => a == b);
-Handlebars.registerHelper("hidrateNpc", (npcSystemData) => {
-  const hidratedNpc = CONFIG.Actor.dataModels.npc.fromSource(npcSystemData)
-  // hidratedNpc.populateExternalIds({ items })
+Handlebars.registerHelper("hidrateNpc", (npcSystemData, opts) => {
+  const actor = opts.data.root.actor
+  const hidratedNpc = CONFIG.Actor.dataModels.npc.fromSource(npcSystemData, { parent: actor })
+  const items = actor.items
+  hidratedNpc.populateExternalIds({ items })
   hidratedNpc.populateVirtualProps()
   return hidratedNpc
 })
