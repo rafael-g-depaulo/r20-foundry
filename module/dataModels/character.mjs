@@ -54,11 +54,28 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
   }
   get armor() {
     if (!this.items) {
-      console.error(`Tried to access weapons of character before populating items`)
+      console.error(`Tried to access armor of character before populating items`)
       return []
     }
 
     return this.items.filter(item => item.type === "armor")
+  }
+  get actualItems() {
+    if (!this.items) {
+      console.error(`Tried to access items of character before populating items`)
+      return []
+    }
+
+    return this.items.filter(item => item.type === "weapon" || item.type === "armor" || item.type === "item")
+  }
+
+  get abilities() {
+    if (!this.items) {
+      console.error(`Tried to access abilities of character before populating items`)
+      return []
+    }
+
+    return this.items.filter(item => item.type === "ability")
   }
 
   get spells() {

@@ -239,7 +239,7 @@ export class PcDataModel extends CharacterDataModel {
       return -1
     }
 
-    const asdasd = this.items
+    const asdasd = this.actualItems
       .map(({ system }) => system.weight * system.quantity)
       .reduce((a, b) => a + b, 0)
 

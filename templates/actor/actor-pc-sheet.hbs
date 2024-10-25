@@ -54,7 +54,8 @@
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="item" data-tab="attacks">Attacks</a>
-    <a class="item" data-tab="skills">Skills</a>
+    <a class="item" data-tab="abilities">Habilidades</a>
+    <a class="item" data-tab="skills">Perícias</a>
     <a class="item" data-tab="items">Items</a>
     <a class="item" data-tab="spells">Spells</a>
     <a class="item" data-tab="effects">Effects</a>
@@ -72,6 +73,11 @@
     {{!-- Skills --}}
     <div class="tab skills" data-group="primary" data-tab="skills">
       {{>"systems/r20/templates/actor/parts/actor-pc-skills.hbs" attributes=system.attributes openSkillPoints=system.openSkillPoints skills=system.skills maxSkillProficiency=system.maxSkillProficiency }}
+    </div>
+
+    {{!-- Abilities --}}
+    <div class="tab skills" data-group="primary" data-tab="abilities">
+      {{>"systems/r20/templates/actor/parts/actor-abilities.hbs" abilities=system.abilities}}
     </div>
 
     {{!-- Biography Tab --}}

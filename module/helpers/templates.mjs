@@ -18,6 +18,8 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/r20/templates/actor/parts/actor-config.hbs',
     'systems/r20/templates/actor/parts/actor-spells.hbs',
     'systems/r20/templates/actor/parts/actor-effects.hbs',
+    'systems/r20/templates/actor/parts/actor-abilities.hbs',
+    'systems/r20/templates/actor/parts/actor-ability.hbs',
 
     // NPC partials
     'systems/r20/templates/actor/npc-parts/attacks.hbs',

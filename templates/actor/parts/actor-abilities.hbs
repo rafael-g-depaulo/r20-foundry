@@ -1,0 +1,19 @@
+<ol class='items-list'>
+  <li class="item flexrow items-header">
+    <div class="item-name">Habilidades</div>
+    <div class='item-controls'>
+      <a
+        class='item-control item-create'
+        title='{{localize "DOCUMENT.Create" type='Ability'}}'
+        data-type='ability'
+        >
+        <i class='fas fa-plus'></i>
+        Add Ability
+      </a>
+    </div>
+  </li>
+
+  {{#each abilities as |ability|}}
+      {{>"systems/r20/templates/actor/parts/actor-ability.hbs" ability=ability}}
+  {{/each}}
+</ol>

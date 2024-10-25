@@ -1,0 +1,31 @@
+{{log "ABIIIIII" ability}}
+
+<li class='item flexrow' data-item-id='{{ability._id}}'>
+  <div class="item-name flexrow rollable" data-roll-type='show-item' data-item-id='{{ability._id}}'>
+    <div class="item-image">
+      <a>
+        <img
+          src='{{ability.img}}'
+          title='{{ability.name}}'
+          width='24'
+          height='24'
+        />
+      </a>
+    </div>
+    <h4>{{ability.name}}</h4>
+  </div>
+  <div class="item-controls">
+    <a
+      class='item-control item-edit'
+      title='{{localize "DOCUMENT.Edit" type='ability'}}'
+    >
+      <i class='fas fa-edit'></i>
+    </a>
+    <a
+      class='item-control item-delete'
+      title='{{localize "DOCUMENT.Delete" type='ability'}}'
+    >
+      <i class='fas fa-trash'></i>
+    </a>
+  </div>
+</li>

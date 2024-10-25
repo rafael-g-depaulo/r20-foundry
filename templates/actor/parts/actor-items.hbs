@@ -16,7 +16,7 @@
     {{!--   </a> --}}
     </div>
   </li>
-  {{#each system.items as |item id|}}
+  {{#each system.actualItems as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
       <div class="item-ammount">
         {{item.system.quantity}}
