@@ -39,6 +39,4 @@ export class NpcDataModel extends CharacterDataModel {
       })
     }
   }
-
-  isNPC = true
 }

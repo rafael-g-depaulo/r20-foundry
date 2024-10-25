@@ -116,7 +116,7 @@ Handlebars.registerHelper("equals", (a, b) => a == b);
 Handlebars.registerHelper("hidrateNpc", (npcSystemData) => {
   const hidratedNpc = CONFIG.Actor.dataModels.npc.fromSource(npcSystemData)
   // hidratedNpc.populateExternalIds({ items })
-  // hidratedNpc.populateVirtualProps()
+  hidratedNpc.populateVirtualProps()
   return hidratedNpc
 })
 Handlebars.registerHelper("hidratePc", (pcSystemData, opts) => {

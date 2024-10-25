@@ -1,9 +1,10 @@
 import { getMaxCapacity } from "../businessLogic/inventory.mjs";
 import { getPcMovementSpeed } from "../businessLogic/movement.mjs";
 import { getProficiency } from "../businessLogic/proficiency.mjs";
+import { groupBy } from "../helpers/array.mjs"
+import { multiplyDice } from "../helpers/dice.mjs"
 import {
   maxSkillProficiency,
-  totalSkillPoints,
 } from "../businessLogic/skills.mjs";
 import { CharacterDataModel } from "./character.mjs";
 import { ExtraPropertySchema, ExtraSkillSchema } from "./fieldSchemas.mjs";
@@ -141,9 +142,56 @@ export class PcDataModel extends CharacterDataModel {
     };
   }
 
+  items = []
+  populateExternalIds({ items } = {}) {
+    super.populateExternalIds({ items })
+
+    const itemsSource = items ?? game.items
+
+    this.attacks.forEach((attack, attackIndex) => {
+      const { weaponId } = attack
+      const weapon = itemsSource.find(item => item.id === weaponId)
+
+      if (!weapon) {
+      // if (!weapon) {
+        console.error(`Error trying to find weapon with id ${weaponId}. Deleting attack just to be safe.`)
+        this.attacks.splice(attackIndex, 1)
+        return
+      }
+
+      this.attacks[attackIndex] = { ...attack, weapon, weaponId }
+    })
+  }
+
   // update the props that are supposed to be dynamically calcultated
   populateVirtualProps() {
     super.populateVirtualProps()
+
+    // spells
+    this.spellsByCircle = groupBy(spell => spell.system.circle, this.spells)
+    console.log("ASDASDASDASDASD", this, this.items, this.spellsByCircle)
+
+    // attack bonuses
+    this.attacks.forEach((attack, attackIndex) => {
+      const toHit = this.getAttributeModifier(attack.attackAttb) +
+        attack.attackBonus +
+        (attack.isProficient ? this.proficiency ?? 0 : 0)
+
+      const baseDamageStr = attack.weapon.system.damage
+      const bonusDamage = this.getAttributeModifier(attack.damageAttb) + attack.damageBonus
+      const bonusDamageStr = bonusDamage < 0 ? bonusDamage : bonusDamage > 0 ? `+${bonusDamage}` : ""
+
+      const damageStr = `${baseDamageStr} ${bonusDamageStr}`.trim()
+
+      // TODO: add crit margin and crit mult options to attack
+      const critBaseDamageStr = multiplyDice(attack.weapon.system.damage, attack.weapon.system.critMult)
+      const critDamageStr = `${critBaseDamageStr} ${bonusDamageStr}`.trim()
+
+      this.attacks[attackIndex].toHit = toHit
+      this.attacks[attackIndex].damageStr = damageStr
+      this.attacks[attackIndex].critDamageStr = critDamageStr
+    })
+
     // update skill total bonus
     Object.entries(this.skills).forEach(([skillName, skill]) => {
       this.skills[skillName].total =

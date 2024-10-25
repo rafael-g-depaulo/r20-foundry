@@ -61,6 +61,15 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
     return this.items.filter(item => item.type === "armor")
   }
 
+  get spells() {
+    if (!this.items) {
+      console.error(`Tried to access spells of character before populating items`)
+      return []
+    }
+
+    return this.items.filter(item => item.type === "spell")
+  }
+
   get defense() {
     const armorDefenseBonus = this.armor
       .filter(item => item.system.isEquiped)
@@ -91,49 +100,12 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
     return getDodge(this.DEX, dodgeBonus)
   }
 
-  populateVirtualProps() {
-    // attack bonuses
-    this.attacks.forEach((attack, attackIndex) => {
-      const toHit = this.getAttributeModifier(attack.attackAttb) +
-        attack.attackBonus +
-        (attack.isProficient ? this.proficiency ?? 0 : 0)
+  populateVirtualProps() {}
 
-      const baseDamageStr = attack.weapon.system.damage
-      const bonusDamage = this.getAttributeModifier(attack.damageAttb) + attack.damageBonus
-      const bonusDamageStr = bonusDamage < 0 ? bonusDamage : bonusDamage > 0 ? `+${bonusDamage}` : ""
-
-      const damageStr = `${baseDamageStr} ${bonusDamageStr}`.trim()
-
-      // TODO: add crit margin and crit mult options to attack
-      const critBaseDamageStr = multiplyDice(attack.weapon.system.damage, attack.weapon.system.critMult)
-      const critDamageStr = `${critBaseDamageStr} ${bonusDamageStr}`.trim()
-
-      this.attacks[attackIndex].toHit = toHit
-      this.attacks[attackIndex].damageStr = damageStr
-      this.attacks[attackIndex].critDamageStr = critDamageStr
-    })
-
-  }
-
-  isNPC = false
   populateExternalIds({ items } = {}) {
     const itemsSource = items ?? game.items
     this.items = itemsSource
     console.log("populate external ids", this, itemsSource)
-
-    this.attacks.forEach((attack, attackIndex) => {
-      const { weaponId } = attack
-      const weapon = itemsSource.find(item => item.id === weaponId)
-
-      if (!weapon && !this.isNPC) {
-      // if (!weapon) {
-        console.error(`Error trying to find weapon with id ${weaponId}. Deleting attack just to be safe.`)
-        this.attacks.splice(attackIndex, 1)
-        return
-      }
-
-      this.attacks[attackIndex] = { ...attack, weapon, weaponId }
-    })
   }
 
   get STR() {

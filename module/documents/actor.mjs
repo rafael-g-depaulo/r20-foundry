@@ -52,9 +52,10 @@ export class R20Actor extends Actor {
 
     // Resources
     // TODO: add all of those into populateVirtualProps
-    systemData.updateMaxResources();
+    if (!!systemData.updateMaxResources)
+      systemData.updateMaxResources();
     // systemData.populateExtraProps()
-    systemData.populateVirtualProps()
+    // systemData.populateVirtualProps()
   }
 
   /**

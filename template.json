@@ -21,10 +21,8 @@
     "types": [
       "weapon",
       "armor",
-      "item",
-      "equipment",
-      "attack",
-      "effect"
+      "spell",
+      "item"
     ],
     "templates": {
       "base": {
@@ -38,18 +36,7 @@
       }
     },
     "weapon": {},
-    "armor": {},
-    "attack": {
-      "templates": [
-        "base"
-      ],
-      "attribute": "str",
-      "attackBonus": "",
-      "damageBonus": "",
-      "weaponId": null
-    },
-    "effect": {
-      "components": []
-    }
+    "spell": {},
+    "armor": {}
   }
 }

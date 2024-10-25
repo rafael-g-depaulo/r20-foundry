@@ -56,6 +56,7 @@
     <a class="item" data-tab="attacks">Attacks</a>
     <a class="item" data-tab="skills">Skills</a>
     <a class="item" data-tab="items">Items</a>
+    <a class="item" data-tab="spells">Spells</a>
     <a class="item" data-tab="effects">Effects</a>
     <a class="item" data-tab="config">Config</a>
   </nav>
@@ -74,10 +75,10 @@
     </div>
 
     {{!-- Biography Tab --}}
-    <div class="tab biography" data-group="primary" data-tab="description">
-      {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}}
-      {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
-    </div>
+    {{!-- <div class="tab biography" data-group="primary" data-tab="description"> --}}
+    {{!--   {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}} --}}
+    {{!--   {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}} --}}
+    {{!-- </div> --}}
 
 
     {{!-- Char Config Tab --}}
@@ -92,7 +93,7 @@
 
     {{!-- Owned Spells Tab --}}
     <div class="tab spells" data-group="primary" data-tab="spells">
-      {{> "systems/r20/templates/actor/parts/actor-spells.hbs"}}
+      {{> "systems/r20/templates/actor/parts/actor-spells.hbs" spells=system.spellsByCircle}}
     </div>
 
     {{!-- Active Effects Tab --}}
