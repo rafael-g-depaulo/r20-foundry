@@ -50,3 +50,18 @@ export const leftOverSkillPoints = (pc) =>
   Object.values(pc.skills)
     .map((skill) => skill.proficiency)
     .reduce((acc, cur) => acc + cur);
+
+export const rollSkill = async (pc, skillName, bonus = 0) => {
+  const skill = pc.skills[skillName];
+  const skillAttribute = pc.attributes[skill.attribute];
+
+  const roll = new Roll(`1d20 + @prof + @attb + @bonus`, {
+    prof: skill.proficiency,
+    attb: getAttributeModifier(skillAttribute),
+    bonus: skill.bonus + bonus,
+  });
+
+  await roll.evaluate();
+
+  return roll
+}

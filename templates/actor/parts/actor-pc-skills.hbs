@@ -15,7 +15,14 @@
   </aside>
 
   <div class="grid-span-2">
-    <span>available skill points: {{system.openSkillPoints}}</span>
+    <div class="flexrow" style="
+      align-items: center;
+      gap: 4rem;
+      margin-bottom: 0.6rem;
+    ">
+      <button class="rollable" data-roll-type="rest-roll"><a class="fa fa-bed"></a> Descanso</button>
+      <span style="display: content;">available skill points: {{system.openSkillPoints}}</span>
+    </div>
     <section class="main grid-span-2 skills">
       <span class="skill-header">skill name</span>
       <span class="skill-header grid-span-2">proficiencia</span>

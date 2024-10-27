@@ -8,6 +8,7 @@ export const rollAttributeResistance = [
     const pc = actor.system;
     const { attributeName } = dataset;
 
+    // TODO: fix
     // const roll = new Roll(`1d20 + @prof + @attb`, {
     const roll = new Roll(`1d20`, {
       // prof: getProficiency(pc, attributeName),

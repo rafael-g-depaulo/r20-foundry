@@ -1,5 +1,8 @@
 import { getOrCreateActorCombatant } from "../helpers/combatant.mjs";
-import { getAttributeModifier } from "./attributeModifier.mjs";
+import { rollSkill as rollSkill_ } from "../businessLogic/skills.mjs"
+import { rollRest } from "../businessLogic/rest.mjs"
+import { R20 } from "../helpers/config.mjs";
+import { sendMessage } from "../helpers/chat.mjs";
 
 export const rollSkill = [
   "skill",
@@ -8,18 +11,7 @@ export const rollSkill = [
     const pc = actor.system;
     const { skillName } = dataset;
 
-    /** @type import("../typedefs/CharacterTypedef.mjs").Skill */
-    const skill = pc.skills[skillName];
-    /** @type import("../typedefs/CharacterTypedef.mjs").Attribute */
-    const skillAttribute = pc.attributes[skill.attribute];
-
-    const roll = new Roll(`1d20 + @prof + @attb + @bonus`, {
-      prof: skill.proficiency,
-      attb: getAttributeModifier(skillAttribute),
-      bonus: skill.bonus,
-    });
-
-    await roll.evaluate();
+    const roll = await rollSkill_(pc, skillName)
 
     const message = roll.toMessage({
       flavor: `${actor.name}: Rolando ${skillName}`,
@@ -35,3 +27,44 @@ export const rollSkill = [
     return message;
   },
 ];
+
+export const rollForRest = [
+  "rest-roll",
+  async ({ actor, dataset }) => {
+    const pc = actor.system;
+    const {} = dataset;
+
+    const provisionsKind = R20.ProvisionTypesArray[3]
+    const restDc = 23
+
+    const {
+      condition,
+      roll,
+      hpRecovered,
+      mpRecovered,
+    } = await rollRest({
+      pc,
+      provisionsKind,
+      restDc,
+    })
+
+    const messageContent =
+      `${actor.name} descansou. Aguentando a dificuldade ${restDc} do descanso, ${actor.name} teve um descanso "${condition.name}", com um teste de sobrevivência de ${roll.total}. ${actor.name} recupera ${hpRecovered} HP e ${mpRecovered} MP.` +
+      (condition.name === R20.RestConditions[R20.RestConditionsKind.BAD].name ? ` Faça um teste de resistência de CON (CD ${restDc}). Se falhar, recebe 1 nível de exaustão, +1 para cada 5 abaixo da CD.` : "")
+
+    const updatePromise = actor.update({
+      system: {
+        resources: {
+          hp: { value: Math.min(pc.resources.hp.value + hpRecovered, pc.resources.hp.max) },
+          mp: { value: Math.min(pc.resources.mp.value + mpRecovered, pc.resources.mp.max) },
+        }
+      }
+    })
+
+    const messagePromise = sendMessage({
+      content: messageContent
+    })
+
+    return Promise.all([updatePromise, messagePromise])
+  }
+]

@@ -1,5 +1,5 @@
 
-const minMax = (min, value, max) => Math.min(Math.max(min, value), max)
+export const minMax = (min, value, max) => Math.min(Math.max(min, value), max)
 
 const encumberedSpeed = (speed, isEncumbered) => isEncumbered ? Math.max(1, Math.floor(speed/2)) : speed
 

@@ -1,6 +1,6 @@
 import { rollAttack, rollCriticalDamage, rollNormalDamage } from "../businessLogic/rollAttack.mjs";
 import { rollAttributeResistance } from "../businessLogic/rollResistance.mjs";
-import { rollSkill } from "../businessLogic/rollSkill.mjs";
+import { rollForRest, rollSkill } from "../businessLogic/rollSkill.mjs";
 import { R20Item } from "../documents/item.mjs";
 import { groupBy } from "../helpers/array.mjs";
 import {
@@ -379,7 +379,7 @@ export class R20ActorSheet extends ActorSheet {
     const actor = this.actor;
     const { rollType } = dataset;
 
-    const rollHandlers = [rollAttributeResistance, rollSkill, rollAttack, rollNormalDamage, showItem, rollCriticalDamage];
+    const rollHandlers = [rollAttributeResistance, rollSkill, rollAttack, rollNormalDamage, showItem, rollCriticalDamage, rollForRest];
     const rollHandlerMapper = Object.fromEntries(rollHandlers);
 
     if (!rollHandlerMapper[rollType]) {
