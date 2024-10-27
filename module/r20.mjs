@@ -153,6 +153,7 @@ Handlebars.registerHelper("canDecreaseSkill", (skillValue) =>
 );
 Handlebars.registerHelper("weaponCrit", getWeaponCritStr);
 Handlebars.registerHelper("getWeapon", getWeapon);
+Handlebars.registerHelper("mockProficiencies", () => ({ str: false, dex: false, con: false, int: false, sen: false, pre: false}))
 /// Business Rules related helpers //////////////////////////
 /// Business Rules related helpers //////////////////////////
 

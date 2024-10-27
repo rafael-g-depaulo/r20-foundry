@@ -9,7 +9,7 @@ export const rollAttributeResistance = [
     const { attributeName } = dataset;
 
     const roll = new Roll(`1d20 + @prof + @attb`, {
-      prof: pc.config.attributeProficiencies[attributeName] ? pc.proficiency : 0,
+      prof: pc?.config?.attributeProficiencies[attributeName] ? pc.proficiency : 0,
       attb: getAttributeModifier(pc.attributes[attributeName]),
     });
 
