@@ -72,7 +72,7 @@
 
     {{!-- Skills --}}
     <div class="tab skills" data-group="primary" data-tab="skills">
-      {{>"systems/r20/templates/actor/parts/actor-pc-skills.hbs" attributes=system.attributes openSkillPoints=system.openSkillPoints skills=system.skills maxSkillProficiency=system.maxSkillProficiency }}
+      {{>"systems/r20/templates/actor/parts/actor-pc-skills.hbs" attributes=system.attributes openSkillPoints=system.openSkillPoints skills=system.skills maxSkillProficiency=system.maxSkillProficiency attributeProficiencies=system.config.attributeProficiencies proficiencyBonus=system.proficiency }}
     </div>
 
     {{!-- Abilities --}}

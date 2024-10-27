@@ -6,7 +6,7 @@
     from 1 to 12 and will create that number of columns.  --}}
     <div class="abilities flexcol">
       {{#each attributes as |attribute key|}}
-      {{>"systems/r20/templates/actor/parts/pc-attribute.hbs" attribute=attribute attributeName=key}}
+      {{>"systems/r20/templates/actor/parts/pc-attribute.hbs" attribute=attribute isProficient=(simpleLook ../attributeProficiencies key) attributeName=key proficiencyBonus=../proficiencyBonus}}
       <!-- <div class="ability flexrow flex-group-center"> -->
       <!--   <p>this is attribute {{key}}</p> -->
       <!-- </div> -->

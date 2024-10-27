@@ -107,6 +107,7 @@ Handlebars.registerHelper("showJson", (...args) =>
     .join("\n")
 )
 
+Handlebars.registerHelper("simpleLook", (obj, prop) => obj[prop])
 Handlebars.registerHelper("look", look);
 Handlebars.registerHelper("detailLook", (...args) =>
   detailLook(...args.slice(0, -1))

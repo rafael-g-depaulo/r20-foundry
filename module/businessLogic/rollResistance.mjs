@@ -8,11 +8,9 @@ export const rollAttributeResistance = [
     const pc = actor.system;
     const { attributeName } = dataset;
 
-    // TODO: fix
-    // const roll = new Roll(`1d20 + @prof + @attb`, {
-    const roll = new Roll(`1d20`, {
-      // prof: getProficiency(pc, attributeName),
-      // attb: getAttributeModifier(pc.attributes[attributeName]),
+    const roll = new Roll(`1d20 + @prof + @attb`, {
+      prof: pc.config.attributeProficiencies[attributeName] ? pc.proficiency : 0,
+      attb: getAttributeModifier(pc.attributes[attributeName]),
     });
 
     await roll.evaluate();

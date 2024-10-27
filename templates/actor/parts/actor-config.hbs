@@ -61,10 +61,10 @@
   </div>
 
   <span>Proficiências</span>
-  {{#each system.attributes as |attribute key|}}
+  {{#each system.config.attributeProficiencies as |isProficient attribute|}}
   <div>
-    <input type="checkbox" id="system.attributes.{{key}}.isProficient" name="system.attributes.{{key}}.isProficient" value="{{attribute.isProficient}}" data-dtype="Boolean" {{checked attribute.isProficient}} />
-    <label for="system.attributes.{{key}}.isProficient">{{key}}</label>
+    <input type="checkbox" id="system.config.attributeProficiencies.{{attribute}}" name="system.config.attributeProficiencies.{{attribute}}" value="isProficient" data-dtype="Boolean" {{checked isProficient}} />
+    <label for="system.config.attributeProficiencies.{{attribute}}">{{attribute}}</label>
   </div>
   {{/each}}
 

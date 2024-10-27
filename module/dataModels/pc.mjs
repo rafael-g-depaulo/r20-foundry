@@ -8,6 +8,7 @@ import {
 } from "../businessLogic/skills.mjs";
 import { CharacterDataModel } from "./character.mjs";
 import { ExtraPropertySchema, ExtraSkillSchema } from "./fieldSchemas.mjs";
+import { R20 } from "../helpers/config.mjs";
 
 // TODO: add show prop on extra props
 // TODO: Add max resources calc
@@ -18,7 +19,7 @@ import { ExtraPropertySchema, ExtraSkillSchema } from "./fieldSchemas.mjs";
 export class PcDataModel extends CharacterDataModel {
   static defineSchema() {
     const baseCharacterSchema = CharacterDataModel.defineSchema();
-    const { ArrayField, NumberField, SchemaField } = foundry.data.fields;
+    const { ArrayField, NumberField, SchemaField, BooleanField } = foundry.data.fields;
 
     return {
       ...baseCharacterSchema,
@@ -115,7 +116,20 @@ export class PcDataModel extends CharacterDataModel {
           nullable: false,
           integer: true,
           initial: 0,
-        })
+        }),
+        attributeProficiencies: new SchemaField(
+          Object.fromEntries(
+            R20.attributeNamesArray.map(attb => [
+              attb,
+              new BooleanField({
+                required: true,
+                nullable: false,
+                initial: false,
+                label: attb+"_IS_PROFICIENT_"
+              })
+            ])
+          )
+        ),
       }),
 
       // skill points related stuff (auto calculated)

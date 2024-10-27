@@ -23,7 +23,6 @@ export const rollRest = async ({
     3
   )
   const condition = R20.RestConditions[conditionId]
-  console.log("COND", conditionId, roll)
   
   return {
     roll,

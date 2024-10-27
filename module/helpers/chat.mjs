@@ -6,7 +6,6 @@ export const sendMessage = ({
   content,
   sound = defaultMessageOpts.sound,
 }) => {
-
   return ChatMessage.implementation.create({
     content,
     sound

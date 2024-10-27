@@ -23,13 +23,14 @@ export const R20 = {};
 // };
 
 R20.attributeNamesArray = ["str", "dex", "con", "int", "sen", "pre"];
+// accidantally useless given how i've built things... to remove on v2
 R20.attributeNames = {
-  STR: R20.attributeNamesArray[0],
-  DEX: R20.attributeNamesArray[1],
-  CON: R20.attributeNamesArray[2],
-  INT: R20.attributeNamesArray[3],
-  SEN: R20.attributeNamesArray[4],
-  PRE: R20.attributeNamesArray[5],
+  str: R20.attributeNamesArray[0],
+  dex: R20.attributeNamesArray[1],
+  con: R20.attributeNamesArray[2],
+  int: R20.attributeNamesArray[3],
+  sen: R20.attributeNamesArray[4],
+  pre: R20.attributeNamesArray[5],
 }
 
 R20.skillNames = {
@@ -59,28 +60,28 @@ R20.skillNames = {
 R20.skillNamesArray = Object.values(R20.skillNames)
 
 R20.skillAttributes = {
-  [R20.skillNames.ATHLETICS]: R20.attributeNames.STR,
-  [R20.skillNames.ACROBATICS]: R20.attributeNames.DEX,
-  [R20.skillNames.INITIATIVE]: R20.attributeNames.DEX,
-  [R20.skillNames.STEALTH]: R20.attributeNames.DEX,
-  [R20.skillNames.SLEIGHT_OF_HAND]: R20.attributeNames.DEX,
-  [R20.skillNames.SURVIVAL]: R20.attributeNames.CON,
-  [R20.skillNames.INVESTIGATION]: R20.attributeNames.INT,
-  [R20.skillNames.LOGIC]: R20.attributeNames.INT,
-  [R20.skillNames.HISTORY]: R20.attributeNames.INT,
-  [R20.skillNames.MEDICINE]: R20.attributeNames.INT,
-  [R20.skillNames.RELIGION]: R20.attributeNames.INT,
-  [R20.skillNames.PERCEPTION]: R20.attributeNames.SEN,
-  [R20.skillNames.EMPATHY]: R20.attributeNames.SEN,
-  [R20.skillNames.INSIGHT]: R20.attributeNames.SEN,
-  [R20.skillNames.ARCANA]: R20.attributeNames.SEN,
-  [R20.skillNames.NATURE]: R20.attributeNames.SEN,
-  [R20.skillNames.HANDLING]: R20.attributeNames.PRE,
-  [R20.skillNames.COOKING]: R20.attributeNames.PRE,
-  [R20.skillNames.DECEPTION]: R20.attributeNames.PRE,
-  [R20.skillNames.INTIMIDATION]: R20.attributeNames.PRE,
-  [R20.skillNames.PERSUASION]: R20.attributeNames.PRE,
-  [R20.skillNames.PERFORMANCE]: R20.attributeNames.PRE,
+  [R20.skillNames.ATHLETICS]: R20.attributeNames.str,
+  [R20.skillNames.ACROBATICS]: R20.attributeNames.dex,
+  [R20.skillNames.INITIATIVE]: R20.attributeNames.dex,
+  [R20.skillNames.STEALTH]: R20.attributeNames.dex,
+  [R20.skillNames.SLEIGHT_OF_HAND]: R20.attributeNames.dex,
+  [R20.skillNames.SURVIVAL]: R20.attributeNames.con,
+  [R20.skillNames.INVESTIGATION]: R20.attributeNames.int,
+  [R20.skillNames.LOGIC]: R20.attributeNames.int,
+  [R20.skillNames.HISTORY]: R20.attributeNames.int,
+  [R20.skillNames.MEDICINE]: R20.attributeNames.int,
+  [R20.skillNames.RELIGION]: R20.attributeNames.int,
+  [R20.skillNames.PERCEPTION]: R20.attributeNames.sen,
+  [R20.skillNames.EMPATHY]: R20.attributeNames.sen,
+  [R20.skillNames.INSIGHT]: R20.attributeNames.sen,
+  [R20.skillNames.ARCANA]: R20.attributeNames.sen,
+  [R20.skillNames.NATURE]: R20.attributeNames.sen,
+  [R20.skillNames.HANDLING]: R20.attributeNames.pre,
+  [R20.skillNames.COOKING]: R20.attributeNames.pre,
+  [R20.skillNames.DECEPTION]: R20.attributeNames.pre,
+  [R20.skillNames.INTIMIDATION]: R20.attributeNames.pre,
+  [R20.skillNames.PERSUASION]: R20.attributeNames.pre,
+  [R20.skillNames.PERFORMANCE]: R20.attributeNames.pre,
 }
 
 R20.ProvisionTypes = {
