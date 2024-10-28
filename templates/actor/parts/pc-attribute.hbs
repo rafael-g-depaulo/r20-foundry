@@ -1,7 +1,7 @@
 <div class="attribute-diplay">
 
   <span class="rollable" data-roll-type="attribute" data-attribute-name="{{attributeName}}">
-    {{#if isProficient}}*{{/if}}{{attributeName}} ({{attbMod attribute isProficient proficiencyBonus}})
+    {{#if isProficient}}*{{/if}}{{attributeName}} ({{attbMod attribute isProficient 0}})
   </span>
   <input type="text" name="system.attributes.{{toLowerCase attributeName}}.value" value="{{attribute.value}}" data-dtype="Number"/>
   <input type="text" name="system.attributes.{{toLowerCase attributeName}}.bonus" value="{{attribute.bonus}}" data-dtype="Number"/>
