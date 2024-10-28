@@ -253,13 +253,11 @@ export class PcDataModel extends CharacterDataModel {
       return -1
     }
 
-    const asdasd = this.actualItems
-      .map(({ system }) => system.weight * system.quantity)
+    const curCapacity = this.actualItems
+      .map(({ system }) => (isNaN(system.weight) ? 0 : system.weight) * system.quantity)
       .reduce((a, b) => a + b, 0)
 
-    console.log("_______", asdasd)
-
-    return asdasd
+    return curCapacity
   }
 
   get itemCapacity() {

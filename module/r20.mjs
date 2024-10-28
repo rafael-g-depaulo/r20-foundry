@@ -19,6 +19,8 @@ import { WeaponDataModel } from "./dataModels/weapon.mjs";
 import { PcDataModel } from "./dataModels/pc.mjs";
 import { activateChatListeners } from "./listeners/chatListeners.mjs";
 import { NpcDataModel } from "./dataModels/npc.mjs";
+import { ItemDataModel } from "./dataModels/item.mjs";
+import { ArmorDataModel } from "./dataModels/armor.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -55,6 +57,8 @@ Hooks.once("init", function () {
 
   // Register Data Models. (see: https://foundryvtt.com/article/system-data-models/)
   CONFIG.Item.dataModels.weapon = WeaponDataModel;
+  CONFIG.Item.dataModels.armor = ArmorDataModel;
+  CONFIG.Item.dataModels.item = ItemDataModel;
   CONFIG.Actor.dataModels.pc = PcDataModel;
   CONFIG.Actor.dataModels.npc = NpcDataModel;
 
