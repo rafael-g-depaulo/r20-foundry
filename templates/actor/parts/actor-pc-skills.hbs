@@ -1,4 +1,8 @@
-<section class="grid grid-3col">
+<section class="grid grid-3col" style="
+  grid-template-columns: min-content 1fr 1fr;
+  overflow-x: scroll;
+  overflow-y: hidden;
+">
   <aside class="sidebar">
 
     {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
@@ -12,6 +16,17 @@
       <!-- </div> -->
       {{/each}}
     </div>
+    <div style="margin-top: 1.6rem;">
+        <label for="restDificulty">CD Descanso</label>
+        <input type="text" name="restDificulty" value="10" style="margin-bottom: 0.4rem;"/>
+        <label for="provisionsKind">Mantimentos</label>
+        <select name="provisionsKind">
+          {{#each (R20 ".ProvisionTypes") as |provisionType provisionName|}}
+            <option value="{{provisionName}}">{{provisionType.name}} ({{provisionType.cost}} m. prata. {{bonus provisionType.bonus}})</option>
+          {{/each}}
+        </select>
+        <button class="rollable" data-roll-type="rest-roll" style="margin-top: 0.4rem;"><a class="fa fa-bed"></a> Descanso</button>
+      </div>
   </aside>
 
   <div class="grid-span-2">
@@ -20,7 +35,6 @@
       gap: 4rem;
       margin-bottom: 0.6rem;
     ">
-      <button class="rollable" data-roll-type="rest-roll"><a class="fa fa-bed"></a> Descanso</button>
       <span style="display: content;">available skill points: {{system.openSkillPoints}}</span>
     </div>
     <section class="main grid-span-2 skills">

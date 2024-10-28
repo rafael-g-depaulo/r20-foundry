@@ -137,6 +137,8 @@ Handlebars.registerHelper("hidratePc", (pcSystemData, opts) => {
 Handlebars.registerHelper("setVar", (varName, varValue, opts) => {
   opts.data.root[varName] = varValue;
 })
+Handlebars.registerHelper("R20", (path) => look(R20, path))
+Handlebars.registerHelper("bonus", num => num < 0 ? `${num}` : `+${num}`)
 
 /// Business Rules related helpers //////////////////////////
 /// Business Rules related helpers //////////////////////////

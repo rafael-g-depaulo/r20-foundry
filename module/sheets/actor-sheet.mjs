@@ -389,7 +389,7 @@ export class R20ActorSheet extends ActorSheet {
       );
     }
 
-    rollHandlerMapper[rollType]({ actor, dataset });
+    rollHandlerMapper[rollType]({ actor, dataset, event });
 
     // handle typed rolls
     // switch (dataset.rollType) {

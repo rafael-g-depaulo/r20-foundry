@@ -20,7 +20,7 @@ export const rollRest = async ({
   const conditionId = minMax(
     -1,
     Math.floor((roll.total - restDc) / 5),
-    3
+    2
   )
   const condition = R20.RestConditions[conditionId]
   

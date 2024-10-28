@@ -30,12 +30,11 @@ export const rollSkill = [
 
 export const rollForRest = [
   "rest-roll",
-  async ({ actor, dataset }) => {
+  async ({ actor, event }) => {
+    const restForm = event.currentTarget.parentElement
+    const restDc = parseInt(restForm.querySelector("input[name='restDificulty']").value) || 0
+    const provisionsKind = restForm.querySelector("select[name='provisionsKind']").value
     const pc = actor.system;
-    const {} = dataset;
-
-    const provisionsKind = R20.ProvisionTypesArray[3]
-    const restDc = 23
 
     const {
       condition,
@@ -49,7 +48,7 @@ export const rollForRest = [
     })
 
     const messageContent =
-      `${actor.name} descansou. Aguentando a dificuldade ${restDc} do descanso, ${actor.name} teve um descanso "${condition.name}", com um teste de sobrevivência de ${roll.total}. ${actor.name} recupera ${hpRecovered} HP e ${mpRecovered} MP.` +
+      `${actor.name} descansou (${R20.ProvisionTypes[provisionsKind].name}). Aguentando a dificuldade ${restDc} do descanso, ${actor.name} teve um descanso "${condition.name}", com um teste de sobrevivência de ${roll.total}. ${actor.name} recupera ${hpRecovered} HP e ${mpRecovered} MP.` +
       (condition.name === R20.RestConditions[R20.RestConditionsKind.BAD].name ? ` Faça um teste de resistência de CON (CD ${restDc}). Se falhar, recebe 1 nível de exaustão, +1 para cada 5 abaixo da CD.` : "")
 
     const updatePromise = actor.update({
@@ -61,8 +60,8 @@ export const rollForRest = [
       }
     })
 
-    const messagePromise = sendMessage({
-      content: messageContent
+    const messagePromise = roll.toMessage({
+      flavor: messageContent
     })
 
     return Promise.all([updatePromise, messagePromise])
