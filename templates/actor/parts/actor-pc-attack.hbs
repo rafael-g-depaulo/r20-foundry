@@ -46,7 +46,7 @@
   <div>to hit bonus: {{attack.toHit}}</div>
 
   <div class="rollable" data-roll-type="normal-damage" data-attack-id="{{attackIndex}}">
-    dmg: {{attack.weapon.system.damage}}
+    dmg: {{attack.damageStr}}
   </div>
 
   <div class="rollable" data-roll-type="critical-damage" data-attack-id="{{attackIndex}}">
@@ -64,10 +64,10 @@
 </div>
 
 <label for="attacks.{{attackIndex}}.damageBonus">damage bonus</label>
-<input type="text" name="attacks.{{attackIndex}}.damageBonus" class="attack-input" data-attack-index="{{attackIndex}}" data-dtype="Number" data-property="damageBonus" value="{{attack.damageBonus}}">
+<input type="text" name="attacks.{{attackIndex}}.damageBonus" class="attack-input" data-attack-index="{{attackIndex}}" data-property="damageBonus" value="{{attack.damageBonus}}">
 
 <label for="attacks.{{attackIndex}}.attackBonus">attack bonus</label>
-<input type="text" class="attack-input" class="attack-input" data-attack-index="{{attackIndex}}" data-property="attackBonus" data-dtype="Number" name="attacks.{{attackIndex}}.attackBonus" value="{{attack.attackBonus}}">
+<input type="text" class="attack-input" class="attack-input" data-attack-index="{{attackIndex}}" data-property="attackBonus" name="attacks.{{attackIndex}}.attackBonus" value="{{attack.attackBonus}}">
 
 {{/if}}
 

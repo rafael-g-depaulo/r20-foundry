@@ -9,13 +9,12 @@ import {
 import { CharacterDataModel } from "./character.mjs";
 import { ExtraPropertySchema, ExtraSkillSchema } from "./fieldSchemas.mjs";
 import { R20 } from "../helpers/config.mjs";
+import { getAttributeModifierStr } from "../businessLogic/attributeModifier.mjs"
+import { numToBonus } from "../helpers/string.mjs"
 
 // TODO: add show prop on extra props
-// TODO: Add max resources calc
 // TODO: Add maxSkill stuff
-// TODO: Add defenses stuff(on char, not pc)
 // TODO: Add movement stuff
-// TODO: change get ATB() stuff to a getter method (on char, not pc)
 export class PcDataModel extends CharacterDataModel {
   static defineSchema() {
     const baseCharacterSchema = CharacterDataModel.defineSchema();
@@ -151,7 +150,6 @@ export class PcDataModel extends CharacterDataModel {
         required: false,
         nullable: true,
         integer: true,
-        min: 1,
       }),
     };
   }
@@ -187,23 +185,28 @@ export class PcDataModel extends CharacterDataModel {
 
     // attack bonuses
     this.attacks.forEach((attack, attackIndex) => {
-      const toHit = this.getAttributeModifier(attack.attackAttb) +
-        attack.attackBonus +
-        (attack.isProficient ? this.proficiency ?? 0 : 0)
 
-      const baseDamageStr = attack.weapon.system.damage
-      const bonusDamage = this.getAttributeModifier(attack.damageAttb) + attack.damageBonus
-      const bonusDamageStr = bonusDamage < 0 ? bonusDamage : bonusDamage > 0 ? `+${bonusDamage}` : ""
+      const toHitProficiency = attack.isProficient ? numToBonus(this.proficiency) : ""
+      const toHitAttribute = attack.attackAttb === "" ? "" : ` ${getAttributeModifierStr(this.attributes[attack.attackAttb])}`
 
-      const damageStr = `${baseDamageStr} ${bonusDamageStr}`.trim()
+      const toHit = numToBonus(
+        (attack.isProficient ? this.proficiency : 0) + this.getAttributeModifier(attack.attackAttb)
+      )
+
+      const baseDamage = attack.weapon.system.damage
+      const attbDamage = attack.damageAttb === "" ? "" : ` ${getAttributeModifierStr(this.attributes[attack.damageAttb])}`
+      const bonusDamage = attack.damageBonus.trim() === "" ? "" : ` + ${attack.damageBonus}`
+      const damage = `${baseDamage}${attbDamage}${bonusDamage}`.trim()
 
       // TODO: add crit margin and crit mult options to attack
-      const critBaseDamageStr = multiplyDice(attack.weapon.system.damage, attack.weapon.system.critMult)
-      const critDamageStr = `${critBaseDamageStr} ${bonusDamageStr}`.trim()
+      const critBaseDamage = multiplyDice(attack.weapon.system.damage, attack.weapon.system.critMult)
+      const critDamage = `${critBaseDamage}${attbDamage}${bonusDamage}`.trim()
 
       this.attacks[attackIndex].toHit = toHit
-      this.attacks[attackIndex].damageStr = damageStr
-      this.attacks[attackIndex].critDamageStr = critDamageStr
+      this.attacks[attackIndex].damageStr = damage
+      this.attacks[attackIndex].critDamageStr = critDamage
+
+      console.log("_TEST", this.attacks[attackIndex])
     })
 
     // update skill total bonus

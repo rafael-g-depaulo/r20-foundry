@@ -170,7 +170,7 @@ export const NpcAttackSchema = () => {
   })
 }
 export const AttackSchema = () => {
-  const { SchemaField, NumberField, StringField, DocumentIdField } = foundry.data.fields
+  const { SchemaField, BooleanField, StringField, DocumentIdField } = foundry.data.fields
 
   return new SchemaField({
     name: new StringField({
@@ -179,17 +179,17 @@ export const AttackSchema = () => {
       nullable: false,
       initial: "attack",
     }),
-    attackBonus: new NumberField({
+    attackBonus: new StringField({
       required: true,
       nullable: false,
-      integer: true,
-      initial: 0,
+      blank: true,
+      initial: "",
     }),
-    damageBonus: new NumberField({
+    damageBonus: new StringField({
       required: true,
       nullable: false,
-      integer: true,
-      initial: 0,
+      blank: true,
+      initial: "",
     }),
     attackAttb: new StringField({
       required: true,
@@ -216,6 +216,12 @@ export const AttackSchema = () => {
       blank: false,
       choices: ["view", "edit", "delete"],
       initial: "view"
+    }),
+    isProficient: new BooleanField({
+      required: true,
+      nullable: false,
+      initial: true,
+      label: "_IS_PROFICIENT"
     }),
   })
 }
