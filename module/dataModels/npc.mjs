@@ -36,6 +36,14 @@ export class NpcDataModel extends CharacterDataModel {
       attacks: new ArrayField(NpcAttackSchema(), {
         required: true,
         initial: [],
+      }),
+      defense: new NumberField({
+        required: true,
+        nullable: false,
+        integer: true,
+        initial: 10,
+        min: 0,
+        label: "_DEFENSE",
       })
     }
   }

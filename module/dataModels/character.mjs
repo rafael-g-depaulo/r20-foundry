@@ -78,45 +78,6 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
     return this.items.filter(item => item.type === "ability")
   }
 
-  get spells() {
-    if (!this.items) {
-      console.error(`Tried to access spells of character before populating items`)
-      return []
-    }
-
-    return this.items.filter(item => item.type === "spell")
-  }
-
-  get defense() {
-    const armorDefenseBonus = this.armor
-      .filter(item => item.system.isEquiped)
-      .map((item) => item.system.defense)
-      .reduce((a, b) => a + b, 0)
-
-    const defenseBonus = this.config.bonusDefense + armorDefenseBonus
-    return getDefense(this.dodge, this.guard, defenseBonus)
-  }
-
-  get guard() {
-    const armorGuardBonus = this.armor
-      .filter(item => item.system.isEquiped)
-      .map(({system}) => system.guard)
-      .reduce((a, b) => a + b, 0)
-
-    const guardBonus = this.config.bonusGuard + armorGuardBonus
-    return getGuard(this.CON, guardBonus)
-  }
-
-  get dodge() {
-    const armorDodgeBonus = this.armor
-      .filter(item => item.system.isEquiped)
-      .map(({system}) => system.dodge)
-      .reduce((a, b) => a + b, 0)
-
-    const dodgeBonus = this.config.bonusDodge + armorDodgeBonus
-    return getDodge(this.DEX, dodgeBonus)
-  }
-
   populateVirtualProps() {}
 
   populateExternalIds({ items } = {}) {

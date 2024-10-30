@@ -11,10 +11,11 @@ import { ExtraPropertySchema, ExtraSkillSchema } from "./fieldSchemas.mjs";
 import { R20 } from "../helpers/config.mjs";
 import { getAttributeModifierStr } from "../businessLogic/attributeModifier.mjs"
 import { numToBonus } from "../helpers/string.mjs"
+import { getDefense, getDodge, getGuard } from "../businessLogic/defenses.mjs";
 
 // TODO: add show prop on extra props
-// TODO: Add maxSkill stuff
-// TODO: Add movement stuff
+// TODO: refactor extra prop to only be number, and allow max
+// TODO: add spell/skill CD display
 export class PcDataModel extends CharacterDataModel {
   static defineSchema() {
     const baseCharacterSchema = CharacterDataModel.defineSchema();
@@ -284,6 +285,45 @@ export class PcDataModel extends CharacterDataModel {
 
     //   this[name] = this.extra[name];
     // });
+  }
+
+  get spells() {
+    if (!this.items) {
+      console.error(`Tried to access spells of character before populating items`)
+      return []
+    }
+
+    return this.items.filter(item => item.type === "spell")
+  }
+
+  get defense() {
+    const armorDefenseBonus = this.armor
+      .filter(item => item.system.isEquiped)
+      .map((item) => item.system.defense)
+      .reduce((a, b) => a + b, 0)
+
+    const defenseBonus = this.config.bonusDefense + armorDefenseBonus
+    return getDefense(this.dodge, this.guard, defenseBonus)
+  }
+
+  get guard() {
+    const armorGuardBonus = this.armor
+      .filter(item => item.system.isEquiped)
+      .map(({system}) => system.guard)
+      .reduce((a, b) => a + b, 0)
+
+    const guardBonus = this.config.bonusGuard + armorGuardBonus
+    return getGuard(this.CON, guardBonus)
+  }
+
+  get dodge() {
+    const armorDodgeBonus = this.armor
+      .filter(item => item.system.isEquiped)
+      .map(({system}) => system.dodge)
+      .reduce((a, b) => a + b, 0)
+
+    const dodgeBonus = this.config.bonusDodge + armorDodgeBonus
+    return getDodge(this.DEX, dodgeBonus)
   }
 
   populateExtraSkills() {

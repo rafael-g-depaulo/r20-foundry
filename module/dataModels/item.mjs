@@ -1,3 +1,4 @@
+// TODO add hidden items (use for unarmed attack)
 export class ItemDataModel extends foundry.abstract.DataModel {
   static defineSchema() {
     const { NumberField, StringField } = foundry.data.fields
