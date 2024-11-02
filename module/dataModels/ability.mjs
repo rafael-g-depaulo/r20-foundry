@@ -1,4 +1,4 @@
-export class ArmorDataModel extends foundry.abstract.DataModel {
+export class AbilityDataModel extends foundry.abstract.DataModel {
   static defineSchema() {
     const { StringField } = foundry.data.fields
     

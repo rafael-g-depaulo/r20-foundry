@@ -24,6 +24,9 @@ import { ArmorDataModel } from "./dataModels/armor.mjs";
 import { parseBonusString } from "./helpers/string.mjs";
 import { populateBonusArray } from "./helpers/pc.mjs";
 import { setValueInPath } from "./helpers/object.mjs";
+import { AbilityDataModel } from "./dataModels/ability.mjs";
+import { SpellDataModel } from "./dataModels/spell.mjs";
+import { MiracleDataModel } from "./dataModels/miracle.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -62,6 +65,9 @@ Hooks.once("init", function () {
   CONFIG.Item.dataModels.weapon = WeaponDataModel;
   CONFIG.Item.dataModels.armor = ArmorDataModel;
   CONFIG.Item.dataModels.item = ItemDataModel;
+  CONFIG.Item.dataModels.ability = AbilityDataModel;
+  CONFIG.Item.dataModels.spell = SpellDataModel;
+  CONFIG.Item.dataModels.miracle = MiracleDataModel;
   CONFIG.Actor.dataModels.pc = PcDataModel;
   CONFIG.Actor.dataModels.npc = NpcDataModel;
 

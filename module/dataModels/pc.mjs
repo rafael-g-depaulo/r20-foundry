@@ -19,7 +19,7 @@ import { getDefense, getDodge, getGuard } from "../businessLogic/defenses.mjs";
 export class PcDataModel extends CharacterDataModel {
   static defineSchema() {
     const baseCharacterSchema = CharacterDataModel.defineSchema();
-    const { ArrayField, NumberField, SchemaField, BooleanField } = foundry.data.fields;
+    const { ArrayField, NumberField, SchemaField, StringField, BooleanField } = foundry.data.fields;
 
     return {
       ...baseCharacterSchema,
@@ -74,12 +74,41 @@ export class PcDataModel extends CharacterDataModel {
           integer: true,
           initial: 0,
         }),
-        isPaladin: new NumberField({
+        isPaladin: new BooleanField({
           required: true,
           nullable: false,
-          integer: true,
-          min: 0,
-          initial: 0,
+          initial: false,
+        }),
+        miraclesAttb: new StringField({
+          required: true,
+          nullable: false,
+          blank: true,
+          choices: ["", ...R20.attributeNamesArray],
+          initial: "",
+        }),
+        isCaster: new BooleanField({
+          required: true,
+          nullable: false,
+          initial: false,
+        }),
+        spellAttb: new StringField({
+          required: true,
+          nullable: false,
+          blank: true,
+          choices: ["", ...R20.attributeNamesArray],
+          initial: "",
+        }),
+        hasClassSaves: new BooleanField({
+          required: true,
+          nullable: false,
+          initial: false,
+        }),
+        classSaveAttb: new StringField({
+          required: true,
+          nullable: false,
+          blank: true,
+          choices: ["", ...R20.attributeNamesArray],
+          initial: "",
         }),
         bonusSkillPoints: new NumberField({
           required: true,

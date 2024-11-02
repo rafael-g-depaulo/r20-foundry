@@ -19,25 +19,18 @@
   },
   "Item": {
     "types": [
+      "item",
       "weapon",
       "armor",
-      "spell",
       "ability",
-      "item"
+      "spell",
+      "miracle"
     ],
-    "templates": {
-      "base": {
-        "description": ""
-      },
-      "item": {
-        "weight": 0
-      },
-      "equipment": {
-        "isEquiped": false
-      }
-    },
+    "templates": {},
     "weapon": {},
     "spell": {},
+    "ability": {},
+    "miracle": {},
     "armor": {}
   }
 }

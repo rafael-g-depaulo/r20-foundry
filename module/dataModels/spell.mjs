@@ -1,6 +1,8 @@
-export class SpellDataModel extends foundry.abstract.DataModel {
+import { AbilityDataModel } from "./ability.mjs"
+
+export class SpellDataModel extends AbilityDataModel {
   static defineSchema() {
-    const { NumberField, StringField } = foundry.data.fields
+    const { NumberField } = foundry.data.fields
 
     return {
       circle: new NumberField({
@@ -10,13 +12,13 @@ export class SpellDataModel extends foundry.abstract.DataModel {
         min: 0,
         label: "CIRCLE_"
       }),
-      description: new StringField({
-        required: false,
-        blank: true,
-        nullable: false,
-        initial: "description here",
-        label: "DESCRIPTION_",
-      })
+      // description: new StringField({
+      //   required: false,
+      //   blank: true,
+      //   nullable: false,
+      //   initial: "description here",
+      //   label: "DESCRIPTION_",
+      // })
     }
   }
 }
