@@ -71,7 +71,20 @@ export const look = (obj, path) =>
   path
     .split(".")
     .filter((a) => a !== "")
-    .reduce((acc, cur) => acc[cur], obj);
+    .reduce((acc, cur) => {
+      if (typeof acc !== 'object' || acc === null) {
+        console.error("tried to access non-object", cur, acc)
+        return null
+      }
+      if (!acc.hasOwnProperty(cur)) {
+      console.error(`ERROR! couldn't find ${cur} in object:`, acc)
+        console.trace()
+        return null
+      }
+      
+      // console.log(`found value for key ${cur} in obj`, acc)
+      return acc[cur]
+    }, obj);
 
 export const detailLook = (obj, ...path) =>
   path.length === 0 ? obj : detailLook(obj[path[0]], ...path.slice(1))

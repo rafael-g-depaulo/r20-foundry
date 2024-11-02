@@ -1,3 +1,5 @@
+import { look } from "./effects.mjs";
+
 const startsWithArrayItem = /^\[(\d+)\](.*)/;
 const startsWithProp = /^\.([^\.\[]+)(.*)/;
 
@@ -80,3 +82,20 @@ export const deepJoin = (...items) =>
     items.length === 1 ? items[0] :
       deepJoin(deepJoinTwo(items[0], items[1]), ...items.slice(2))
 
+const lastPathSegmentRegex = /\.\w+$/
+export const setValueInPath = (obj, path, newValueMakerThing = a => a) => {
+  const lastSegmentIndex = lastPathSegmentRegex.exec(path)?.index ?? 0
+  const lastSegmentKey = path.slice(lastSegmentIndex + 1)
+  const directParentPath = path.slice(0,  lastSegmentIndex)
+  
+  const directParentObj = look(obj, directParentPath)
+  
+  if (!directParentObj) {
+    console.error("Error in setValueInPath. Bad object/path for path", directParentPath, obj);
+    return;
+  }
+
+  const oldValue = directParentObj[lastSegmentKey]
+  directParentObj[lastSegmentKey] = newValueMakerThing(oldValue)
+  return obj
+}

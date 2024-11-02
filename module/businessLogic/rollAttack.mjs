@@ -6,8 +6,11 @@ export const rollAttack = [
     const { attackId } = dataset;
     const attack = pc.attacks[attackId]
 
+    // TODO: parse pc.bonus.attack.toHit
+    //  TODO: add helper function to add string and add '+' if needed
+    const toHitBonus = attack.toHit + pc.bonus.attack.toHit
     const roll = new Roll(`1d20 + @toHitBonus`, {
-      toHitBonus: attack.toHit,
+      toHitBonus,
     });
 
     await roll.evaluate();

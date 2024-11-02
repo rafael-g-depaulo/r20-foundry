@@ -206,8 +206,6 @@ export class PcDataModel extends CharacterDataModel {
       this.attacks[attackIndex].toHit = toHit
       this.attacks[attackIndex].damageStr = damage
       this.attacks[attackIndex].critDamageStr = critDamage
-
-      console.log("_TEST", this.attacks[attackIndex])
     })
 
     // update skill total bonus
@@ -217,6 +215,12 @@ export class PcDataModel extends CharacterDataModel {
         skill.bonus +
         this.getAttributeModifier(skill.attribute);
     });
+
+    // extra props
+    this.extraProperties.forEach(({ name, type, value }) => {
+      const parsedValue = type === 'number' ? Number(value) : value
+      this.extra[name] = parsedValue
+    })
   }
 
   get isEncumbered() {

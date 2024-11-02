@@ -21,6 +21,9 @@ import { activateChatListeners } from "./listeners/chatListeners.mjs";
 import { NpcDataModel } from "./dataModels/npc.mjs";
 import { ItemDataModel } from "./dataModels/item.mjs";
 import { ArmorDataModel } from "./dataModels/armor.mjs";
+import { parseBonusString } from "./helpers/string.mjs";
+import { populateBonusArray } from "./helpers/pc.mjs";
+import { setValueInPath } from "./helpers/object.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -238,6 +241,14 @@ function rollItemMacro(itemUuid) {
   });
 }
 
+// Add my simple fix to not need DAE anymore.
+Hooks.on("applyActiveEffect", (actor, { key, value }) => {
+  // if (key.startsWith("system.bonus") || key.startsWith("system.config")) {
+  // }
+  const pc = actor.system
+  const bonus = populateBonusArray(parseBonusString(value), pc)
+  setValueInPath(actor, key, oldValue => Number.isNumeric(oldValue) ? oldValue + Number(newValue) : `${oldValue}${bonus}`)
+})
 
 Hooks.on("renderChatMessage", (message, html, opts) => {
   activateChatListeners(html)

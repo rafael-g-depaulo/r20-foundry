@@ -5,7 +5,7 @@ import { AttackSchema, AttributeSchema, ResourceSchema, SkillSchema } from "./fi
 
 export class CharacterDataModel extends foundry.abstract.DataModel {
   static defineSchema() {
-    const { SchemaField, ArrayField } = foundry.data.fields;
+    const { SchemaField, ArrayField, StringField } = foundry.data.fields;
 
     return {
       resources: new SchemaField({
@@ -32,6 +32,21 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
       attacks: new ArrayField(AttackSchema(), {
         required: true,
         initial: [],
+      }),
+      // for dynamic bonuses to stuff
+      bonus: new SchemaField({
+        attack: new SchemaField({
+          toHit: new StringField({
+            required: true,
+            nullable: false,
+            initial: "",
+          }),
+          damage: new StringField({
+            required: true,
+            nullable: false,
+            initial: "",
+          }),
+        })
       })
     };
   }
@@ -83,7 +98,7 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
   populateExternalIds({ items } = {}) {
     const itemsSource = items ?? game.items
     this.items = itemsSource
-    console.log("populate external ids", this, itemsSource)
+    // console.log("populate external ids", this, itemsSource)
   }
 
   get STR() {
