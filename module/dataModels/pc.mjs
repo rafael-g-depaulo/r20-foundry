@@ -187,8 +187,8 @@ export class PcDataModel extends CharacterDataModel {
     // attack bonuses
     this.attacks.forEach((attack, attackIndex) => {
 
-      const toHitProficiency = attack.isProficient ? numToBonus(this.proficiency) : ""
-      const toHitAttribute = attack.attackAttb === "" ? "" : ` ${getAttributeModifierStr(this.attributes[attack.attackAttb])}`
+      // const toHitProficiency = attack.isProficient ? numToBonus(this.proficiency) : ""
+      // const toHitAttribute = attack.attackAttb === "" ? "" : ` ${getAttributeModifierStr(this.attributes[attack.attackAttb])}`
 
       const toHit = numToBonus(
         (attack.isProficient ? this.proficiency : 0) + this.getAttributeModifier(attack.attackAttb)
@@ -203,9 +203,9 @@ export class PcDataModel extends CharacterDataModel {
       const critBaseDamage = multiplyDice(attack.weapon.system.damage, attack.weapon.system.critMult)
       const critDamage = `${critBaseDamage}${attbDamage}${bonusDamage}`.trim()
 
-      this.attacks[attackIndex].toHit = toHit
-      this.attacks[attackIndex].damageStr = damage
-      this.attacks[attackIndex].critDamageStr = critDamage
+      this.attacks[attackIndex].toHit = toHit + this.bonus.attack.toHit
+      this.attacks[attackIndex].damageStr = damage + this.bonus.attack.damage
+      this.attacks[attackIndex].critDamageStr = critDamage + this.bonus.attack.damage
     })
 
     // update skill total bonus
