@@ -50,7 +50,7 @@
   </div>
 
   <div class="rollable" data-roll-type="critical-damage" data-attack-id="{{attackIndex}}">
-    crit: {{weaponCrit attack.weapon}}
+    crit: {{attackCrit attack}}
   </div>
 {{/if}}
 
@@ -68,6 +68,12 @@
 
 <label for="attacks.{{attackIndex}}.attackBonus">attack bonus</label>
 <input type="text" class="attack-input" class="attack-input" data-attack-index="{{attackIndex}}" data-property="attackBonus" name="attacks.{{attackIndex}}.attackBonus" value="{{attack.attackBonus}}">
+
+<label for="attacks.{{attackIndex}}.critMargin">Crit Margin Bonus</label>
+<input type="text" class="attack-input" class="attack-input" data-attack-index="{{attackIndex}}" data-property="critMargin" name="attacks.{{attackIndex}}.critMargin" value="{{attack.critMargin}}">
+
+<label for="attacks.{{attackIndex}}.critMult">Crit Multiplier Bonus</label>
+<input type="text" class="attack-input" class="attack-input" data-attack-index="{{attackIndex}}" data-property="critMult" name="attacks.{{attackIndex}}.critMult" value="{{attack.critMult}}">
 
 {{/if}}
 

@@ -182,7 +182,6 @@ export class PcDataModel extends CharacterDataModel {
 
     // spells
     this.spellsByCircle = groupBy(spell => spell.system.circle, this.spells)
-    console.log("ASDASDASDASDASD", this, this.items, this.spellsByCircle)
 
     // attack bonuses
     this.attacks.forEach((attack, attackIndex) => {
@@ -199,13 +198,18 @@ export class PcDataModel extends CharacterDataModel {
       const bonusDamage = attack.damageBonus.trim() === "" ? "" : ` + ${attack.damageBonus}`
       const damage = `${baseDamage}${attbDamage}${bonusDamage}`.trim()
 
-      // TODO: add crit margin and crit mult options to attack
-      const critBaseDamage = multiplyDice(attack.weapon.system.damage, attack.weapon.system.critMult)
+      const critMult = attack.weapon.system.critMult + attack.critMult + this.bonus.attack.critMult
+      const critMargin = attack.weapon.system.critMargin + attack.critMargin + this.bonus.attack.critMargin
+      console.log(critMult, attack.critMult,  attack.weapon.system.critMult)
+
+      const critBaseDamage = multiplyDice(attack.weapon.system.damage, critMult)
       const critDamage = `${critBaseDamage}${attbDamage}${bonusDamage}`.trim()
 
       this.attacks[attackIndex].toHit = toHit + this.bonus.attack.toHit
       this.attacks[attackIndex].damageStr = damage + this.bonus.attack.damage
       this.attacks[attackIndex].critDamageStr = critDamage + this.bonus.attack.damage
+      this.attacks[attackIndex].critMultTotal = critMult
+      this.attacks[attackIndex].critMarginTotal = critMargin
     })
 
     // update skill total bonus

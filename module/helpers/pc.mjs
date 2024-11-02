@@ -17,6 +17,6 @@ export const populateBonusArray = (arr, pc) => arr
         sign,
       }
   )
-  .reduce((acc, { sign, member }) => `${acc} ${sign === '-' ? "" : sign}${member}`, "")
+  .reduce((acc, { sign, member }) => `${acc}${sign}${member}`, "")
 
 

@@ -5,7 +5,7 @@ import { AttackSchema, AttributeSchema, ResourceSchema, SkillSchema } from "./fi
 
 export class CharacterDataModel extends foundry.abstract.DataModel {
   static defineSchema() {
-    const { SchemaField, ArrayField, StringField } = foundry.data.fields;
+    const { SchemaField, ArrayField, StringField, NumberField } = foundry.data.fields;
 
     return {
       resources: new SchemaField({
@@ -45,6 +45,20 @@ export class CharacterDataModel extends foundry.abstract.DataModel {
             required: true,
             nullable: false,
             initial: "",
+          }),
+          critMargin: new NumberField({
+            required: true,
+            nullable: false,
+            integer: true,
+            initial: 0,
+            label: "CRIT_MARGIN_BONUS_",
+          }),
+          critMult: new NumberField({
+            required: true,
+            nullable: false,
+            integer: true,
+            initial: 0,
+            label: "CRIT_MULT_BONUS_",
           }),
         })
       })

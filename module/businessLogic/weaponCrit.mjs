@@ -1,13 +1,4 @@
-import { getWeapon } from "./weapon.mjs";
-
-/**
- * @param {import("../typedefs/ItemTypedef.mjs").Weapon[]} weapons
- * @param {string} weaponId
- * @returns string
- */
-export const getWeaponCritStr = (weapon) => {
+export const getAttackCritStr = (attack) => {
   // const weapon = getWeapon(weapons, weaponId)
-
-  if (!weapon?.system) return "error"
-  return `(${20 - weapon.system.critMargin}/${weapon.system.critMult}x)`;
+  return `(${20 - attack.critMarginTotal}/${attack.critMultTotal}x)`;
 };

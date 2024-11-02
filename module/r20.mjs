@@ -12,7 +12,7 @@ import { detailLook, look } from "./helpers/effects.mjs";
 import { R20Combat } from "./combat/combat.mjs";
 import { R20CombatTracker } from "./combat/combatTracker.mjs";
 import { R20Combatant } from "./combat/combatant.mjs";
-import { getWeaponCritStr } from "./businessLogic/weaponCrit.mjs";
+import { getAttackCritStr } from "./businessLogic/weaponCrit.mjs";
 import { getWeapon } from "./businessLogic/weapon.mjs";
 import { R20ActiveEffect } from "./documents/activeEffect.mjs";
 import { WeaponDataModel } from "./dataModels/weapon.mjs";
@@ -160,7 +160,7 @@ Handlebars.registerHelper(
 Handlebars.registerHelper("canDecreaseSkill", (skillValue) =>
   skillValue > 0 ? "" : " disabled"
 );
-Handlebars.registerHelper("weaponCrit", getWeaponCritStr);
+Handlebars.registerHelper("attackCrit", getAttackCritStr);
 Handlebars.registerHelper("getWeapon", getWeapon);
 Handlebars.registerHelper("mockProficiencies", () => ({ str: false, dex: false, con: false, int: false, sen: false, pre: false}))
 /// Business Rules related helpers //////////////////////////
@@ -247,7 +247,8 @@ Hooks.on("applyActiveEffect", (actor, { key, value }) => {
   // }
   const pc = actor.system
   const bonus = populateBonusArray(parseBonusString(value), pc)
-  setValueInPath(actor, key, oldValue => Number.isNumeric(oldValue) ? oldValue + Number(newValue) : `${oldValue}${bonus}`)
+  console.log("!!!!!!!", bonus, Number(bonus), value, { parseBonusString})
+  setValueInPath(actor, key, oldValue => Number.isNumeric(oldValue) ? oldValue + Number(bonus) : `${oldValue}${bonus}`)
 })
 
 Hooks.on("renderChatMessage", (message, html, opts) => {

@@ -137,7 +137,7 @@ export const ExtraPropertySchema = () => {
 }
 
 export const NpcAttackSchema = () => {
-  const { SchemaField, NumberField, StringField, DocumentIdField } = foundry.data.fields
+  const { SchemaField, NumberField, StringField } = foundry.data.fields
 
   return new SchemaField({
     name: new StringField({
@@ -170,7 +170,7 @@ export const NpcAttackSchema = () => {
   })
 }
 export const AttackSchema = () => {
-  const { SchemaField, BooleanField, StringField, DocumentIdField } = foundry.data.fields
+  const { SchemaField, NumberField, BooleanField, StringField, DocumentIdField } = foundry.data.fields
 
   return new SchemaField({
     name: new StringField({
@@ -222,6 +222,20 @@ export const AttackSchema = () => {
       nullable: false,
       initial: true,
       label: "_IS_PROFICIENT"
+    }),
+    critMargin: new NumberField({
+      required: true,
+      nullable: false,
+      integer: true,
+      initial: 0,
+      label: "CRIT_MARGIN_BONUS_",
+    }),
+    critMult: new NumberField({
+      required: true,
+      nullable: false,
+      integer: true,
+      initial: 0,
+      label: "CRIT_MULT_BONUS_",
     }),
   })
 }
