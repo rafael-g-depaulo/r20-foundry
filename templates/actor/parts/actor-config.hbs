@@ -31,8 +31,6 @@
   </div>
 </div>
 
-
-
 <form>
 
   <div>
@@ -58,6 +56,55 @@
   <div>
     <input type="checkbox" id="system.config.isPaladin" name="system.config.isPaladin" value="{{system.config.isPaladin}}" data-dtype="Boolean" {{checked system.config.isPaladin}} />
     <label for="system.config.isPaladin">é paladino</label>
+
+    {{#if system.config.isPaladin}}
+      <br />
+      <label for="system.config.miraclesAttb">Attributo milagres</label>
+      <select name="system.config.miraclesAttb" value="{{system.config.miraclesAttb}}">
+        <option value="str" {{selectedIfEquals system.config.miraclesAttb "str"}}>str</option>
+        <option value="dex" {{selectedIfEquals system.config.miraclesAttb "dex"}}>dex</option>
+        <option value="con" {{selectedIfEquals system.config.miraclesAttb "con"}}>con</option>
+        <option value="int" {{selectedIfEquals system.config.miraclesAttb "int"}}>int</option>
+        <option value="sen" {{selectedIfEquals system.config.miraclesAttb "sen"}}>sen</option>
+        <option value="pre" {{selectedIfEquals system.config.miraclesAttb "pre"}}>pre</option>
+      </select>
+    {{/if}}
+  </div>
+
+  <div>
+    <input type="checkbox" id="system.config.isCaster" name="system.config.isCaster" value="{{system.config.isCaster}}" data-dtype="Boolean" {{checked system.config.isCaster}} />
+    <label for="system.config.isCaster">usa magia</label>
+
+    {{#if system.config.isCaster}}
+      <br />
+      <label for="system.config.spellAttb">attributo magia</label>
+      <select name="system.config.spellAttb" value="{{system.config.spellAttb}}">
+        <option value="str" {{selectedIfEquals system.config.spellAttb "str"}}>str</option>
+        <option value="dex" {{selectedIfEquals system.config.spellAttb "dex"}}>dex</option>
+        <option value="con" {{selectedIfEquals system.config.spellAttb "con"}}>con</option>
+        <option value="int" {{selectedIfEquals system.config.spellAttb "int"}}>int</option>
+        <option value="sen" {{selectedIfEquals system.config.spellAttb "sen"}}>sen</option>
+        <option value="pre" {{selectedIfEquals system.config.spellAttb "pre"}}>pre</option>
+      </select>
+    {{/if}}
+  </div>
+
+  <div>
+    <input type="checkbox" id="system.config.hasClassSaves" name="system.config.hasClassSaves" value="{{system.config.hasClassSaves}}" data-dtype="Boolean" {{checked system.config.hasClassSaves}} />
+    <label for="system.config.hasClassSaves">possui habilidades de classe com CD</label>
+
+    {{#if system.config.hasClassSaves}}
+      <br />
+      <label for="system.config.classSaveAttb">Attributo habilidades de classe</label>
+      <select name="system.config.classSaveAttb" value="{{system.config.classSaveAttb}}">
+        <option value="str" {{selectedIfEquals system.config.classSaveAttb "str"}}>str</option>
+        <option value="dex" {{selectedIfEquals system.config.classSaveAttb "dex"}}>dex</option>
+        <option value="con" {{selectedIfEquals system.config.classSaveAttb "con"}}>con</option>
+        <option value="int" {{selectedIfEquals system.config.classSaveAttb "int"}}>int</option>
+        <option value="sen" {{selectedIfEquals system.config.classSaveAttb "sen"}}>sen</option>
+        <option value="pre" {{selectedIfEquals system.config.classSaveAttb "pre"}}>pre</option>
+      </select>
+    {{/if}}
   </div>
 
   <span>Proficiências</span>
