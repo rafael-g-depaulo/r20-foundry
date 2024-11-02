@@ -27,6 +27,7 @@ import { setValueInPath } from "./helpers/object.mjs";
 import { AbilityDataModel } from "./dataModels/ability.mjs";
 import { SpellDataModel } from "./dataModels/spell.mjs";
 import { MiracleDataModel } from "./dataModels/miracle.mjs";
+import { getAbilityCd } from "./businessLogic/abilityCd.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -100,6 +101,7 @@ Hooks.once("init", function () {
 Handlebars.registerHelper("toLowerCase", function (str) {
   return str.toLowerCase();
 });
+Handlebars.registerHelper("toUpperCase", s => s.toUpperCase())
 
 // Used for checkboxes linked to a bool variable
 Handlebars.registerHelper("checked", function (currentValue) {
@@ -151,6 +153,7 @@ Handlebars.registerHelper("bonus", num => num < 0 ? `${num}` : `+${num}`)
 
 /// Business Rules related helpers //////////////////////////
 /// Business Rules related helpers //////////////////////////
+Handlebars.registerHelper("abilityCd", getAbilityCd)
 Handlebars.registerHelper("attbMod", getAttributeModifierStr);
 Handlebars.registerHelper(
   "attbModLookup",

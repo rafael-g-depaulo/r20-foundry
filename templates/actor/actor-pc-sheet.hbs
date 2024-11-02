@@ -57,7 +57,12 @@
     <a class="item" data-tab="abilities">Habilidades</a>
     <a class="item" data-tab="skills">Perícias</a>
     <a class="item" data-tab="items">Items</a>
-    <a class="item" data-tab="spells">Spells</a>
+    {{#if system.config.isCaster }}
+      <a class="item" data-tab="spells">Spells</a>
+    {{/if}}
+    {{#if system.config.isPaladin }}
+      <a class="item" data-tab="miracles">Milagres</a>
+    {{/if}}
     <a class="item" data-tab="effects">Effects</a>
     <a class="item" data-tab="config">Config</a>
   </nav>
@@ -77,7 +82,7 @@
 
     {{!-- Abilities --}}
     <div class="tab skills" data-group="primary" data-tab="abilities">
-      {{>"systems/r20/templates/actor/parts/actor-abilities.hbs" abilities=system.abilities}}
+      {{>"systems/r20/templates/actor/parts/actor-abilities.hbs" abilities=system.abilities hasSaves=system.config.hasClassSaves attbName=system.config.classSaveAttb system=system}}
     </div>
 
     {{!-- Biography Tab --}}
@@ -99,7 +104,12 @@
 
     {{!-- Owned Spells Tab --}}
     <div class="tab spells" data-group="primary" data-tab="spells">
-      {{> "systems/r20/templates/actor/parts/actor-spells.hbs" spells=system.spellsByCircle}}
+      {{> "systems/r20/templates/actor/parts/actor-spells.hbs" spells=system.spellsByCircle attbName=system.config.spellAttb system=system attributes=system.attributes}}
+    </div>
+
+    {{!-- Owned Miracles Tab --}}
+    <div class="tab miracles" data-group="primary" data-tab="miracles">
+      {{> "systems/r20/templates/actor/parts/actor-miracles.hbs" miracles=system.miracles attbName=system.config.miraclesAttb system=system attributes=system.attributes}}
     </div>
 
     {{!-- Active Effects Tab --}}

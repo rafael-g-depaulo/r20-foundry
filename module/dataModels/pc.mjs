@@ -363,8 +363,17 @@ export class PcDataModel extends CharacterDataModel {
     return getDodge(this.DEX, dodgeBonus)
   }
 
+  get miracles() {
+    return (this.items ?? this.parent.items ?? [])
+      .filter(item => item.type === "miracle")
+  }
+
   populateExtraSkills() {
     console.info("TODO: implement populateExtraSkills");
+  }
+
+  getAttributeModifier(attributeNama) {
+    return super.getAttributeModifier(attributeNama)
   }
 
   constructor(data, config) {
