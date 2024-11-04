@@ -1,17 +1,8 @@
 import { getAttributeModifier } from "../businessLogic/attributeModifier.mjs";
-import { fixExtraPropertiesArray } from "../businessLogic/extraProperty.mjs";
-import { getMaxCapacity } from "../businessLogic/inventory.mjs";
 import {
   leftOverSkillPoints,
-  maxSkillProficiency,
   totalSkillPoints,
 } from "../businessLogic/skills.mjs";
-import { getItemCategory } from "../businessLogic/weapon.mjs";
-import { PcDataModel } from "../dataModels/pc.mjs";
-import { recursiveFixArraysInplace } from "../helpers/array.mjs";
-import { getDefense, getDodge, getGuard } from "../helpers/defense.mjs";
-
-// TODO: make this generic and extract R20Pc stuff into separate class
 
 /**
  * @typedef {import('../typedefs/PcTypedef.mjs').R20Pc} R20Pc

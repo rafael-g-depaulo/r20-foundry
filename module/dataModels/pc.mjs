@@ -15,7 +15,6 @@ import { getDefense, getDodge, getGuard } from "../businessLogic/defenses.mjs";
 
 // TODO: add show prop on extra props
 // TODO: refactor extra prop to only be number, and allow max
-// TODO: add spell/skill CD display
 export class PcDataModel extends CharacterDataModel {
   static defineSchema() {
     const baseCharacterSchema = CharacterDataModel.defineSchema();
@@ -48,7 +47,6 @@ export class PcDataModel extends CharacterDataModel {
           min: 0,
           initial: 4,
         }),
-
         mpPerLevel: new NumberField({
           required: true,
           nullable: false,
@@ -342,6 +340,12 @@ export class PcDataModel extends CharacterDataModel {
     const defenseBonus = this.config.bonusDefense + armorDefenseBonus
     return getDefense(this.dodge, this.guard, defenseBonus)
   }
+  // INFO: this introduces a bug in the config page of the sheet, where the buff stacks and multiplies on input. currently choosing not to fix it
+  set defense(newDefense) {
+    const newDefenseBonus = newDefense - this.defense
+    this.config.bonusDefense += newDefenseBonus
+    return this.defense
+  }
 
   get guard() {
     const armorGuardBonus = this.armor
@@ -352,6 +356,11 @@ export class PcDataModel extends CharacterDataModel {
     const guardBonus = this.config.bonusGuard + armorGuardBonus
     return getGuard(this.CON, guardBonus)
   }
+  set guard(newGuard) {
+    const newGuardBonus = newGuard - this.guard
+    this.config.bonusGuard += newGuardBonus
+    return this.guard
+  }
 
   get dodge() {
     const armorDodgeBonus = this.armor
@@ -361,6 +370,11 @@ export class PcDataModel extends CharacterDataModel {
 
     const dodgeBonus = this.config.bonusDodge + armorDodgeBonus
     return getDodge(this.DEX, dodgeBonus)
+  }
+  set dodge(newDodge) {
+    const newDodgeBonus = newDodge - this.dodge
+    this.config.bonusDodge += newDodgeBonus
+    return this.dodge
   }
 
   get miracles() {
