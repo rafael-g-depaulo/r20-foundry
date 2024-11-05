@@ -2,7 +2,7 @@ import { AbilityDataModel } from "./ability.mjs"
 
 export class SpellDataModel extends AbilityDataModel {
   static defineSchema() {
-    const { NumberField } = foundry.data.fields
+    const { NumberField, BooleanField } = foundry.data.fields
 
     return {
       circle: new NumberField({
@@ -12,13 +12,12 @@ export class SpellDataModel extends AbilityDataModel {
         min: 0,
         label: "CIRCLE_"
       }),
-      // description: new StringField({
-      //   required: false,
-      //   blank: true,
-      //   nullable: false,
-      //   initial: "description here",
-      //   label: "DESCRIPTION_",
-      // })
+      isPrepared: new BooleanField({
+        required: true,
+        nullable: false,
+        initial: true,
+        label: "IS_PREPARED_",
+      }),
     }
   }
 }

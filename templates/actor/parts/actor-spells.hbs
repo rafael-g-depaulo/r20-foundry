@@ -1,8 +1,10 @@
 {{>"systems/r20/templates/actor/parts/actor-ability-cd.hbs" attbName=attbName attributes=attributes system=system}}
 
 {{#if system.config.isPreparedCaster}}
-  <span>Magias preparadas por dia: {{system.maxPreparedSpells}} (atual: {{system.preparedSpells}})</span>
+  <span>Máximo de magias preparadas por dia: {{system.maxPreparedSpells}} (atual: {{system.preparedSpells}}). </span><br />
 {{/if}}
+
+<span>Máximo de magias conhecidas: {{system.ammountOfLearnedSpells}} (atual: {{system.spells.length}})</span>
 
 <ol class='items-list'>
   {{#each spells as |spells spellLevel|}}
@@ -24,13 +26,17 @@
     </li>
     {{#each spells as |item id|}}
       <li class='item flexrow' data-item-id='{{item._id}}'>
+        {{#if ../../system.config.isPreparedCaster}}
+          <input class='item-input spell-toggle-prepared' data-action="toggle-spell-prepared" data-spell-id="{{item._id}}" type="checkbox" name="items.{{item._id}}.system.isPrepared" value="{{item.system.isPrepared}}" data-dtype="Boolean" {{checked item.system.isPrepared}}>
+        {{/if}}
         <div class='item-name flexrow rollable' data-roll-type='show-item' data-item-id='{{item._id}}'>
-          <div class='item-image'>
-            <a><img
+          <div class='item-image flexrow'>
+            <a class='flexrow'><img
                 src='{{item.img}}'
                 title='{{item.name}}'
                 width='24'
                 height='24'
+                style='height:100%;'
               /></a>
           </div>
           <h4>{{item.name}}</h4>

@@ -346,7 +346,7 @@ export class PcDataModel extends CharacterDataModel {
     return casterKnownSpellsPerLevel(this.level, this.config.isPreparedCaster) + this.config.bonusLearnedSpells
   }
   get preparedSpells() {
-    return 0
+    return this.spells.filter(spell => spell.system.isPrepared).length
   }
   get maxPreparedSpells() {
     return this.config.isPreparedCaster
