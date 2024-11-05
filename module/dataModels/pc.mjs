@@ -12,6 +12,7 @@ import { R20 } from "../helpers/config.mjs";
 import { getAttributeModifierStr } from "../businessLogic/attributeModifier.mjs"
 import { numToBonus } from "../helpers/string.mjs"
 import { getDefense, getDodge, getGuard } from "../businessLogic/defenses.mjs";
+import { casterKnownSpellsPerLevel, preparedCasterPreparedSpells } from "../businessLogic/spells.mjs";
 
 // TODO: add show prop on extra props
 // TODO: refactor extra prop to only be number, and allow max
@@ -89,12 +90,23 @@ export class PcDataModel extends CharacterDataModel {
           nullable: false,
           initial: false,
         }),
+        isPreparedCaster: new BooleanField({
+          required: true,
+          nullable: false,
+          initial: false,
+        }),
         spellAttb: new StringField({
           required: true,
           nullable: false,
           blank: true,
           choices: ["", ...R20.attributeNamesArray],
-          initial: "",
+          initial: R20.attributeNames.int,
+        }),
+        bonusLearnedSpells: new NumberField({
+          required: true,
+          nullable: false,
+          integer: true,
+          initial: 0,
         }),
         hasClassSaves: new BooleanField({
           required: true,
@@ -329,6 +341,17 @@ export class PcDataModel extends CharacterDataModel {
     }
 
     return this.items.filter(item => item.type === "spell")
+  }
+  get ammountOfLearnedSpells() {
+    return casterKnownSpellsPerLevel(this.level, this.config.isPreparedCaster) + this.config.bonusLearnedSpells
+  }
+  get preparedSpells() {
+    return 0
+  }
+  get maxPreparedSpells() {
+    return this.config.isPreparedCaster
+      ? preparedCasterPreparedSpells(this.ammountOfLearnedSpells)
+      : this.ammountOfLearnedSpells
   }
 
   get defense() {

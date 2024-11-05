@@ -76,6 +76,8 @@
     <label for="system.config.isCaster">usa magia</label>
 
     {{#if system.config.isCaster}}
+      <input type="checkbox" id="system.config.isPreparedCaster" name="system.config.isPreparedCaster" value="{{system.config.isPreparedCaster}}" data-dtype="Boolean" {{checked system.config.isPreparedCaster}} />
+      <label for="system.config.isPreparedCaster">É Full-Caster (usa magia preparada)</label>
       <br />
       <label for="system.config.spellAttb">attributo magia</label>
       <select name="system.config.spellAttb" value="{{system.config.spellAttb}}">
@@ -86,6 +88,10 @@
         <option value="sen" {{selectedIfEquals system.config.spellAttb "sen"}}>sen</option>
         <option value="pre" {{selectedIfEquals system.config.spellAttb "pre"}}>pre</option>
       </select>
+      <div>
+        <label for="system.config.bonusLearnedSpells">Magias aprendidas a mais</label>
+        <input type="text" name="system.config.bonusLearnedSpells" value="{{system.config.bonusLearnedSpells}}" data-dtype="Number" >
+      </div> 
     {{/if}}
   </div>
 

@@ -1,5 +1,9 @@
 {{>"systems/r20/templates/actor/parts/actor-ability-cd.hbs" attbName=attbName attributes=attributes system=system}}
 
+{{#if system.config.isPreparedCaster}}
+  <span>Magias preparadas por dia: {{system.maxPreparedSpells}} (atual: {{system.preparedSpells}})</span>
+{{/if}}
+
 <ol class='items-list'>
   {{#each spells as |spells spellLevel|}}
     <li class='item flexrow items-header'>
