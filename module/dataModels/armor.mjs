@@ -1,5 +1,7 @@
 import { ItemDataModel } from "./item.mjs"
 
+// TODO: default weight
+// TODO: add STR requirement field
 export class ArmorDataModel extends ItemDataModel {
   static defineSchema() {
     const { NumberField, BooleanField } = foundry.data.fields
