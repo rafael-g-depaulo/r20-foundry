@@ -13,6 +13,7 @@ import { getAttributeModifierStr } from "../businessLogic/attributeModifier.mjs"
 import { numToBonus } from "../helpers/string.mjs"
 import { getDefense, getDodge, getGuard } from "../businessLogic/defenses.mjs";
 import { casterKnownSpellsPerLevel, preparedCasterPreparedSpells } from "../businessLogic/spells.mjs";
+import { knownMiraclesPerLevel } from "../businessLogic/paladin.mjs";
 
 // TODO: add show prop on extra props
 // TODO: refactor extra prop to only be number, and allow max
@@ -84,6 +85,12 @@ export class PcDataModel extends CharacterDataModel {
           blank: true,
           choices: ["", ...R20.attributeNamesArray],
           initial: "",
+        }),
+        bonusLearnedMiracles: new NumberField({
+          required: true,
+          nullable: false,
+          integer: true,
+          initial: 0,
         }),
         isCaster: new BooleanField({
           required: true,
@@ -341,6 +348,9 @@ export class PcDataModel extends CharacterDataModel {
     }
 
     return this.items.filter(item => item.type === "spell")
+  }
+  get ammountOfLearnedMiracles() {
+    return knownMiraclesPerLevel(this.level) + this.config.bonusLearnedMiracles
   }
   get ammountOfLearnedSpells() {
     return casterKnownSpellsPerLevel(this.level, this.config.isPreparedCaster) + this.config.bonusLearnedSpells

@@ -1,10 +1,10 @@
 {{>"systems/r20/templates/actor/parts/actor-ability-cd.hbs" attbName=attbName attributes=attributes system=system}}
 
 {{#if system.config.isPreparedCaster}}
-  <span>Máximo de magias preparadas por dia: {{system.maxPreparedSpells}} (atual: {{system.preparedSpells}}). </span><br />
+  <span>magias preparadas por dia: ({{system.preparedSpells}}/{{system.maxPreparedSpells}}) </span><br />
 {{/if}}
 
-<span>Máximo de magias conhecidas: {{system.ammountOfLearnedSpells}} (atual: {{system.spells.length}})</span>
+<span>magias conhecidas: ({{system.spells.length}}/{{system.ammountOfLearnedSpells}})</span>
 
 <ol class='items-list'>
   {{#each spells as |spells spellLevel|}}

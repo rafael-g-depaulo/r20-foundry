@@ -68,6 +68,10 @@
         <option value="sen" {{selectedIfEquals system.config.miraclesAttb "sen"}}>sen</option>
         <option value="pre" {{selectedIfEquals system.config.miraclesAttb "pre"}}>pre</option>
       </select>
+      <div>
+        <label for="system.config.bonusLearnedMiracles">Milagres aprendidos a mais</label>
+        <input type="text" name="system.config.bonusLearnedMiracles" value="{{system.config.bonusLearnedMiracles}}" data-dtype="Number" >
+      </div> 
     {{/if}}
   </div>
 

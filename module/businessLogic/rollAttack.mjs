@@ -17,7 +17,6 @@ export const rollAttack = [
       // content: `test message!!!!!! rolling ${attributeName} for ${this.actor.name}`,
       flavor: `${actor.name}: Rolando ataque (${attack.name})`,
       speaker: ChatMessage.getSpeaker(),
-      user: actor._id,
     });
 
     return message;
