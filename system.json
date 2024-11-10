@@ -41,8 +41,8 @@
   "packs": [],
   "packFolders": [],
   "socket": false,
-  "manifest": "https://raw.githubusercontent.com/rafael-g-depaulo/r20-foundry/main/system.json",
-  "download": "https://github.com/rafael-g-depaulo/r20-foundry/archive/refs/tags/v1.1.0.zip",
+  "manifest": "https://github.com/rafael-g-depaulo/r20-foundry/releases/latest/download/system.json",
+  "download": "https://github.com/rafael-g-depaulo/r20-foundry/archive/refs/tags/r20.zip",
   "background": "systems/boilerplate/assets/anvil-impact.png",
   "grid": {
     "distante": 1,
