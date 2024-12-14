@@ -51,7 +51,7 @@ export const AttributeSchema = () => {
 };
 
 export const SkillSchema = (attributeName) => {
-  const { NumberField, StringField, SchemaField } = foundry.data.fields;
+  const { NumberField, BooleanField, StringField, SchemaField } = foundry.data.fields;
 
   return new SchemaField({
     proficiency: new NumberField({
@@ -79,6 +79,11 @@ export const SkillSchema = (attributeName) => {
       nullable: false,
       integer: true,
       initial: 0,
+    }),
+    isSpecialized: new BooleanField({
+      required: true,
+      nullable: false,
+      initial: false,
     }),
   });
 };

@@ -1,7 +1,7 @@
 section.skills {
   display: grid;
   grid-template-columns:
-    1fr min-content min-content min-content minmax(min-content, 1.8rem)
+    1fr min-content min-content min-content min-content minmax(min-content, 1.8rem)
     min-content min-content;
   grid-template-rows: auto;
   gap: 0.125rem 0.25rem;

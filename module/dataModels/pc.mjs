@@ -171,7 +171,7 @@ export class PcDataModel extends CharacterDataModel {
                 required: true,
                 nullable: false,
                 initial: false,
-                label: attb+"_IS_PROFICIENT_"
+                label: attb + "_IS_PROFICIENT_"
               })
             ])
           )
@@ -212,7 +212,7 @@ export class PcDataModel extends CharacterDataModel {
       const weapon = itemsSource.find(item => item.id === weaponId)
 
       if (!weapon) {
-      // if (!weapon) {
+        // if (!weapon) {
         console.error(`Error trying to find weapon with id ${weaponId}. Deleting attack just to be safe.`)
         this.attacks.splice(attackIndex, 1)
         return
@@ -246,7 +246,7 @@ export class PcDataModel extends CharacterDataModel {
 
       const critMult = attack.weapon.system.critMult + attack.critMult + this.bonus.attack.critMult
       const critMargin = attack.weapon.system.critMargin + attack.critMargin + this.bonus.attack.critMargin
-      console.log(critMult, attack.critMult,  attack.weapon.system.critMult)
+      console.log(critMult, attack.critMult, attack.weapon.system.critMult)
 
       const critBaseDamage = multiplyDice(attack.weapon.system.damage, critMult)
       const critDamage = `${critBaseDamage}${attbDamage}${bonusDamage}`.trim()
@@ -263,7 +263,9 @@ export class PcDataModel extends CharacterDataModel {
       this.skills[skillName].total =
         skill.proficiency +
         skill.bonus +
-        this.getAttributeModifier(skill.attribute);
+        this.getAttributeModifier(skill.attribute) +
+        (!skill.isSpecialized ? 0 : this.proficiency)
+        ;
     });
 
     // extra props
@@ -383,7 +385,7 @@ export class PcDataModel extends CharacterDataModel {
   get guard() {
     const armorGuardBonus = this.armor
       .filter(item => item.system.isEquiped)
-      .map(({system}) => system.guard)
+      .map(({ system }) => system.guard)
       .reduce((a, b) => a + b, 0)
 
     const guardBonus = this.config.bonusGuard + armorGuardBonus
@@ -398,7 +400,7 @@ export class PcDataModel extends CharacterDataModel {
   get dodge() {
     const armorDodgeBonus = this.armor
       .filter(item => item.system.isEquiped)
-      .map(({system}) => system.dodge)
+      .map(({ system }) => system.dodge)
       .reduce((a, b) => a + b, 0)
 
     const dodgeBonus = this.config.bonusDodge + armorDodgeBonus

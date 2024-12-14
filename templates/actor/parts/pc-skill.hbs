@@ -22,6 +22,14 @@
     data-dtype="Number"
     disabled
   />
+  <input
+    class="specialization"
+    type="checkbox"
+    name="system.skills.{{toLowerCase skillName}}.isSpecialized"
+    data-dtype="Boolean"
+    value="{{skill.isSpecialized}}"
+    {{checked skill.isSpecialized}}
+  />
   <select
     name="system.skills.{{skillName}}.attribute"
     value="{{skill.attribute}}"
