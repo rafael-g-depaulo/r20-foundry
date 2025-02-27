@@ -38,7 +38,7 @@ export const rollNormalDamage = [
       // content: `test message!!!!!! rolling ${attributeName} for ${this.actor.name}`,
       flavor: `${actor.name}: Rolando dano (${attack.name})`,
       speaker: ChatMessage.getSpeaker(),
-      user: actor._id,
+      // user: actor._id,
     });
 
     return message;
@@ -60,7 +60,7 @@ export const rollCriticalDamage = [
       // content: `test message!!!!!! rolling ${attributeName} for ${this.actor.name}`,
       flavor: `${actor.name}: Rolando dano crítico (${attack.name})`,
       speaker: ChatMessage.getSpeaker(),
-      user: actor._id,
+      // user: actor._id,
     });
 
     return message;

@@ -16,7 +16,7 @@ export const rollSkill = [
     const message = roll.toMessage({
       flavor: `${actor.name}: Rolando ${skillName}`,
       speaker: ChatMessage.getSpeaker(),
-      user: actor._id,
+      // user: actor._id,
     });
 
     if (skillName === "initiative") {

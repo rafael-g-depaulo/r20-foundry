@@ -19,7 +19,7 @@ export const rollAttributeResistance = [
       // content: `test message!!!!!! rolling ${attributeName} for ${this.actor.name}`,
       flavor: `${actor.name}: Rolando resistência (${attributeName})`,
       speaker: ChatMessage.getSpeaker(),
-      user: actor._id,
+      // user: actor._id,
     });
 
     return message;
